@@ -2,12 +2,12 @@
 from __future__ import annotations
 
 import json
-import sqlite3
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
 from analyst_agent.config import DATA_DIR
+from analyst_agent.storage import Store
 from analyst_agent.tools.chart import make_chart
 from analyst_agent.tools.sql import run_sql
 
@@ -15,17 +15,14 @@ PINS_PATH = DATA_DIR / "pins.sqlite"
 
 
 class PinBoard:
-    """Pinned answers in SQLite (safe with several users), scoped per owner like the glossary."""
+    """Pinned answers, scoped per owner like the glossary. SQLite by default, Postgres with DATABASE_URL."""
 
-    def __init__(self, path: Path = PINS_PATH, owner: str = "local"):
+    def __init__(self, path: Path = PINS_PATH, owner: str = "local", url: str | None = None):
         self.path = Path(path)
         self.owner = owner
-        with self._db() as db:
-            db.execute("""CREATE TABLE IF NOT EXISTS pins (
-                id TEXT PRIMARY KEY, owner TEXT NOT NULL, pinned_at TEXT NOT NULL, data TEXT NOT NULL)""")
-
-    def _db(self):
-        return sqlite3.connect(self.path, timeout=10)
+        self.db = Store(self.path, url)
+        self.db.run("""CREATE TABLE IF NOT EXISTS pins (
+            id TEXT PRIMARY KEY, owner TEXT NOT NULL, pinned_at TEXT NOT NULL, data TEXT NOT NULL)""")
 
     def pin(self, run, title: str | None = None) -> dict:
         """Store the replayable parts of a run: its last successful SQL and its chart settings."""
@@ -36,22 +33,18 @@ class PinBoard:
         pin = {"id": uuid.uuid4().hex[:8], "title": title or run.question, "question": run.question,
                "sql": sql, "chart": chart, "answer": run.answer,
                "pinned_at": datetime.now(UTC).isoformat(timespec="seconds")}
-        with self._db() as db:
-            db.execute("INSERT INTO pins VALUES (?,?,?,?)", (pin["id"], self.owner, pin["pinned_at"], json.dumps(pin)))
+        self.db.run("INSERT INTO pins VALUES (?,?,?,?)", (pin["id"], self.owner, pin["pinned_at"], json.dumps(pin)))
         return pin
 
     def list(self) -> list[dict]:
-        with self._db() as db:
-            rows = db.execute("SELECT data FROM pins WHERE owner = ? ORDER BY pinned_at", (self.owner,)).fetchall()
+        rows = self.db.rows("SELECT data FROM pins WHERE owner = ? ORDER BY pinned_at", (self.owner,))
         return [json.loads(r[0]) for r in rows]
 
     def remove(self, pin_id: str) -> bool:
-        with self._db() as db:
-            return db.execute("DELETE FROM pins WHERE id = ? AND owner = ?", (pin_id, self.owner)).rowcount > 0
+        return self.db.count("DELETE FROM pins WHERE id = ? AND owner = ?", (pin_id, self.owner)) > 0
 
     def forget_owner(self) -> int:
-        with self._db() as db:
-            return db.execute("DELETE FROM pins WHERE owner = ?", (self.owner,)).rowcount
+        return self.db.count("DELETE FROM pins WHERE owner = ?", (self.owner,))
 
     def refresh(self, pin: dict, con) -> dict:
         """Re-run the pinned query on current data. Returns {"table", "chart"}."""

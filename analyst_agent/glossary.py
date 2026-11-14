@@ -5,43 +5,44 @@ question on that dataset gets the definition in its system prompt.
 """
 from __future__ import annotations
 
-import sqlite3
 from datetime import UTC, datetime
 from pathlib import Path
 
 from analyst_agent.config import DATA_DIR
+from analyst_agent.storage import Store
 
 DB_PATH = DATA_DIR / "glossary.sqlite"
 
 
 class Glossary:
     """Definitions are scoped to an owner: "local" for a single-user install, the browser session
-    id in public mode, so one visitor's definitions never leak into another's answers."""
+    id in public mode, so one visitor's definitions never leak into another's answers.
+    Stored in SQLite by default, or in Postgres when DATABASE_URL is set."""
 
-    def __init__(self, path: Path = DB_PATH, owner: str = "local"):
+    def __init__(self, path: Path = DB_PATH, owner: str = "local", url: str | None = None):
         self.path = Path(path)
         self.owner = owner
-        with self._db() as db:
-            cols = [r[1] for r in db.execute("PRAGMA table_info(definitions)")]
-            if cols and "owner" not in cols:                 # migrate a pre-owner database
-                db.execute("ALTER TABLE definitions RENAME TO definitions_old")
-            db.execute("""CREATE TABLE IF NOT EXISTS definitions (
-                owner TEXT NOT NULL, dataset TEXT NOT NULL, term TEXT NOT NULL, definition TEXT NOT NULL,
-                sql_expression TEXT, created_at TEXT NOT NULL,
-                PRIMARY KEY (owner, dataset, term))""")
-            if cols and "owner" not in cols:
-                db.execute("INSERT OR IGNORE INTO definitions SELECT 'local', * FROM definitions_old")
-                db.execute("DROP TABLE definitions_old")
-
-    def _db(self):
-        return sqlite3.connect(self.path, timeout=10)
+        self.db = Store(self.path, url)
+        cols = self.db.columns("definitions")
+        legacy = bool(cols) and "owner" not in cols          # SQLite file from before owners existed
+        if legacy:
+            self.db.run("ALTER TABLE definitions RENAME TO definitions_old")
+        self.db.run("""CREATE TABLE IF NOT EXISTS definitions (
+            owner TEXT NOT NULL, dataset TEXT NOT NULL, term TEXT NOT NULL, definition TEXT NOT NULL,
+            sql_expression TEXT, created_at TEXT NOT NULL,
+            PRIMARY KEY (owner, dataset, term))""")
+        if legacy:
+            self.db.run("INSERT INTO definitions SELECT 'local', * FROM definitions_old "
+                        "WHERE true ON CONFLICT DO NOTHING")
+            self.db.run("DROP TABLE definitions_old")
 
     def save(self, dataset: str, term: str, definition: str, sql_expression: str | None = None) -> dict:
         term = term.strip().lower()
         row = (self.owner, dataset, term, definition.strip(), (sql_expression or "").strip() or None,
                datetime.now(UTC).isoformat(timespec="seconds"))
-        with self._db() as db:
-            db.execute("INSERT OR REPLACE INTO definitions VALUES (?,?,?,?,?,?)", row)
+        self.db.run("""INSERT INTO definitions VALUES (?,?,?,?,?,?)
+            ON CONFLICT (owner, dataset, term) DO UPDATE SET definition = excluded.definition,
+            sql_expression = excluded.sql_expression, created_at = excluded.created_at""", row)
         return {"dataset": dataset, "term": term, "definition": row[3], "sql_expression": row[4]}
 
     def list(self, dataset: str | None = None) -> list[dict]:
@@ -49,21 +50,16 @@ class Glossary:
         args: tuple = (self.owner,)
         if dataset:
             q, args = q + " AND dataset = ?", (self.owner, dataset)
-        with self._db() as db:
-            rows = db.execute(q + " ORDER BY term", args).fetchall()
         keys = ("dataset", "term", "definition", "sql_expression", "created_at")
-        return [dict(zip(keys, r, strict=True)) for r in rows]
+        return [dict(zip(keys, r, strict=True)) for r in self.db.rows(q + " ORDER BY term", args)]
 
     def delete(self, dataset: str, term: str) -> bool:
-        with self._db() as db:
-            cur = db.execute("DELETE FROM definitions WHERE owner = ? AND dataset = ? AND term = ?",
-                             (self.owner, dataset, term.strip().lower()))
-        return cur.rowcount > 0
+        return self.db.count("DELETE FROM definitions WHERE owner = ? AND dataset = ? AND term = ?",
+                             (self.owner, dataset, term.strip().lower())) > 0
 
     def forget_owner(self) -> int:
         """Remove everything this owner saved (used when a public session expires)."""
-        with self._db() as db:
-            return db.execute("DELETE FROM definitions WHERE owner = ?", (self.owner,)).rowcount
+        return self.db.count("DELETE FROM definitions WHERE owner = ?", (self.owner,))
 
     def prompt_text(self, datasets: list[str]) -> str:
         defs = [d for ds in datasets for d in self.list(ds)]

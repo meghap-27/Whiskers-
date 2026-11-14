@@ -141,6 +141,10 @@ with st.sidebar:
                 st.caption(f"Free key, no card: {PROVIDERS[provider][3]}")
         model = st.text_input("Model (optional)", value="", placeholder="provider default") or None
     have_llm = bool(key) or (not byok and server_has_key)
+    if config.ALLOW_PYTHON and config.PYTHON_SANDBOX == "e2b":
+        st.caption("Python analysis runs in an isolated E2B sandbox.")
+    elif not config.ALLOW_PYTHON:
+        st.caption("Python is off on this server; the agent answers with SQL and statistics checks.")
     if not have_llm:
         st.caption("No key yet? The offline demo works without one.")
 

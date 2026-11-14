@@ -115,6 +115,7 @@ uvicorn analyst_agent.api:app --reload      # docs at http://localhost:8000/docs
 
 ```bash
 pytest -q && ruff check .          # tests (no API key needed) and lint
+TEST_DATABASE_URL=postgresql://... pytest tests/test_postgres.py   # optional: storage on real Postgres
 python evals/run_eval.py --provider groq   # benchmark with a real model (free Groq key)
 ```
 
@@ -147,8 +148,10 @@ evals/  sample_data/  tests/
   limit and 2 threads per session.
 - **Python**: AI-written code is checked before it runs (`tools/code_guard.py`): imports must be on an allow-list,
   and file, network, shell and dunder access is rejected. It then runs in a separate `python -I` process with CPU,
-  memory and time limits and no environment variables (so no API keys). It is still not a full sandbox, so
-  **public mode turns `run_python` off** and the agent works through SQL and `check_findings`.
+  memory and time limits and no environment variables (so no API keys). That is still not a full sandbox, so
+  **public mode turns `run_python` off** unless `E2B_API_KEY` is set. With it, every Python call runs in an
+  [E2B](https://e2b.dev) Firecracker microVM (same runner script, results copied back), so AI-written code never
+  touches the server, its files or its keys. E2B's free Hobby tier is a one-time credit, not a monthly allowance.
 - **Uploads**: capped at `MAX_UPLOAD_MB` (20) and `MAX_ROWS` (200k); in public mode they are deleted after
   `SESSION_TTL_MIN` (2 hours). Each question has an overall `RUN_TIMEOUT_S` (120 s).
 - **Shared API key**: in public mode each browser session gets `QUESTIONS_PER_HOUR` (15) and the whole app
@@ -156,6 +159,9 @@ evals/  sample_data/  tests/
   If Groq's free tier is busy and a `GEMINI_API_KEY` is set, requests fall back to Gemini automatically.
 - **Per-visitor data**: in public mode the glossary and pins are scoped to the browser session, so visitors never
   see each other's definitions.
+- **Storage**: SQLite files by default. Set `DATABASE_URL` to a Postgres URL (e.g. [Neon](https://neon.tech)'s
+  free plan) and the glossary, pins and daily usage count move there, so they survive restarts and redeploys.
+  Dropped connections (Neon pauses idle databases) reconnect automatically.
 - **Logs**: one JSON line per question (tools used, status, latency, tokens, warning types) with no question text,
   SQL, answers or data. Set `SENTRY_DSN` for crash reports.
 - **Privacy**: column summaries and query results are sent to the AI provider; the sidebar says so.
@@ -166,7 +172,8 @@ evals/  sample_data/  tests/
 2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub, click **Create app**.
 3. Repository `meghap-27/Data-Analyst-Agent`, branch `main`, main file `ui/streamlit_app.py`.
 4. **Advanced settings**: Python 3.13. Under **Secrets**, paste `.streamlit/secrets.toml.example` with your real
-   Groq key (and optionally a Gemini key and Sentry DSN). Keep `PUBLIC_MODE = "true"`.
+   Groq key. Optional: a Gemini key (backup), a Neon `DATABASE_URL` (saved data survives restarts), an
+   `E2B_API_KEY` (turns on sandboxed Python) and a Sentry DSN. Keep `PUBLIC_MODE = "true"`.
 5. Click **Deploy**. Every push to `main` redeploys; CI runs lint, tests and a public-mode smoke test first.
 
 Free-tier apps sleep after a period without visitors and have about 1 GB of memory, which is why the upload
@@ -175,8 +182,9 @@ limits above exist. Check Streamlit's current limits before relying on them.
 ## Roadmap
 
 - [x] Public mode: code guard, upload/row/time limits, per-visitor data, question limits, provider fallback, logs
-- [ ] Docker sandbox with network disabled, so `run_python` can be enabled publicly
-- [ ] Store glossary and pins in hosted Postgres (Neon/Supabase) so they survive redeploys
+- [x] Isolated Python in public mode via E2B sandboxes (`E2B_API_KEY`)
+- [x] Glossary, pins and usage counts in hosted Postgres via `DATABASE_URL`
+- [ ] Run Python in the visitor's browser (Pyodide) for a sandbox that is free forever
 - [ ] Connect Postgres/MySQL read-only
 - [ ] Scheduled weekly reports from pinned answers
 - [ ] Run the eval set on 2-3 models and publish the comparison

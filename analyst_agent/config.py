@@ -36,8 +36,7 @@ def _flag(name: str, default: bool) -> bool:
 # ---------------------------------------------------------------- production settings
 # PUBLIC_MODE=true when the app is open to strangers (e.g. Streamlit Community Cloud).
 PUBLIC_MODE = _flag("PUBLIC_MODE", False)
-# LLM-written Python is the riskiest tool; it is off by default in public mode.
-ALLOW_PYTHON = _flag("ALLOW_PYTHON", not PUBLIC_MODE)
+# LLM-written Python is the riskiest tool: off by default in public mode unless it runs in E2B (below).
 
 MAX_UPLOAD_MB = float(os.getenv("MAX_UPLOAD_MB", "20"))
 MAX_ROWS = int(os.getenv("MAX_ROWS", "200000"))
@@ -48,3 +47,8 @@ SESSION_TTL_MIN = int(os.getenv("SESSION_TTL_MIN", "120"))      # uploaded files
 # Protect the server's free API key: per-session and whole-app daily caps (0 = no limit).
 QUESTIONS_PER_HOUR = int(os.getenv("QUESTIONS_PER_HOUR", "15" if PUBLIC_MODE else "0"))
 DAILY_QUESTION_CAP = int(os.getenv("DAILY_QUESTION_CAP", "300" if PUBLIC_MODE else "0"))
+
+# Where AI-written Python runs: "e2b" (isolated cloud microVM, needs E2B_API_KEY) or "local" (subprocess).
+PYTHON_SANDBOX = os.getenv("PYTHON_SANDBOX", "e2b" if os.getenv("E2B_API_KEY") else "local").strip().lower()
+# With a real sandbox, Python is safe to offer publicly, so it defaults back on.
+ALLOW_PYTHON = _flag("ALLOW_PYTHON", (not PUBLIC_MODE) or PYTHON_SANDBOX == "e2b")

@@ -15,5 +15,9 @@ scipy==1.18.1
 sqlglot==30.31.0
 streamlit==1.67.0
 uvicorn==0.54.0
-# optional: crash reports when SENTRY_DSN is set
+# Postgres storage when DATABASE_URL is set (e.g. Neon free plan)
+psycopg[binary]==3.3.9
+# isolated Python sandbox when E2B_API_KEY is set
+e2b-code-interpreter==2.11.10
+# crash reports when SENTRY_DSN is set
 sentry-sdk==2.75.0
