@@ -51,11 +51,19 @@ class AnthropicLLM:
 # --------------------------------------------------------------------------- free providers
 PROVIDERS = {
     # name: (base URL, default model, env var for the key, where to get a key)
-    "groq": ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile", "GROQ_API_KEY",
+    "groq": ("https://api.groq.com/openai/v1", "openai/gpt-oss-120b", "GROQ_API_KEY",
              "console.groq.com/keys"),
     "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.8-flash", "GEMINI_API_KEY",
                "aistudio.google.com/apikey"),
     "ollama": ("http://localhost:11434/v1", "qwen2.5:7b", None, "ollama.com/download (runs on your computer)"),
+}
+
+
+# If the configured model has been retired, the first of these that the provider still lists is used.
+FALLBACK_MODELS = {
+    "groq": ["openai/gpt-oss-120b", "qwen/qwen3.6-27b", "openai/gpt-oss-20b", "moonshotai/kimi-k2-instruct-0905"],
+    "gemini": ["gemini-3.8-flash", "gemini-flash-latest", "gemini-2.5-flash"],
+    "ollama": ["qwen2.5:7b", "qwen3:8b", "llama3.1:8b", "qwen2.5:3b"],
 }
 
 
@@ -83,6 +91,7 @@ class OpenAICompatLLM:
         if not self.api_key:
             raise RuntimeError(f"Set {key_env} (free key from {PROVIDERS[provider][3]}) or pass api_key.")
         self.http = client or httpx.Client(timeout=timeout)
+        self.retired_model = None   # set if we had to switch away from a retired model
 
     # ---- format translation
     @staticmethod
@@ -149,11 +158,30 @@ class OpenAICompatLLM:
                 wait = float(r.headers.get("retry-after", 0) or 0) or 5 * (attempt + 1)
                 time.sleep(min(wait, 30))
                 continue
+            if r.status_code == 404 and "model" in r.text.lower() and attempt == 0:
+                replacement = self._replacement_model()          # model retired: switch and retry once
+                if replacement:
+                    self.retired_model, self.model = self.model, replacement
+                    payload = dict(payload, model=replacement)
+                    continue
             if r.status_code == 400 and "tool_use_failed" in r.text and attempt < 1:
                 payload = dict(payload, temperature=0.0)        # Groq: model wrote a bad tool call, try again
                 continue
             raise ProviderError(self.provider, r.status_code, r.text)
         raise ProviderError(self.provider, 429, "rate limited")
+
+
+    def available_models(self) -> list[str]:
+        r = self.http.get(f"{self.base_url}/models", headers={"Authorization": f"Bearer {self.api_key}"})
+        r.raise_for_status()
+        return [m["id"].removeprefix("models/") for m in r.json().get("data", [])]
+
+    def _replacement_model(self) -> str | None:
+        try:
+            have = set(self.available_models())
+        except Exception:
+            return None
+        return next((m for m in FALLBACK_MODELS.get(self.provider, []) if m in have and m != self.model), None)
 
 
 def make_llm(provider: str, api_key: str | None = None, model: str | None = None):
@@ -172,7 +200,8 @@ def friendly_error(e: Exception) -> str | None:
         if e.status == 429:
             return f"{name}'s free tier rate limit was reached. Wait a minute and ask again."
         if e.status == 404:
-            return f"{name} doesn't have that model. Check {e.provider.upper()}_MODEL in .env."
+            return (f"{name} doesn't offer that model any more. Set {e.provider.upper()}_MODEL in .env or the "
+                    f"sidebar's Model box to one listed at your {name} console.")
         return f"{name} returned an error ({e.status}): {e.body[:200]}"
     try:
         import httpx

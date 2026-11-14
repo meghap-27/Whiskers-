@@ -213,10 +213,13 @@ with tab_ask:
                 msg = friendly_error(e)
                 if msg is None:
                     raise
-                status.update(label="Couldn't reach Claude", state="error", expanded=False)
+                status.update(label="Couldn't get an answer from the model", state="error", expanded=False)
                 st.error(msg, icon="🙀")
                 st.stop()
             status.update(label=f"Done in {run.latency_ms / 1000:.1f}s", state="complete", expanded=False)
+            if getattr(llm, "retired_model", None):
+                st.toast(f"{llm.retired_model} was retired by the provider; used {llm.model} instead. "
+                         f"Update the model in .env to skip this check.")
         ss.runs.append((question, run))
         st.rerun()
 

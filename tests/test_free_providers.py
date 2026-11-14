@@ -73,3 +73,22 @@ def test_network_errors_are_friendly():
     assert "Ollama" in friendly_error(httpx.ConnectError("refused", request=req))
     req2 = httpx.Request("POST", "https://api.groq.com/openai/v1/chat/completions")
     assert "internet" in friendly_error(httpx.ProxyError("403", request=req2))
+
+
+def test_retired_model_switches_to_a_listed_one():
+    seen = []
+
+    def handler(request):
+        if request.url.path.endswith("/models"):
+            return httpx.Response(200, json={"data": [{"id": "qwen/qwen3.6-27b"}, {"id": "whisper-large-v3"}]})
+        body = json.loads(request.content)
+        seen.append(body["model"])
+        if body["model"] == "old-model":
+            return httpx.Response(404, json={"error": {"code": "model_not_found",
+                                                       "message": "The model `old-model` does not exist"}})
+        return httpx.Response(200, json=_text("ok"))
+
+    llm = OpenAICompatLLM("groq", api_key="t", model="old-model",
+                          client=httpx.Client(transport=httpx.MockTransport(handler)))
+    assert llm.create("s", [{"role": "user", "content": "hi"}], [])["content"][0]["text"] == "ok"
+    assert seen == ["old-model", "qwen/qwen3.6-27b"] and llm.retired_model == "old-model"

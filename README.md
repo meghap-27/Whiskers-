@@ -65,7 +65,7 @@ The agent works with any of these; pick one in the sidebar or with `LLM_PROVIDER
 
 | Provider | Cost | Get a key | Default model |
 | --- | --- | --- | --- |
-| **Groq** (recommended) | Free tier, no card, rate-limited | [console.groq.com/keys](https://console.groq.com/keys) | `llama-3.3-70b-versatile` |
+| **Groq** (recommended) | Free tier, no card, rate-limited | [console.groq.com/keys](https://console.groq.com/keys) | `openai/gpt-oss-120b` |
 | **Google Gemini** | Free tier, rate-limited | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | `gemini-3.8-flash` |
 | **Ollama** | Free, runs on your computer, offline | install [ollama.com](https://ollama.com), then `ollama pull qwen2.5:7b` | `qwen2.5:7b` |
 | Claude | Paid API credits | [platform.claude.com](https://platform.claude.com/settings/keys) | `claude-sonnet-5-5` |
