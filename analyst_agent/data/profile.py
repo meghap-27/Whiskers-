@@ -111,6 +111,30 @@ def date_formats(s: pd.Series) -> dict[str, int]:
     return {str(k): int(v) for k, v in counts.items()} if len(counts) > 1 else {}
 
 
+def _typo_distance(a: str, b: str) -> int:
+    """Edit distance where swapping two neighbouring letters counts as one edit (Delhi/Dehli = 1)."""
+    d = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
+    for i in range(len(a) + 1):
+        d[i][0] = i
+    for j in range(len(b) + 1):
+        d[0][j] = j
+    for i in range(1, len(a) + 1):
+        for j in range(1, len(b) + 1):
+            cost = a[i - 1] != b[j - 1]
+            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+            if i > 1 and j > 1 and a[i - 1] == b[j - 2] and a[i - 2] == b[j - 1]:
+                d[i][j] = min(d[i][j], d[i - 2][j - 2] + 1)
+    return d[len(a)][len(b)]
+
+
+def _looks_like_typo(a: str, b: str, cutoff: float) -> bool:
+    """Close spellings only: one edit for short words, two for long ones. Male/Female is two edits
+    on a short word, so it is not flagged."""
+    if min(len(a), len(b)) < 4 or difflib.SequenceMatcher(None, a, b).ratio() < cutoff:
+        return False
+    return _typo_distance(a, b) <= (1 if min(len(a), len(b)) < 8 else 2)
+
+
 def _norm(x: str) -> str:
     return re.sub(r"\s+", " ", str(x).strip().lower())
 
@@ -137,7 +161,7 @@ def near_duplicate_categories(s: pd.Series, max_unique: int = 150, cutoff: float
         used.add(k)
         if len(k) >= 4:
             for k2 in keys:
-                if k2 not in used and len(k2) >= 4 and difflib.SequenceMatcher(None, k, k2).ratio() >= cutoff:
+                if k2 not in used and _looks_like_typo(k, k2, cutoff):
                     group += by_norm[k2]
                     used.add(k2)
         if len(group) > 1:

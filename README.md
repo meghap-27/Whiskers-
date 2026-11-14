@@ -87,6 +87,15 @@ the Simpson's paradox planted in the sample data.
 - 8 bulk B2B orders make the mean order value about 2x the median.
 - Mixed date formats, misspelled cities, 25 duplicate rows, and refunds that make "revenue" ambiguous.
 
+### More practice data
+
+`python sample_data/make_more_samples.py` builds two more files to upload:
+
+| File | Rows | Traps inside |
+| --- | --- | --- |
+| `student_performance.csv` | 1,215 | Tutored students score lower overall but higher in every school (Simpson's paradox); city spelled several ways; day-first and ISO dates mixed; 15 duplicates; impossible study hours |
+| `saas_subscriptions.xlsx` | 900 | ~10 Enterprise customers hold over 40% of revenue; support tickets correlate with churn; 34% blank NPS; inconsistent country names |
+
 ## API
 
 ```bash

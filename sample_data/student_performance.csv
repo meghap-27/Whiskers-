@@ -1,0 +1,1216 @@
+student_id,enroll_date,school,city,gender,parent_education,study_hours_week,attendance_pct,tutoring,math_score,reading_score,passed
+S10000,2025-03-12,Riverside Public,Mumbai,Female,High school,8.2,81.8,No,56,59,No
+S10001,23-07-2025,Greenfield High,Bengaluru,Male,PhD,8.9,,No,75,64,Yes
+S10002,2023-08-16,Greenfield High,Bangalore,Female,Bachelor's,1.4,84.2,No,74,66,Yes
+S10003,04-07-2023,Greenfield High,Bengaluru,Male,Master's,7.2,87.2,No,77,72,Yes
+S10004,2024-03-29,Hillcrest Academy,Jaipur,Male,Bachelor's,13.3,79.6,Yes,65,66,Yes
+S10005,2025-03-16,Riverside Public,Pune,Female,Bachelor's,7.6,88.9,No,60,62,Yes
+S10006,09-01-2024,Greenfield High,Bengaluru,Male,Master's,7.6,87.3,No,83,84,Yes
+S10007,2025-04-24,Greenfield High,Bengaluru ,Male,Bachelor's,8.4,80.2,No,72,84,Yes
+S10008,2024-05-05,Hillcrest Academy,Jaipur,Male,High school,7.1,90.4,Yes,39,40,No
+S10009,2024-08-30,Riverside Public,mumbai,Female,Master's,10.5,86.8,No,73,80,Yes
+S10010,2023-10-31,Hillcrest Academy,Jaipur,Female,Bachelor's,11.3,83.9,Yes,41,36,No
+S10011,2025-06-22,Hillcrest Academy,Delhi,Male,PhD,13.3,88.9,Yes,72,85,Yes
+S10012,2024-08-02,Riverside Public,Pune,Male,High school,6.6,83.6,No,75,77,Yes
+S10013,2024-06-06,Hillcrest Academy,Jaipur,Male,Bachelor's,15.4,85.4,Yes,49,46,No
+S10014,22-04-2024,Riverside Public,Mumbai,Female,High school,4.6,86.5,No,47,55,No
+S10015,2025-05-05,Hillcrest Academy,Jaipur,Female,Master's,5.4,,No,54,57,No
+S10016,2023-08-26,Greenfield High,Mysuru,Female,Bachelor's,12.5,92.8,No,76,69,Yes
+S10017,2025-02-24,Hillcrest Academy,New Delhi,Male,Bachelor's,13.8,,Yes,49,58,No
+S10018,2025-03-18,Greenfield High,Bengaluru ,Female,Master's,6.0,87.9,No,61,50,No
+S10019,2024-03-13,Riverside Public,Pune,Male,Bachelor's,4.1,91.5,No,67,63,Yes
+S10020,2025-04-29,Greenfield High,Bengaluru,Female,Bachelor's,12.0,100.0,Yes,96,98,Yes
+S10021,2023-11-13,Greenfield High,Bengaluru,Female,Bachelor's,12.5,87.8,No,74,63,Yes
+S10022,2025-05-18,Riverside Public,mumbai,Female,High school,14.4,89.1,Yes,75,78,Yes
+S10023,2024-12-28,Riverside Public,Pune,Male,Bachelor's,7.2,87.0,Yes,59,74,Yes
+S10024,13-01-2025,Riverside Public,Mumbai,Female,High school,10.8,88.6,Yes,71,73,Yes
+S10025,2025-04-23,Riverside Public,mumbai,Male,Master's,13.7,94.8,No,76,80,Yes
+S10026,2023-06-17,Riverside Public,Pune,Male,Bachelor's,7.1,99.2,No,67,68,Yes
+S10027,23-03-2024,Riverside Public,Pune,Female,High school,11.3,76.8,Yes,64,73,Yes
+S10028,2025-01-16,Greenfield High,Mysuru,Female,Master's,7.2,89.3,No,68,74,Yes
+S10029,2023-12-18,Greenfield High,Bengaluru,Female,Bachelor's,5.7,97.0,No,87,100,Yes
+S10030,2025-06-16,Greenfield High,Mysuru,Female,High school,11.1,98.4,Yes,78,75,Yes
+S10031,16-09-2023,Greenfield High,Bangalore,Male,Bachelor's,8.9,89.4,No,83,99,Yes
+S10032,2024-02-05,Greenfield High,Mysuru,Female,Bachelor's,11.1,87.0,No,76,74,Yes
+S10033,2024-11-21,Riverside Public,Pune,Female,Master's,8.5,79.9,No,54,65,No
+S10034,2023-10-13,Hillcrest Academy,delhi,Male,High school,10.0,78.9,Yes,64,66,Yes
+S10035,2023-12-04,Hillcrest Academy,Jaipur,Male,Bachelor's,11.6,79.5,Yes,66,72,Yes
+S10036,2024-06-11,Riverside Public,Pune,Male,High school,5.6,100.0,No,80,79,Yes
+S10037,2025-01-23,Greenfield High,Bengaluru,Female,High school,10.0,80.7,No,73,76,Yes
+S10038,2025-03-15,Hillcrest Academy,Delhi,Male,Bachelor's,6.4,88.0,Yes,48,57,No
+S10039,2025-04-28,Riverside Public,Pune,Male,Bachelor's,8.5,92.2,No,57,59,No
+S10040,2024-01-13,Hillcrest Academy,Jaipur,Male,High school,7.8,75.4,Yes,56,67,Yes
+S10041,2024-02-10,Riverside Public,Pune,Male,High school,6.8,92.1,No,69,65,Yes
+S10042,2023-11-27,Hillcrest Academy,Delhi,Female,Bachelor's,11.5,88.3,Yes,50,42,No
+S10043,2024-07-26,Hillcrest Academy,Delhi,Male,Bachelor's,4.8,,No,24,30,No
+S10044,2024-01-01,Hillcrest Academy,Delhi,Female,Bachelor's,11.5,85.2,No,36,36,No
+S10045,2024-10-20,Riverside Public,Pune,Male,High school,16.6,87.0,Yes,76,75,Yes
+S10046,2024-04-09,Greenfield High,Bengaluru,Female,Master's,8.5,82.9,No,75,74,Yes
+S10047,2025-06-17,Riverside Public,Pune,Female,High school,4.8,88.6,Yes,68,68,Yes
+S10048,2023-09-25,Greenfield High,Bengaluru,Male,High school,9.7,89.0,No,75,81,Yes
+S10049,2023-08-22,Hillcrest Academy,Delhi,Female,Bachelor's,10.9,91.0,No,40,47,No
+S10050,2024-04-02,Greenfield High,Mysuru,Male,Bachelor's,10.1,77.6,No,71,83,Yes
+S10051,12-08-2023,Riverside Public,Pune,Female,Bachelor's,7.2,83.1,Yes,74,78,Yes
+S10052,2024-03-09,Greenfield High,Bengaluru,Female,Master's,10.2,85.8,No,69,61,Yes
+S10053,07-03-2025,Hillcrest Academy,New Delhi,Male,Master's,4.2,,Yes,58,57,No
+S10054,2024-10-11,Riverside Public,Pune,Male,Master's,12.4,90.2,No,75,75,Yes
+S10055,2023-06-21,Hillcrest Academy,Delhi,Female,Bachelor's,15.0,87.8,Yes,53,55,No
+S10056,2023-11-21,Greenfield High,Mysuru,Female,High school,4.4,95.3,No,81,80,Yes
+S10057,30-07-2023,Riverside Public,Pune,Male,High school,8.9,92.7,Yes,64,68,Yes
+S10058,19-03-2024,Hillcrest Academy,Delhi,Female,Master's,14.6,100.0,Yes,64,68,Yes
+S10059,2023-08-04,Riverside Public,Mumbai,Male,High school,4.7,92.7,No,63,67,Yes
+S10060,04-09-2024,Greenfield High,Bengaluru,Male,Master's,8.9,82.8,No,75,83,Yes
+S10061,25-11-2024,Greenfield High,Bengaluru,Male,High school,15.2,86.4,No,92,99,Yes
+S10062,2023-10-31,Greenfield High,Mysuru,Male,Master's,6.8,92.5,No,81,89,Yes
+S10063,2025-07-17,Greenfield High,Mysuru,Female,Bachelor's,8.0,71.8,No,77,88,Yes
+S10064,2024-06-30,Greenfield High,bengaluru,Female,High school,9.2,74.0,No,62,68,Yes
+S10065,2025-02-01,Greenfield High,Bengaluru,Male,High school,14.9,97.3,No,77,90,Yes
+S10066,19-02-2025,Hillcrest Academy,Delhi,Male,High school,7.9,100.0,No,51,58,No
+S10067,2025-03-11,Greenfield High,Mysuru,Female,Master's,7.0,88.6,No,90,80,Yes
+S10068,2024-09-20,Riverside Public,Mumbai,Female,Bachelor's,13.3,85.9,Yes,79,76,Yes
+S10069,2024-11-03,Hillcrest Academy,Delhi,Male,Master's,8.4,77.3,No,42,36,No
+S10070,2024-03-23,Riverside Public,Mumbai,Female,High school,10.1,88.7,No,67,79,Yes
+S10071,2025-07-25,Greenfield High,Mysuru,Female,Bachelor's,4.9,99.4,No,66,57,Yes
+S10072,2025-01-25,Greenfield High,Mysuru,Female,High school,6.8,87.7,No,100,96,Yes
+S10073,2025-02-16,Greenfield High,Bengaluru,Male,High school,6.1,81.3,No,56,49,No
+S10074,08-08-2024,Greenfield High,Bengaluru,Male,Bachelor's,8.8,81.8,No,72,67,Yes
+S10075,07-02-2024,Greenfield High,Bengaluru ,Female,PhD,8.5,,No,75,77,Yes
+S10076,2023-08-08,Greenfield High,Bengaluru,Male,Master's,13.0,90.2,No,71,80,Yes
+S10077,12-06-2023,Greenfield High,Bengaluru,Female,Master's,10.4,93.2,No,82,83,Yes
+S10078,2023-12-11,Hillcrest Academy,Jaipur,Female,High school,13.0,80.5,Yes,50,61,No
+S10079,2025-05-11,Riverside Public,Pune,Female,Bachelor's,15.6,78.8,Yes,74,87,Yes
+S10080,2024-07-04,Riverside Public,Mumbai,Male,Bachelor's,9.4,73.1,Yes,76,80,Yes
+S10081,08-05-2024,Greenfield High,Bengaluru ,Female,Bachelor's,12.6,78.3,No,73,68,Yes
+S10082,2025-01-29,Riverside Public,Pune,Male,High school,13.1,83.5,Yes,74,73,Yes
+S10083,2025-01-07,Riverside Public,Pune,Female,Bachelor's,11.6,94.2,Yes,80,99,Yes
+S10084,2025-03-20,Greenfield High,Bengaluru,Male,Master's,6.1,92.7,No,84,86,Yes
+S10085,2024-10-12,Riverside Public,Mumbai,Male,Master's,11.9,86.4,No,71,67,Yes
+S10086,29-12-2024,Greenfield High,Mysuru,Female,High school,12.1,88.1,No,85,95,Yes
+S10087,2025-06-16,Greenfield High,Bengaluru,Female,High school,7.8,91.2,No,81,87,Yes
+S10088,24-07-2025,Greenfield High,Bangalore,Female,Master's,10.3,88.4,No,76,67,Yes
+S10089,2023-08-26,Greenfield High,Mysuru,Male,Bachelor's,4.7,75.8,No,55,51,No
+S10090,2023-08-30,Greenfield High,Mysuru,Male,Master's,8.8,92.0,No,80,84,Yes
+S10091,2024-10-19,Greenfield High,Mysuru,Male,Bachelor's,3.1,85.9,No,71,68,Yes
+S10092,2025-06-10,Riverside Public,Pune,Female,High school,6.4,85.2,No,57,55,No
+S10093,2024-01-28,Riverside Public,Pune,Male,Bachelor's,4.3,93.2,Yes,74,90,Yes
+S10094,2024-10-29,Greenfield High,Mysuru,Male,PhD,8.7,76.8,No,54,50,No
+S10095,2024-01-22,Hillcrest Academy,Delhi,Male,Bachelor's,4.6,,Yes,57,61,No
+S10096,2025-02-13,Riverside Public,Pune,Female,High school,4.6,90.1,No,71,75,Yes
+S10097,2023-11-01,Greenfield High,Bengaluru,Male,Bachelor's,7.7,79.6,No,68,70,Yes
+S10098,2023-07-13,Hillcrest Academy,Jaipur,Female,Bachelor's,13.3,80.4,Yes,60,57,No
+S10099,2024-06-07,Riverside Public,Pune,Female,Bachelor's,2.2,82.9,No,61,71,Yes
+S10100,2023-08-08,Greenfield High,Mysuru,Female,Master's,9.5,95.4,Yes,97,100,Yes
+S10101,2024-10-20,Hillcrest Academy,Delhi,Female,Bachelor's,10.8,88.7,Yes,52,54,No
+S10102,2024-08-14,Riverside Public,Pune,Male,Master's,10.6,88.3,No,64,67,Yes
+S10103,2023-12-27,Greenfield High,Bangalore,Male,Master's,4.4,,Yes,78,75,Yes
+S10104,28-12-2024,Hillcrest Academy,New Delhi,Female,Master's,10.9,94.3,No,62,74,Yes
+S10105,15-02-2024,Riverside Public,Pune,Male,PhD,7.4,85.4,No,59,50,No
+S10106,30-06-2024,Greenfield High,Mysuru,Male,Bachelor's,6.5,90.8,No,74,81,Yes
+S10107,2023-07-10,Riverside Public,Pune,Female,Master's,5.4,97.1,No,52,59,No
+S10108,10-07-2025,Riverside Public,Pune,Male,High school,12.5,96.5,No,82,89,Yes
+S10109,2024-06-04,Riverside Public,Mumbai,Male,Bachelor's,6.2,98.1,No,68,77,Yes
+S10110,2024-10-03,Greenfield High,Mysuru,Female,Master's,14.6,84.6,Yes,100,100,Yes
+S10111,2024-10-16,Riverside Public,Mumbai,Male,PhD,6.2,89.3,No,59,64,Yes
+S10112,10-02-2024,Riverside Public,Mumbai,Male,Master's,11.7,96.9,No,64,63,Yes
+S10113,2023-08-09,Riverside Public,Mumbai,Male,Bachelor's,4.5,79.7,No,76,73,Yes
+S10114,2024-07-25,Greenfield High,Bengaluru,Male,Bachelor's,9.5,84.3,No,92,83,Yes
+S10115,2023-11-22,Hillcrest Academy,Jaipur,Female,Bachelor's,14.3,83.8,Yes,62,47,No
+S10116,13-03-2024,Hillcrest Academy,Delhi,Female,High school,15.3,100.0,Yes,62,53,No
+S10117,2024-01-15,Hillcrest Academy,Delhi,Female,High school,5.3,86.5,No,58,63,Yes
+S10118,2023-11-23,Hillcrest Academy,Delhi,Male,PhD,7.5,75.0,No,34,39,No
+S10119,15-11-2024,Riverside Public,Mumbai,Female,Master's,16.1,85.6,Yes,64,69,Yes
+S10120,2025-03-27,Greenfield High,Mysuru,Female,Master's,12.7,75.5,Yes,88,87,Yes
+S10121,2024-02-23,Hillcrest Academy,Jaipur,Female,High school,7.6,94.7,Yes,67,71,Yes
+S10122,2023-06-10,Riverside Public,mumbai,Female,Bachelor's,14.5,81.6,No,83,97,Yes
+S10123,2023-10-01,Hillcrest Academy,Delhi,Female,Bachelor's,10.7,100.0,Yes,60,72,Yes
+S10124,2023-08-22,Hillcrest Academy,delhi,Female,Bachelor's,15.9,82.7,Yes,53,48,No
+S10125,2025-06-17,Riverside Public,Pune,Female,Bachelor's,11.1,85.7,No,70,74,Yes
+S10126,2024-07-29,Riverside Public,Pune,Male,High school,8.6,81.3,No,69,62,Yes
+S10127,2025-06-30,Hillcrest Academy,Delhi,Male,High school,15.4,77.4,Yes,54,38,No
+S10128,2024-06-14,Riverside Public,Mumbai,Male,Master's,7.0,91.3,No,76,80,Yes
+S10129,2024-01-22,Greenfield High,Bengaluru,Male,PhD,10.6,87.6,No,76,75,Yes
+S10130,2025-04-05,Riverside Public,Pune,Non-binary,High school,12.1,100.0,No,69,71,Yes
+S10131,23-05-2024,Riverside Public,Pune,Male,Bachelor's,7.7,93.2,No,64,59,Yes
+S10132,2024-04-24,Hillcrest Academy,Delhi,Male,High school,13.2,,Yes,73,88,Yes
+S10133,2025-04-10,Greenfield High,Mysuru,Female,High school,7.1,,No,81,74,Yes
+S10134,2025-03-29,Hillcrest Academy,Jaipur,Female,Master's,12.3,76.0,Yes,85,75,Yes
+S10135,2025-06-27,Greenfield High,Mysuru,Male,High school,13.5,86.6,No,82,81,Yes
+S10136,2024-02-05,Hillcrest Academy,Delhi,Female,Master's,3.0,88.0,Yes,50,64,No
+S10137,11-07-2024,Hillcrest Academy,Jaipur,Female,High school,8.8,96.8,No,53,57,No
+S10138,2024-03-25,Greenfield High,Mysuru,Male,High school,9.5,93.2,Yes,84,82,Yes
+S10139,11-11-2024,Hillcrest Academy,Delhi,Male,Master's,14.8,92.7,Yes,82,90,Yes
+S10140,2023-09-11,Greenfield High,Bengaluru,Female,Bachelor's,10.5,86.0,Yes,69,70,Yes
+S10141,2024-11-25,Greenfield High,Mysuru,Male,High school,6.9,84.3,No,73,73,Yes
+S10142,2024-07-15,Hillcrest Academy,Delhi,Female,High school,8.4,82.0,Yes,49,52,No
+S10143,30-07-2024,Riverside Public,Mumbai,Male,High school,8.3,81.4,Yes,79,76,Yes
+S10144,16-11-2024,Greenfield High,Mysuru,Female,Bachelor's,15.5,85.1,No,76,78,Yes
+S10145,2025-07-26,Hillcrest Academy,Jaipur,Female,High school,12.8,77.9,Yes,58,59,No
+S10146,2023-11-07,Riverside Public,Pune,Male,Bachelor's,12.2,79.1,Yes,75,79,Yes
+S10147,2024-06-20,Greenfield High,Bengaluru,Female,Master's,13.6,93.9,No,89,81,Yes
+S10148,2023-12-08,Greenfield High,Bengaluru,Male,High school,10.5,78.1,No,74,69,Yes
+S10149,2023-11-10,Hillcrest Academy,Jaipur,Male,High school,8.2,91.1,Yes,69,69,Yes
+S10150,2025-05-02,Hillcrest Academy,Jaipur,Male,Master's,14.7,96.7,Yes,76,80,Yes
+S10151,17-07-2025,Greenfield High,Bangalore,Male,PhD,12.0,89.9,Yes,85,93,Yes
+S10152,2024-04-18,Riverside Public,Mumbai,Female,Master's,8.3,93.7,No,61,80,Yes
+S10153,01-06-2023,Hillcrest Academy,Jaipur,Female,High school,5.8,96.2,Yes,65,76,Yes
+S10154,07-06-2023,Greenfield High,Bengaluru,Male,High school,15.8,88.5,No,89,100,Yes
+S10155,2024-09-13,Hillcrest Academy,Jaipur,Male,High school,11.4,80.3,Yes,51,57,No
+S10156,20-11-2023,Greenfield High,Mysuru,Male,Bachelor's,10.4,95.2,No,71,81,Yes
+S10157,2024-03-14,Hillcrest Academy,Jaipur,Male,High school,5.0,79.9,No,52,39,No
+S10158,2023-09-12,Greenfield High,Bengaluru,Female,Master's,14.5,82.0,No,82,95,Yes
+S10159,2023-06-18,Hillcrest Academy,Delhi,Female,Bachelor's,12.0,88.8,Yes,58,76,Yes
+S10160,2024-08-06,Hillcrest Academy,Jaipur,Male,High school,9.1,,Yes,49,56,No
+S10161,2024-02-10,Hillcrest Academy,Jaipur,Female,Master's,12.8,86.7,Yes,48,42,No
+S10162,2024-08-31,Greenfield High,Bengaluru,Female,Bachelor's,10.1,80.4,Yes,86,97,Yes
+S10163,2023-07-18,Hillcrest Academy,Delhi,Female,High school,11.7,94.9,Yes,76,79,Yes
+S10164,2024-02-13,Hillcrest Academy,Jaipur,Male,Bachelor's,8.0,100.0,No,62,58,Yes
+S10165,2024-01-12,Greenfield High,Mysuru,Female,High school,5.9,87.9,No,55,62,No
+S10166,2024-11-02,Greenfield High,Bengaluru,Male,Bachelor's,13.2,84.4,No,78,80,Yes
+S10167,2025-01-12,Hillcrest Academy,Delhi,Female,High school,6.3,84.5,No,45,47,No
+S10168,2024-05-02,Hillcrest Academy,Jaipur,Female,Master's,10.7,90.1,Yes,72,75,Yes
+S10169,2024-04-06,Greenfield High,Bengaluru,Male,Bachelor's,8.8,94.5,No,69,69,Yes
+S10170,2024-03-12,Hillcrest Academy,Jaipur,Female,Bachelor's,12.6,98.6,Yes,61,61,Yes
+S10171,2023-12-08,Greenfield High,Bengaluru,Male,High school,8.5,90.6,No,64,71,Yes
+S10172,2024-06-11,Greenfield High,Bengaluru,Female,Bachelor's,13.3,82.8,No,74,74,Yes
+S10173,2023-11-26,Hillcrest Academy,Jaipur,Male,Master's,12.9,93.7,Yes,62,59,Yes
+S10174,2024-10-13,Hillcrest Academy,Jaipur,Female,High school,16.5,,Yes,63,57,Yes
+S10175,2025-03-25,Hillcrest Academy,delhi,Male,High school,11.3,79.2,Yes,55,60,No
+S10176,16-06-2023,Greenfield High,Mysuru,Male,High school,11.0,76.7,No,84,84,Yes
+S10177,2023-10-21,Greenfield High,Bengaluru,Male,High school,5.9,94.8,No,80,92,Yes
+S10178,2023-08-23,Riverside Public,Pune,Male,High school,7.6,78.5,Yes,64,50,No
+S10179,2025-07-24,Riverside Public,Mumbai,Male,Master's,11.3,80.7,Yes,76,75,Yes
+S10180,06-02-2025,Greenfield High,Mysuru,Male,Bachelor's,8.9,100.0,No,77,71,Yes
+S10181,2024-03-29,Greenfield High,bengaluru,Male,Bachelor's,6.8,79.7,No,60,64,Yes
+S10182,19-07-2024,Riverside Public,Mumbai,Female,High school,7.9,79.9,No,80,76,Yes
+S10183,2023-09-28,Hillcrest Academy,Delhi,Female,Master's,17.3,82.9,Yes,61,63,Yes
+S10184,2024-07-03,Greenfield High,Bengaluru,Male,High school,10.6,85.9,No,79,75,Yes
+S10185,2023-08-29,Hillcrest Academy,Jaipur,Male,Bachelor's,10.4,93.2,No,63,62,Yes
+S10186,2023-08-09,Greenfield High,Bangalore,Male,Master's,11.1,68.3,No,63,74,Yes
+S10187,2024-12-09,Riverside Public,Mumbai,Male,Master's,6.0,99.0,No,68,79,Yes
+S10188,2023-11-04,Riverside Public,Pune,Female,Master's,10.4,92.3,No,72,85,Yes
+S10189,2024-01-19,Greenfield High,Bengaluru,Male,Bachelor's,8.2,86.0,No,60,61,Yes
+S10190,2023-07-21,Hillcrest Academy,Delhi,Male,Master's,8.6,80.1,Yes,57,58,No
+S10191,2023-12-20,Riverside Public,Pune,Female,High school,4.1,78.1,No,68,66,Yes
+S10192,2024-06-24,Hillcrest Academy,Jaipur,Male,Bachelor's,8.6,94.1,Yes,48,42,No
+S10193,23-08-2023,Hillcrest Academy,Delhi,Female,Master's,7.7,86.1,Yes,51,67,No
+S10194,2024-11-26,Greenfield High,Mysuru,Non-binary,High school,10.3,,No,93,100,Yes
+S10195,2024-09-27,Riverside Public,Pune,Female,High school,13.2,83.9,No,61,63,Yes
+S10196,2025-02-08,Greenfield High,Bengaluru,Male,High school,5.4,80.6,No,86,100,Yes
+S10197,2025-01-02,Greenfield High,Mysuru,Female,High school,9.2,92.5,No,93,88,Yes
+S10198,2023-12-05,Greenfield High,Mysuru,Male,High school,4.2,81.4,No,92,99,Yes
+S10199,2025-05-29,Hillcrest Academy,Jaipur,Female,Bachelor's,9.3,85.8,No,55,56,No
+S10200,2024-07-26,Hillcrest Academy,Delhi,Female,PhD,9.8,93.2,Yes,71,62,Yes
+S10201,2024-09-30,Greenfield High,Mysuru,Male,Bachelor's,7.5,97.3,Yes,79,88,Yes
+S10202,2025-01-23,Hillcrest Academy,Jaipur,Female,High school,11.6,89.2,Yes,55,32,No
+S10203,2024-12-11,Hillcrest Academy,Delhi,Female,PhD,10.5,87.1,Yes,53,50,No
+S10204,2024-03-07,Greenfield High,Mysuru,Non-binary,Bachelor's,11.5,89.7,No,73,87,Yes
+S10205,31-05-2024,Hillcrest Academy,Delhi,Male,Bachelor's,16.1,90.8,No,55,48,No
+S10206,2024-09-13,Hillcrest Academy,Jaipur,Male,Master's,6.6,94.3,Yes,83,92,Yes
+S10207,2023-12-08,Riverside Public,Pune,Male,Master's,13.9,92.3,Yes,78,85,Yes
+S10208,2023-12-23,Hillcrest Academy,Jaipur,Female,High school,14.9,93.3,Yes,64,65,Yes
+S10209,07-05-2025,Greenfield High,Bengaluru,Male,Bachelor's,8.1,87.2,No,85,86,Yes
+S10210,2025-03-21,Hillcrest Academy,Jaipur,Male,Master's,6.0,81.4,Yes,48,43,No
+S10211,2025-01-22,Riverside Public,Pune,Female,Bachelor's,8.9,92.1,No,62,58,Yes
+S10212,23-02-2024,Hillcrest Academy,Delhi,Male,High school,12.6,100.0,Yes,65,71,Yes
+S10213,2025-05-31,Hillcrest Academy,Delhi,Female,Master's,11.5,84.1,Yes,47,48,No
+S10214,2024-10-15,Riverside Public,Mumbai,Male,High school,14.2,87.2,Yes,77,82,Yes
+S10215,2025-04-11,Greenfield High,Bengaluru,Male,High school,4.0,92.8,No,77,91,Yes
+S10216,2025-02-26,Greenfield High,Bengaluru,Male,Bachelor's,7.2,82.2,No,75,68,Yes
+S10217,2025-05-07,Greenfield High,Bengaluru,Female,Bachelor's,8.6,84.1,Yes,78,87,Yes
+S10218,22-03-2025,Greenfield High,Bengaluru,Female,High school,12.4,91.2,No,81,88,Yes
+S10219,2025-06-26,Riverside Public,Mumbai,Female,Master's,2.8,97.4,No,53,55,No
+S10220,2023-10-18,Greenfield High,Mysuru,Male,Bachelor's,14.8,80.6,No,81,82,Yes
+S10221,2024-08-20,Hillcrest Academy,Jaipur,Male,High school,9.3,100.0,Yes,58,69,Yes
+S10222,2024-01-02,Hillcrest Academy,Delhi,Female,Master's,8.0,83.7,No,37,30,No
+S10223,2024-10-09,Greenfield High,Mysuru,Male,High school,7.7,89.6,Yes,93,99,Yes
+S10224,2025-05-10,Greenfield High,Bengaluru,Male,Master's,6.6,94.5,No,72,83,Yes
+S10225,11-07-2023,Hillcrest Academy,Jaipur,Female,Bachelor's,15.6,98.5,Yes,78,81,Yes
+S10226,2024-02-17,Hillcrest Academy,Delhi,Female,High school,14.9,,Yes,34,44,No
+S10227,29-12-2023,Greenfield High,Bengaluru,Male,Bachelor's,7.9,95.4,No,66,72,Yes
+S10228,2023-07-01,Hillcrest Academy,Jaipur,Female,Master's,6.5,89.6,Yes,62,57,No
+S10229,2025-07-04,Riverside Public,Pune,Female,Bachelor's,12.3,90.6,No,72,76,Yes
+S10230,2025-07-06,Hillcrest Academy,Delhi,Male,Bachelor's,9.1,85.1,No,39,41,No
+S10231,2025-07-20,Riverside Public,Bombay,Male,High school,17.4,92.3,Yes,85,82,Yes
+S10232,2024-02-29,Riverside Public,Pune,Female,High school,5.9,78.3,No,76,83,Yes
+S10233,2024-04-03,Riverside Public,Pune,Male,Bachelor's,10.1,95.3,No,74,69,Yes
+S10234,2024-09-21,Riverside Public,Pune,Male,Bachelor's,10.9,76.7,No,55,52,No
+S10235,2023-07-26,Riverside Public,Pune,Female,Bachelor's,11.2,81.7,No,57,56,No
+S10236,2024-06-21,Hillcrest Academy,Delhi,Male,Master's,12.4,,Yes,69,70,Yes
+S10237,2024-02-08,Hillcrest Academy,Delhi,Male,Bachelor's,5.4,82.5,Yes,56,55,No
+S10238,2023-08-13,Riverside Public,Mumbai,Male,Bachelor's,14.7,83.9,No,59,66,Yes
+S10239,22-04-2025,Riverside Public,Pune,Female,High school,11.4,90.7,Yes,58,72,Yes
+S10240,2024-04-01,Hillcrest Academy,Delhi,Female,Bachelor's,10.0,80.1,Yes,71,72,Yes
+S10241,2024-04-09,Riverside Public,Pune,Female,Bachelor's,7.6,86.5,No,70,74,Yes
+S10242,2023-06-16,Riverside Public,Mumbai,Female,High school,8.2,79.3,No,63,67,Yes
+S10243,15-03-2024,Greenfield High,Mysuru,Male,Bachelor's,12.5,97.6,No,74,91,Yes
+S10244,2023-08-17,Riverside Public,Mumbai,Male,Bachelor's,12.9,82.9,No,75,83,Yes
+S10245,2024-04-08,Riverside Public,Pune,Female,High school,8.2,76.9,No,74,74,Yes
+S10246,2023-12-14,Greenfield High,Bengaluru ,Male,High school,12.1,83.4,No,87,100,Yes
+S10247,2023-12-22,Riverside Public,Bombay,Female,High school,6.9,89.1,No,64,63,Yes
+S10248,2024-12-29,Hillcrest Academy,Jaipur,Male,Master's,13.7,85.0,Yes,48,43,No
+S10249,17-04-2024,Greenfield High,Mysuru,Male,Bachelor's,9.0,73.9,No,83,95,Yes
+S10250,2024-02-01,Riverside Public,Pune,Female,Bachelor's,10.0,86.4,No,71,77,Yes
+S10251,2025-02-04,Hillcrest Academy,Delhi,Female,Bachelor's,8.7,91.8,No,47,34,No
+S10252,2024-02-22,Hillcrest Academy,Delhi,Female,High school,12.8,,Yes,70,69,Yes
+S10253,2025-01-05,Riverside Public,Bombay,Male,High school,9.5,82.8,Yes,56,55,No
+S10254,2023-07-23,Hillcrest Academy,Jaipur,Male,High school,15.3,98.9,Yes,61,67,Yes
+S10255,2023-08-10,Greenfield High,Mysuru,Female,Bachelor's,7.9,89.1,No,88,93,Yes
+S10256,05-09-2024,Riverside Public,Mumbai,Male,High school,13.9,83.1,Yes,74,83,Yes
+S10257,2025-06-29,Hillcrest Academy,Delhi,Male,Bachelor's,11.7,86.5,Yes,59,72,Yes
+S10258,2024-03-20,Hillcrest Academy,delhi,Female,Bachelor's,9.8,86.0,Yes,41,50,No
+S10259,2024-01-17,Hillcrest Academy,Jaipur,Female,High school,6.6,90.2,Yes,57,74,Yes
+S10260,2025-03-13,Riverside Public,Pune,Male,High school,5.1,95.4,No,73,80,Yes
+S10261,2025-02-08,Greenfield High,Bengaluru,Male,Master's,7.9,75.1,No,61,66,Yes
+S10262,2025-07-17,Hillcrest Academy,Jaipur,Female,High school,7.3,84.2,Yes,54,47,No
+S10263,16-08-2023,Riverside Public,Pune,Male,High school,12.4,80.2,Yes,66,61,Yes
+S10264,2025-02-20,Greenfield High,Mysuru,Male,High school,9.2,94.3,No,65,73,Yes
+S10265,2025-02-26,Riverside Public,Mumbai,Male,High school,1.4,94.2,No,63,65,Yes
+S10266,2025-01-07,Greenfield High,Bengaluru,Male,High school,13.0,85.0,Yes,80,78,Yes
+S10267,2024-01-31,Hillcrest Academy,Delhi,Female,High school,8.8,91.6,Yes,61,65,Yes
+S10268,2024-03-21,Riverside Public,Pune,Female,High school,6.9,100.0,Yes,91,98,Yes
+S10269,2024-04-25,Hillcrest Academy,Jaipur,Female,Bachelor's,11.5,97.5,Yes,52,50,No
+S10270,2024-07-14,Riverside Public,Mumbai,Female,Bachelor's,12.0,88.1,No,67,92,Yes
+S10271,2024-10-10,Hillcrest Academy,Delhi,Female,High school,11.5,100.0,Yes,78,80,Yes
+S10272,2025-05-02,Hillcrest Academy,Delhi,Female,Master's,13.8,92.9,Yes,71,81,Yes
+S10273,09-07-2025,Greenfield High,Mysuru,Male,High school,9.1,88.2,No,72,90,Yes
+S10274,2023-11-29,Greenfield High,Bengaluru,Female,Bachelor's,11.2,93.3,No,81,81,Yes
+S10275,2024-06-20,Riverside Public,Pune,Male,High school,8.3,78.3,No,65,70,Yes
+S10276,2023-07-09,Hillcrest Academy,Jaipur,Female,PhD,10.2,91.9,Yes,60,66,Yes
+S10277,10-03-2025,Riverside Public,Pune,Female,High school,9.2,94.1,No,76,75,Yes
+S10278,2024-08-04,Greenfield High,Bengaluru,Female,Bachelor's,14.9,86.0,No,79,77,Yes
+S10279,07-03-2024,Riverside Public,Mumbai,Male,Master's,8.7,82.0,No,65,79,Yes
+S10280,2024-09-14,Riverside Public,Mumbai,Male,High school,12.5,100.0,Yes,74,72,Yes
+S10281,2023-08-09,Riverside Public,Pune,Female,Master's,12.2,92.4,No,73,76,Yes
+S10282,21-04-2024,Riverside Public,Mumbai,Male,High school,10.0,100.0,No,68,65,Yes
+S10283,2024-03-29,Riverside Public,Pune,Female,Master's,13.0,89.2,Yes,86,84,Yes
+S10284,2024-03-20,Riverside Public,Pune,Female,PhD,9.6,79.7,No,57,59,No
+S10285,2024-01-02,Riverside Public,Mumbai,Female,High school,6.6,83.5,Yes,79,79,Yes
+S10286,2024-01-28,Greenfield High,Bengaluru,Female,Master's,6.2,77.8,No,74,77,Yes
+S10287,2023-09-01,Hillcrest Academy,Jaipur,Male,Bachelor's,3.8,83.8,No,48,62,No
+S10288,2023-12-14,Hillcrest Academy,Jaipur,Male,High school,7.1,78.1,No,44,40,No
+S10289,2023-11-20,Hillcrest Academy,Jaipur,Male,High school,13.4,90.2,No,51,40,No
+S10290,2023-08-10,Hillcrest Academy,Jaipur,Non-binary,Bachelor's,15.7,81.3,Yes,59,57,No
+S10291,2024-12-20,Riverside Public,Pune,Male,High school,8.7,86.7,No,75,74,Yes
+S10292,2024-08-22,Greenfield High,Mysuru,Male,Master's,11.5,87.6,Yes,78,74,Yes
+S10293,2025-05-01,Hillcrest Academy,Delhi,Female,Bachelor's,14.1,88.2,No,65,68,Yes
+S10294,2023-06-28,Greenfield High,Bengaluru,Female,Master's,10.2,100.0,No,80,88,Yes
+S10295,2024-09-27,Hillcrest Academy,Jaipur,Female,Bachelor's,14.4,95.1,Yes,65,60,Yes
+S10296,2024-12-12,Hillcrest Academy,Jaipur,Female,High school,15.5,85.3,No,53,65,No
+S10297,2024-03-03,Hillcrest Academy,delhi,Male,High school,8.9,91.7,Yes,68,71,Yes
+S10298,2024-08-15,Greenfield High,Mysuru,Female,Bachelor's,4.9,90.3,Yes,93,82,Yes
+S10299,2024-09-20,Greenfield High,Mysuru,Female,High school,9.4,75.4,Yes,88,90,Yes
+S10300,2024-02-27,Riverside Public,Pune,Female,High school,12.1,,Yes,67,81,Yes
+S10301,10-01-2025,Hillcrest Academy,Delhi,Male,PhD,12.1,93.0,Yes,55,61,No
+S10302,2023-10-10,Riverside Public,Pune,Female,Master's,15.4,86.6,Yes,75,76,Yes
+S10303,2023-10-06,Greenfield High,Mysuru,Female,Master's,7.9,78.5,No,75,77,Yes
+S10304,2024-03-30,Riverside Public,Mumbai,Female,High school,10.6,97.1,Yes,67,73,Yes
+S10305,2024-02-11,Hillcrest Academy,Delhi,Male,High school,16.4,97.4,Yes,59,59,No
+S10306,2023-10-13,Riverside Public,Mumbai,Female,Master's,11.4,79.0,No,61,67,Yes
+S10307,2025-06-27,Riverside Public,Pune,Male,Bachelor's,9.2,94.4,No,61,67,Yes
+S10308,2023-09-07,Greenfield High,Mysuru,Female,PhD,8.1,94.3,No,75,76,Yes
+S10309,2024-09-21,Greenfield High,Bengaluru,Female,High school,10.8,82.9,No,70,78,Yes
+S10310,2024-10-04,Hillcrest Academy,Delhi,Non-binary,High school,8.9,90.8,No,55,67,Yes
+S10311,11-08-2024,Riverside Public,Mumbai,Male,Bachelor's,6.4,79.8,No,64,61,Yes
+S10312,2025-01-20,Riverside Public,Pune,Female,Bachelor's,8.2,85.0,No,72,74,Yes
+S10313,2023-12-28,Hillcrest Academy,Delhi,Female,Bachelor's,8.0,96.4,No,66,68,Yes
+S10314,2024-11-10,Greenfield High,Bengaluru,Female,High school,9.0,86.6,No,84,90,Yes
+S10315,2024-05-28,Greenfield High,Bengaluru,Female,High school,140.0,100.0,No,69,72,Yes
+S10316,11-06-2025,Riverside Public,Pune,Male,Master's,7.4,84.6,No,68,77,Yes
+S10317,28-01-2025,Riverside Public,Pune,Male,Master's,7.3,82.9,No,51,54,No
+S10318,14-07-2024,Greenfield High,Bengaluru,Female,High school,10.0,76.4,Yes,90,89,Yes
+S10319,15-05-2024,Riverside Public,Pune,Female,Bachelor's,12.2,86.6,No,71,65,Yes
+S10320,2025-07-30,Greenfield High,Mysuru,Male,Bachelor's,11.9,,No,86,93,Yes
+S10321,2024-03-13,Greenfield High,Mysuru,Female,Master's,9.4,92.6,Yes,79,76,Yes
+S10322,2024-04-25,Greenfield High,Mysuru,Female,Bachelor's,14.1,78.0,No,77,90,Yes
+S10323,2023-06-12,Hillcrest Academy,Jaipur,Female,Master's,13.1,86.3,Yes,58,55,No
+S10324,2024-09-25,Riverside Public,Mumbai,Male,PhD,7.6,92.0,No,60,50,No
+S10325,2025-06-24,Hillcrest Academy,Jaipur,Male,Master's,6.4,83.5,No,58,55,No
+S10326,01-05-2024,Hillcrest Academy,Jaipur,Female,High school,16.2,92.8,Yes,55,53,No
+S10327,2023-11-17,Riverside Public,Pune,Female,Master's,12.0,88.1,No,58,68,Yes
+S10328,02-10-2023,Greenfield High,Bengaluru,Female,High school,4.2,84.9,No,67,71,Yes
+S10329,2025-03-16,Riverside Public,Mumbai,Female,Bachelor's,6.0,88.0,No,85,77,Yes
+S10330,2024-12-14,Hillcrest Academy,Jaipur,Female,Master's,14.4,85.4,Yes,36,41,No
+S10331,16-06-2025,Greenfield High,Mysuru,Male,High school,11.5,,No,73,73,Yes
+S10332,23-10-2023,Riverside Public,Mumbai,Female,Bachelor's,11.6,68.8,Yes,70,80,Yes
+S10333,29-05-2024,Riverside Public,Pune,Male,Master's,10.7,84.3,No,72,70,Yes
+S10334,2024-09-12,Riverside Public,Pune,Female,Bachelor's,7.1,99.7,Yes,85,86,Yes
+S10335,2024-06-05,Greenfield High,Mysuru,Male,High school,10.6,76.9,No,73,72,Yes
+S10336,14-07-2023,Riverside Public,Pune,Male,Bachelor's,10.8,79.3,Yes,60,65,Yes
+S10337,2023-06-13,Greenfield High,Mysuru,Female,High school,10.6,100.0,Yes,95,95,Yes
+S10338,2023-10-08,Riverside Public,Mumbai,Non-binary,Bachelor's,95.0,88.4,Yes,73,80,Yes
+S10339,2024-11-01,Hillcrest Academy,Jaipur,Male,Master's,14.4,86.6,Yes,71,83,Yes
+S10340,2025-06-06,Greenfield High,bengaluru,Female,Master's,6.6,87.2,No,73,75,Yes
+S10341,2025-04-12,Hillcrest Academy,Jaipur,Male,Bachelor's,9.5,99.6,Yes,51,58,No
+S10342,01-08-2023,Riverside Public,Mumbai,Female,High school,10.6,100.0,Yes,89,85,Yes
+S10343,22-07-2025,Greenfield High,Bengaluru,Male,Master's,16.7,86.5,No,72,72,Yes
+S10344,2023-09-19,Riverside Public,Pune,Female,Bachelor's,8.1,75.4,Yes,59,59,No
+S10345,2023-07-18,Riverside Public,Pune,Male,Bachelor's,7.6,86.5,No,67,78,Yes
+S10346,2024-04-16,Greenfield High,Bengaluru,Male,Bachelor's,9.2,89.7,No,88,76,Yes
+S10347,2023-06-14,Greenfield High,Mysuru,Female,Master's,13.9,89.4,Yes,84,89,Yes
+S10348,06-04-2024,Riverside Public,Pune,Female,Bachelor's,11.3,81.6,No,56,66,Yes
+S10349,2023-08-23,Greenfield High,Bengaluru,Female,High school,7.4,99.4,No,78,71,Yes
+S10350,2024-02-02,Greenfield High,Bengaluru,Male,Bachelor's,10.5,82.0,No,99,94,Yes
+S10351,2024-12-11,Greenfield High,Bengaluru,Female,High school,13.2,88.4,No,71,75,Yes
+S10352,2025-03-04,Hillcrest Academy,Jaipur,Male,High school,9.6,80.8,Yes,44,47,No
+S10353,2025-04-18,Riverside Public,Mumbai,Female,Master's,11.1,82.0,Yes,72,76,Yes
+S10354,2023-10-24,Hillcrest Academy,Delhi,Male,High school,12.5,,Yes,52,51,No
+S10355,2023-11-07,Riverside Public,Pune,Male,Bachelor's,9.9,84.2,No,70,76,Yes
+S10356,2024-10-11,Hillcrest Academy,Jaipur,Male,High school,10.3,89.9,Yes,60,76,Yes
+S10357,2025-05-13,Riverside Public,Pune,Female,High school,9.7,88.7,Yes,76,83,Yes
+S10358,2023-10-30,Greenfield High,Mysuru,Male,Bachelor's,9.8,81.1,No,73,82,Yes
+S10359,2025-03-04,Greenfield High,Mysuru,Female,High school,8.3,,No,88,100,Yes
+S10360,2024-11-05,Riverside Public,Mumbai,Female,Bachelor's,13.2,100.0,Yes,80,94,Yes
+S10361,2023-10-24,Greenfield High,Bengaluru,Female,Bachelor's,13.6,93.4,No,87,96,Yes
+S10362,2024-04-08,Riverside Public,Pune,Female,Bachelor's,9.4,82.2,No,58,67,Yes
+S10363,2025-06-24,Hillcrest Academy,Delhi,Female,High school,15.1,,Yes,79,84,Yes
+S10364,2025-06-02,Riverside Public,Pune,Female,High school,14.0,75.0,No,61,72,Yes
+S10365,27-01-2025,Greenfield High,Mysuru,Male,Bachelor's,11.0,95.1,No,81,74,Yes
+S10366,2025-03-15,Greenfield High,Mysuru,Female,Bachelor's,4.8,84.6,No,74,77,Yes
+S10367,2023-09-18,Riverside Public,Mumbai,Male,High school,8.5,98.2,No,60,63,Yes
+S10368,2025-07-03,Hillcrest Academy,Delhi,Female,Bachelor's,10.0,77.9,Yes,73,81,Yes
+S10369,29-10-2024,Greenfield High,Bengaluru,Male,High school,13.5,81.4,No,65,72,Yes
+S10370,2024-03-11,Greenfield High,Mysuru,Female,Bachelor's,10.6,85.5,No,87,92,Yes
+S10371,2025-07-20,Hillcrest Academy,Jaipur,Female,High school,10.7,87.8,No,60,61,Yes
+S10372,2025-05-17,Greenfield High,Bengaluru,Female,Bachelor's,10.6,83.8,Yes,94,96,Yes
+S10373,2025-03-30,Riverside Public,Mumbai,Female,PhD,3.2,94.0,No,56,65,Yes
+S10374,2024-03-26,Greenfield High,Mysuru,Female,Bachelor's,6.1,89.4,No,84,82,Yes
+S10375,2025-05-27,Hillcrest Academy,New Delhi,Male,High school,7.2,88.3,No,45,42,No
+S10376,2023-07-31,Hillcrest Academy,Delhi,Male,High school,4.7,87.8,No,56,57,No
+S10377,05-01-2024,Riverside Public,Pune,Female,Master's,9.6,80.9,Yes,77,77,Yes
+S10378,2023-07-06,Hillcrest Academy,Jaipur,Female,Master's,12.6,89.0,Yes,67,72,Yes
+S10379,2023-10-28,Greenfield High,Bangalore,Female,Bachelor's,88.0,95.4,Yes,83,77,Yes
+S10380,19-04-2025,Riverside Public,Mumbai,Female,Master's,8.2,,No,64,79,Yes
+S10381,2023-11-28,Greenfield High,Bengaluru,Female,Master's,7.3,87.6,No,79,92,Yes
+S10382,2023-09-17,Greenfield High,Bengaluru,Male,Bachelor's,9.1,89.5,Yes,71,64,Yes
+S10383,2025-04-07,Riverside Public,Pune,Female,High school,7.0,87.5,No,64,74,Yes
+S10384,13-12-2024,Greenfield High,Mysuru,Female,High school,10.1,89.1,No,98,94,Yes
+S10385,2024-09-09,Greenfield High,Mysuru,Female,High school,10.4,89.9,Yes,92,100,Yes
+S10386,2024-03-03,Greenfield High,Bengaluru,Female,Master's,11.2,,No,87,80,Yes
+S10387,2023-06-06,Greenfield High,Bengaluru,Female,Bachelor's,10.4,81.9,No,67,69,Yes
+S10388,2024-07-15,Greenfield High,Mysuru,Male,Master's,5.0,91.3,No,77,83,Yes
+S10389,2025-02-07,Hillcrest Academy,Delhi,Male,High school,10.7,76.3,Yes,57,70,Yes
+S10390,2023-06-30,Riverside Public,Pune,Female,Master's,8.1,99.9,No,66,62,Yes
+S10391,2025-06-17,Hillcrest Academy,Delhi,Male,High school,9.8,91.2,Yes,76,83,Yes
+S10392,2024-11-08,Riverside Public,Pune,Female,Master's,9.0,80.2,No,74,71,Yes
+S10393,2025-07-22,Hillcrest Academy,Delhi,Male,Bachelor's,13.0,92.8,Yes,60,55,No
+S10394,20-02-2025,Hillcrest Academy,Delhi,Male,Bachelor's,6.7,79.3,Yes,48,53,No
+S10395,2024-01-03,Hillcrest Academy,Delhi,Female,Bachelor's,8.0,79.0,Yes,52,59,No
+S10396,22-02-2025,Hillcrest Academy,Delhi,Male,Master's,4.5,79.7,No,56,54,No
+S10397,08-07-2025,Greenfield High,Mysuru,Male,Bachelor's,14.3,,No,60,69,Yes
+S10398,2024-01-19,Greenfield High,Bengaluru,Female,Master's,7.7,86.5,No,85,94,Yes
+S10399,11-10-2024,Riverside Public,Pune,Female,High school,7.0,84.3,No,56,66,Yes
+S10400,2024-05-10,Greenfield High,Bengaluru,Female,High school,10.9,82.2,No,95,94,Yes
+S10401,2023-06-06,Greenfield High,Mysuru,Female,Bachelor's,8.0,93.3,No,76,67,Yes
+S10402,2023-10-15,Riverside Public,Mumbai,Female,High school,12.4,74.7,Yes,65,68,Yes
+S10403,2023-12-28,Greenfield High,Bengaluru,Female,High school,10.6,92.1,No,96,99,Yes
+S10404,29-07-2023,Greenfield High,Bengaluru,Male,High school,1.7,79.7,No,84,83,Yes
+S10405,2023-10-25,Riverside Public,Pune,Male,Master's,12.0,91.5,Yes,72,74,Yes
+S10406,2025-05-04,Greenfield High,Bengaluru,Female,Bachelor's,13.7,,Yes,72,73,Yes
+S10407,24-03-2025,Greenfield High,Bengaluru ,Female,High school,7.8,78.3,Yes,77,72,Yes
+S10408,2024-02-02,Greenfield High,Mysuru,Male,Master's,4.9,85.9,No,82,81,Yes
+S10409,2025-01-12,Greenfield High,Mysuru,Female,High school,8.0,90.0,No,77,87,Yes
+S10410,2025-01-06,Greenfield High,Bengaluru,Male,Bachelor's,12.0,76.0,No,81,75,Yes
+S10411,2025-04-16,Hillcrest Academy,Jaipur,Male,Master's,6.6,90.8,Yes,60,64,Yes
+S10412,2024-02-22,Greenfield High,Bengaluru,Female,Bachelor's,7.5,85.3,No,92,85,Yes
+S10413,2024-03-19,Greenfield High,Bengaluru,Male,Master's,10.2,86.7,No,88,95,Yes
+S10414,2025-04-03,Hillcrest Academy,Delhi,Male,High school,7.9,91.4,Yes,55,50,No
+S10415,2023-08-25,Hillcrest Academy,Jaipur,Female,Bachelor's,7.1,84.1,Yes,49,47,No
+S10416,2025-07-10,Greenfield High,Mysuru,Male,High school,7.2,91.5,No,76,63,Yes
+S10417,2024-11-13,Hillcrest Academy,Delhi,Female,Bachelor's,9.7,83.9,Yes,59,70,Yes
+S10418,2024-12-02,Riverside Public,Pune,Female,High school,4.1,94.7,No,62,69,Yes
+S10419,2023-12-30,Greenfield High,Bengaluru,Female,High school,13.7,,Yes,79,82,Yes
+S10420,2023-10-04,Greenfield High,Mysuru,Male,Bachelor's,7.4,88.1,No,63,75,Yes
+S10421,30-12-2024,Greenfield High,Mysuru,Male,Bachelor's,9.1,81.9,No,83,100,Yes
+S10422,2023-09-07,Riverside Public,Mumbai,Female,Master's,15.2,81.6,Yes,85,93,Yes
+S10423,2024-07-16,Greenfield High,Mysuru,Male,Master's,9.3,100.0,No,58,59,No
+S10424,2024-08-26,Riverside Public,Pune,Female,PhD,11.1,85.8,No,79,65,Yes
+S10425,2024-08-04,Riverside Public,Pune,Male,High school,15.4,86.3,No,60,57,No
+S10426,2025-05-27,Greenfield High,Mysuru,Female,High school,7.9,86.1,No,78,76,Yes
+S10427,27-01-2025,Greenfield High,Bengaluru,Male,Bachelor's,11.3,96.4,No,78,83,Yes
+S10428,2024-12-22,Greenfield High,Mysuru,Female,PhD,12.8,85.1,No,96,100,Yes
+S10429,15-09-2023,Riverside Public,Pune,Female,Bachelor's,14.2,93.4,Yes,81,79,Yes
+S10430,2025-05-21,Riverside Public,Mumbai,Male,Bachelor's,12.4,93.2,No,67,73,Yes
+S10431,04-01-2025,Riverside Public,Pune,Male,Bachelor's,8.3,82.6,Yes,72,82,Yes
+S10432,2025-05-01,Hillcrest Academy,Jaipur,Male,Master's,15.7,90.4,Yes,66,66,Yes
+S10433,24-04-2025,Hillcrest Academy,Delhi,Female,Bachelor's,11.3,90.1,Yes,57,56,No
+S10434,2025-03-14,Hillcrest Academy,Jaipur,Male,Bachelor's,11.1,88.2,Yes,52,62,No
+S10435,2024-02-19,Greenfield High,Bengaluru,Female,Bachelor's,7.0,90.6,No,78,65,Yes
+S10436,2023-10-15,Riverside Public,Pune,Male,Master's,2.8,71.3,No,59,57,No
+S10437,2023-07-30,Hillcrest Academy,Delhi,Male,Master's,3.9,93.9,Yes,54,68,Yes
+S10438,2024-01-12,Hillcrest Academy,Jaipur,Male,High school,7.2,96.6,No,53,60,No
+S10439,06-07-2023,Hillcrest Academy,Delhi,Female,Master's,9.3,90.9,No,49,48,No
+S10440,14-02-2025,Greenfield High,Bengaluru,Male,Bachelor's,12.1,86.0,No,85,91,Yes
+S10441,16-11-2024,Greenfield High,Mysuru,Female,High school,9.2,90.8,No,72,69,Yes
+S10442,2025-02-16,Greenfield High,Mysuru,Male,Master's,4.1,88.2,No,91,90,Yes
+S10443,2024-05-04,Hillcrest Academy,Delhi,Female,High school,13.6,96.0,Yes,77,85,Yes
+S10444,2023-12-07,Riverside Public,Pune,Female,High school,10.3,89.5,Yes,83,91,Yes
+S10445,2024-05-06,Hillcrest Academy,New Delhi,Male,High school,13.4,92.7,No,53,63,No
+S10446,2023-06-14,Greenfield High,Mysuru,Male,High school,6.8,84.0,No,77,81,Yes
+S10447,2024-08-17,Greenfield High,Bengaluru,Male,High school,6.1,85.9,No,91,90,Yes
+S10448,2025-01-15,Riverside Public,Pune,Male,High school,10.4,84.9,Yes,86,73,Yes
+S10449,06-06-2024,Riverside Public,Pune,Male,Master's,11.7,80.4,Yes,73,78,Yes
+S10450,2024-02-11,Hillcrest Academy,Jaipur,Male,High school,12.5,78.0,Yes,59,65,Yes
+S10451,2024-12-02,Riverside Public,Mumbai,Female,PhD,13.1,80.3,No,59,56,No
+S10452,2024-01-11,Hillcrest Academy,Jaipur,Female,High school,6.0,92.8,No,56,64,Yes
+S10453,2024-10-14,Riverside Public,Mumbai,Male,High school,4.7,,No,52,51,No
+S10454,2023-06-25,Hillcrest Academy,Jaipur,Male,High school,17.0,100.0,Yes,64,75,Yes
+S10455,29-03-2024,Hillcrest Academy,Jaipur,Female,Bachelor's,9.4,74.1,Yes,70,81,Yes
+S10456,2024-04-25,Hillcrest Academy,Jaipur,Female,High school,110.0,84.3,Yes,49,55,No
+S10457,2024-01-30,Riverside Public,Pune,Male,Bachelor's,10.8,94.9,Yes,64,70,Yes
+S10458,2024-05-20,Hillcrest Academy,Jaipur,Female,Bachelor's,11.2,89.0,No,51,54,No
+S10459,2025-02-25,Hillcrest Academy,Jaipur,Male,High school,13.2,90.3,No,48,57,No
+S10460,2025-02-26,Hillcrest Academy,Jaipur,Female,Master's,12.7,,No,53,50,No
+S10461,2024-08-02,Greenfield High,Mysuru,Female,PhD,0.0,90.2,No,74,71,Yes
+S10462,2025-04-22,Greenfield High,Mysuru,Male,High school,10.9,88.2,No,73,98,Yes
+S10463,11-05-2024,Riverside Public,Pune,Male,High school,7.9,91.8,Yes,60,57,No
+S10464,2024-03-22,Greenfield High,Mysuru,Female,High school,15.1,83.7,No,88,84,Yes
+S10465,2023-09-12,Hillcrest Academy,Delhi,Female,Bachelor's,10.4,89.3,Yes,49,54,No
+S10466,08-09-2023,Greenfield High,Mysuru,Female,PhD,9.6,87.6,No,78,73,Yes
+S10467,2024-11-08,Hillcrest Academy,Jaipur,Male,Master's,8.9,87.6,Yes,48,57,No
+S10468,17-09-2023,Greenfield High,Bengaluru,Female,High school,12.7,,No,76,71,Yes
+S10469,2023-12-09,Hillcrest Academy,Jaipur,Female,High school,8.2,99.1,Yes,45,38,No
+S10470,2025-01-08,Hillcrest Academy,Jaipur,Male,Master's,2.4,79.4,No,45,36,No
+S10471,2024-04-24,Hillcrest Academy,Delhi,Male,High school,9.5,91.7,No,49,46,No
+S10472,2024-04-06,Hillcrest Academy,Delhi,Male,High school,12.7,83.9,Yes,52,63,No
+S10473,2025-02-19,Greenfield High,Mysuru,Male,Master's,3.5,86.2,No,76,84,Yes
+S10474,25-07-2025,Hillcrest Academy,Delhi,Male,Master's,10.2,96.3,Yes,74,79,Yes
+S10475,07-11-2023,Hillcrest Academy,Delhi,Female,Bachelor's,10.8,86.3,Yes,68,73,Yes
+S10476,19-10-2024,Greenfield High,Bengaluru,Female,Bachelor's,9.7,100.0,Yes,85,99,Yes
+S10477,2024-10-28,Hillcrest Academy,Delhi,Male,Master's,16.6,95.4,Yes,66,66,Yes
+S10478,2023-08-22,Greenfield High,Bengaluru,Male,High school,10.6,91.9,Yes,65,72,Yes
+S10479,2025-06-30,Hillcrest Academy,New Delhi,Female,Bachelor's,7.4,94.2,Yes,54,51,No
+S10480,2025-01-11,Greenfield High,Mysuru,Female,Bachelor's,7.8,83.9,No,59,67,Yes
+S10481,2023-11-19,Riverside Public,Mumbai,Male,High school,8.7,93.1,No,80,66,Yes
+S10482,14-01-2025,Greenfield High,Bengaluru,Male,Bachelor's,9.7,89.2,Yes,81,99,Yes
+S10483,2024-10-25,Greenfield High,Bengaluru,Female,Bachelor's,16.4,81.4,Yes,98,100,Yes
+S10484,04-07-2023,Riverside Public,Bombay,Male,Bachelor's,12.7,99.4,Yes,76,85,Yes
+S10485,2024-10-20,Greenfield High,Mysuru,Male,Bachelor's,8.1,87.5,No,75,72,Yes
+S10486,14-08-2023,Hillcrest Academy,Delhi,Female,Bachelor's,7.4,87.1,Yes,53,64,No
+S10487,2023-08-26,Greenfield High,Bengaluru,Male,Bachelor's,9.0,77.9,Yes,85,91,Yes
+S10488,19-07-2025,Hillcrest Academy,Jaipur,Female,PhD,13.4,75.6,Yes,72,87,Yes
+S10489,2023-11-27,Riverside Public,Mumbai,Female,Master's,10.7,91.4,No,57,64,Yes
+S10490,2024-02-26,Hillcrest Academy,Delhi,Male,Bachelor's,15.6,81.0,No,66,53,No
+S10491,25-07-2025,Hillcrest Academy,Jaipur,Male,Bachelor's,7.7,79.4,No,38,36,No
+S10492,27-10-2023,Hillcrest Academy,Delhi,Female,Bachelor's,11.1,93.8,Yes,55,44,No
+S10493,27-05-2025,Hillcrest Academy,Jaipur,Female,Master's,8.3,,No,48,55,No
+S10494,2024-09-25,Riverside Public,Mumbai,Male,High school,3.8,90.9,No,68,68,Yes
+S10495,2025-02-05,Greenfield High,Bengaluru,Female,High school,7.8,94.0,No,85,95,Yes
+S10496,18-12-2024,Hillcrest Academy,Delhi,Male,High school,11.0,,Yes,59,63,Yes
+S10497,2024-03-22,Greenfield High,Mysuru,Male,Bachelor's,14.0,90.6,No,71,68,Yes
+S10498,2023-09-29,Greenfield High,Mysuru,Male,Bachelor's,9.3,82.8,No,61,65,Yes
+S10499,01-02-2025,Greenfield High,Mysuru,Male,High school,13.4,88.8,Yes,96,99,Yes
+S10500,2023-10-26,Riverside Public,Pune,Female,Bachelor's,9.2,83.3,No,59,59,No
+S10501,2025-01-25,Hillcrest Academy,Jaipur,Male,PhD,9.5,72.2,Yes,57,61,No
+S10502,2024-08-31,Hillcrest Academy,Delhi,Female,High school,12.8,85.4,Yes,61,69,Yes
+S10503,2025-04-18,Riverside Public,Pune,Female,Bachelor's,9.9,88.3,Yes,74,66,Yes
+S10504,03-07-2025,Riverside Public,Pune,Male,Bachelor's,13.8,86.0,No,84,93,Yes
+S10505,06-12-2024,Greenfield High,Bengaluru,Female,High school,10.2,89.1,No,84,82,Yes
+S10506,10-03-2025,Riverside Public,Pune,Female,High school,12.1,100.0,No,79,90,Yes
+S10507,2024-02-18,Hillcrest Academy,Delhi,Female,Bachelor's,9.5,86.1,Yes,63,66,Yes
+S10508,2023-10-22,Greenfield High,Mysuru,Male,High school,3.2,98.8,No,80,94,Yes
+S10509,06-11-2023,Riverside Public,Pune,Female,High school,8.8,91.7,Yes,61,55,No
+S10510,2024-03-06,Greenfield High,Bengaluru,Male,Bachelor's,7.8,79.6,No,69,75,Yes
+S10511,11-01-2025,Greenfield High,Bengaluru,Male,High school,2.6,86.0,No,77,88,Yes
+S10512,2023-12-06,Hillcrest Academy,Delhi,Female,High school,10.0,87.1,Yes,47,51,No
+S10513,2024-11-16,Hillcrest Academy,Delhi,Female,Master's,10.3,85.0,Yes,49,40,No
+S10514,2024-05-20,Hillcrest Academy,Jaipur,Male,High school,14.7,91.7,Yes,60,65,Yes
+S10515,2023-07-16,Hillcrest Academy,Jaipur,Male,Bachelor's,5.2,93.3,Yes,55,54,No
+S10516,2023-06-05,Riverside Public,Pune,Male,Bachelor's,9.3,87.3,No,70,65,Yes
+S10517,2024-11-14,Greenfield High,Bengaluru,Female,Bachelor's,9.2,85.9,No,76,89,Yes
+S10518,30-12-2023,Hillcrest Academy,Delhi,Female,Bachelor's,8.0,76.2,No,45,35,No
+S10519,2024-10-18,Greenfield High,Mysuru,Male,Bachelor's,8.9,78.1,No,81,90,Yes
+S10520,2025-04-18,Hillcrest Academy,Jaipur,Male,High school,7.9,88.2,No,66,72,Yes
+S10521,2024-01-11,Hillcrest Academy,Jaipur,Female,Bachelor's,11.4,93.5,Yes,63,71,Yes
+S10522,2024-02-26,Hillcrest Academy,Delhi,Male,Master's,11.7,88.4,No,54,51,No
+S10523,2025-01-25,Riverside Public,Mumbai,Female,Bachelor's,4.5,85.5,No,80,86,Yes
+S10524,2023-08-08,Greenfield High,Mysuru,Male,Bachelor's,10.4,86.4,No,81,94,Yes
+S10525,2023-12-05,Riverside Public,Mumbai,Male,Bachelor's,7.1,86.5,No,68,70,Yes
+S10526,2024-01-17,Hillcrest Academy,Delhi,Female,High school,13.3,65.3,Yes,55,60,No
+S10527,2025-03-06,Hillcrest Academy,Delhi,Female,Bachelor's,12.7,85.2,Yes,55,57,No
+S10528,2025-07-30,Hillcrest Academy,Jaipur,Male,High school,14.7,87.1,Yes,63,80,Yes
+S10529,04-11-2024,Riverside Public,Mumbai,Female,Bachelor's,12.3,92.6,No,83,78,Yes
+S10530,08-07-2024,Greenfield High,Mysuru,Male,Bachelor's,10.2,100.0,No,92,99,Yes
+S10531,26-11-2023,Hillcrest Academy,Delhi,Male,High school,4.6,98.6,No,54,58,No
+S10532,2025-03-29,Greenfield High,Bengaluru,Male,Bachelor's,10.3,87.1,No,85,95,Yes
+S10533,2024-04-15,Hillcrest Academy,Jaipur,Female,High school,9.8,85.7,Yes,51,52,No
+S10534,2024-09-27,Hillcrest Academy,New Delhi,Male,High school,12.0,89.3,Yes,75,61,Yes
+S10535,2024-06-08,Greenfield High,bengaluru,Female,Bachelor's,3.5,86.0,No,81,79,Yes
+S10536,2023-09-13,Hillcrest Academy,Delhi,Female,PhD,14.0,81.9,Yes,82,75,Yes
+S10537,2025-02-25,Riverside Public,Pune,Male,Bachelor's,10.7,,Yes,77,78,Yes
+S10538,2024-07-07,Greenfield High,Bengaluru,Female,High school,10.6,74.7,No,65,63,Yes
+S10539,2024-12-04,Greenfield High,Mysuru,Female,High school,5.9,82.2,No,76,86,Yes
+S10540,14-05-2025,Greenfield High,bengaluru,Female,Bachelor's,11.6,84.6,No,72,78,Yes
+S10541,2024-08-21,Greenfield High,Bengaluru,Male,High school,8.4,97.7,No,69,92,Yes
+S10542,2023-10-01,Greenfield High,Mysuru,Male,Bachelor's,9.8,86.5,No,71,81,Yes
+S10543,10-04-2025,Riverside Public,Pune,Male,High school,7.4,91.4,No,56,54,No
+S10544,18-06-2025,Greenfield High,Bengaluru,Male,Master's,5.0,68.1,No,58,55,No
+S10545,2024-07-15,Hillcrest Academy,Jaipur,Female,Bachelor's,12.5,90.9,Yes,77,82,Yes
+S10546,29-01-2025,Hillcrest Academy,Jaipur,Male,Master's,5.5,89.9,Yes,58,54,No
+S10547,2023-09-12,Greenfield High,Bengaluru,Female,High school,11.1,80.6,No,73,79,Yes
+S10548,2024-01-13,Riverside Public,Pune,Female,Bachelor's,14.2,84.5,Yes,60,47,No
+S10549,2024-12-25,Hillcrest Academy,Delhi,Female,Bachelor's,5.9,,Yes,55,63,No
+S10550,2024-10-27,Hillcrest Academy,Delhi,Male,High school,6.1,82.7,Yes,60,70,Yes
+S10551,2024-09-16,Greenfield High,Mysuru,Non-binary,High school,7.5,83.3,No,71,63,Yes
+S10552,22-08-2024,Hillcrest Academy,Delhi,Female,Bachelor's,9.1,96.2,Yes,64,62,Yes
+S10553,22-06-2025,Riverside Public,Pune,Female,Master's,7.5,93.2,No,77,62,Yes
+S10554,2023-09-02,Hillcrest Academy,delhi,Non-binary,Bachelor's,8.9,91.8,Yes,50,56,No
+S10555,22-05-2024,Riverside Public,Bombay,Female,Bachelor's,13.0,75.5,No,60,74,Yes
+S10556,2024-09-26,Hillcrest Academy,Jaipur,Male,Bachelor's,12.3,92.8,Yes,52,48,No
+S10557,2025-01-03,Hillcrest Academy,Jaipur,Male,Bachelor's,11.3,82.0,Yes,59,60,No
+S10558,2023-12-28,Greenfield High,Mysuru,Female,Master's,6.2,98.8,No,77,78,Yes
+S10559,2023-10-20,Greenfield High,Bengaluru,Female,PhD,9.0,77.2,No,87,100,Yes
+S10560,2025-02-08,Riverside Public,Pune,Male,Bachelor's,4.7,76.0,No,61,59,Yes
+S10561,15-08-2024,Hillcrest Academy,Jaipur,Male,Bachelor's,6.9,89.3,Yes,62,63,Yes
+S10562,2024-12-15,Hillcrest Academy,Jaipur,Male,Bachelor's,20.0,78.9,Yes,66,72,Yes
+S10563,2023-11-18,Hillcrest Academy,Delhi,Male,Bachelor's,8.3,85.8,No,61,67,Yes
+S10564,2023-10-12,Greenfield High,Mysuru,Male,Master's,11.7,88.2,No,75,71,Yes
+S10565,2024-03-24,Greenfield High,Bengaluru,Female,Master's,7.1,98.0,No,75,83,Yes
+S10566,2024-07-05,Greenfield High,Bengaluru,Female,Bachelor's,9.3,80.1,No,77,85,Yes
+S10567,2023-12-27,Greenfield High,Bengaluru,Female,Bachelor's,13.0,81.9,No,69,80,Yes
+S10568,2024-02-23,Riverside Public,Mumbai,Male,Bachelor's,10.8,79.1,No,71,68,Yes
+S10569,08-11-2023,Riverside Public,Pune,Male,Bachelor's,6.9,90.9,No,77,74,Yes
+S10570,07-07-2025,Hillcrest Academy,delhi,Non-binary,Master's,5.8,,No,48,59,No
+S10571,23-04-2024,Hillcrest Academy,Jaipur,Male,Master's,11.9,100.0,Yes,58,73,Yes
+S10572,2024-10-27,Hillcrest Academy,Jaipur,Female,Bachelor's,9.4,86.9,No,45,51,No
+S10573,2024-08-06,Hillcrest Academy,Delhi,Male,Master's,7.3,93.1,Yes,56,64,Yes
+S10574,2024-02-12,Riverside Public,Mumbai,Male,High school,11.7,90.3,No,63,56,No
+S10575,2024-01-25,Riverside Public,Mumbai,Male,Bachelor's,8.2,75.5,No,74,75,Yes
+S10576,16-02-2024,Greenfield High,Bengaluru,Male,Bachelor's,9.8,83.7,No,76,62,Yes
+S10577,2024-03-12,Riverside Public,Pune,Male,Bachelor's,9.4,77.1,No,72,74,Yes
+S10578,2025-06-07,Greenfield High,Bengaluru ,Male,High school,8.5,85.9,Yes,83,71,Yes
+S10579,2025-06-17,Riverside Public,Mumbai,Female,Bachelor's,11.8,86.5,No,59,58,No
+S10580,2024-05-17,Hillcrest Academy,Delhi,Male,High school,10.9,81.3,Yes,53,56,No
+S10581,14-10-2024,Hillcrest Academy,Jaipur,Female,Master's,11.0,91.4,Yes,67,82,Yes
+S10582,2024-12-14,Hillcrest Academy,Delhi,Male,Bachelor's,12.8,90.6,Yes,66,70,Yes
+S10583,2023-12-14,Greenfield High,Mysuru,Male,Master's,3.3,74.4,No,75,74,Yes
+S10584,08-06-2025,Hillcrest Academy,Jaipur,Male,High school,12.9,84.3,Yes,71,76,Yes
+S10585,2024-03-31,Riverside Public,Pune,Female,Master's,7.4,84.1,No,74,75,Yes
+S10586,2025-03-13,Riverside Public,Mumbai,Male,Bachelor's,7.4,81.2,No,52,46,No
+S10587,2024-03-05,Hillcrest Academy,Delhi,Female,Master's,7.9,88.2,Yes,53,60,No
+S10588,2024-12-01,Hillcrest Academy,Jaipur,Non-binary,Bachelor's,6.9,75.4,No,47,76,Yes
+S10589,2023-10-05,Riverside Public,Pune,Female,Bachelor's,11.5,,Yes,60,57,No
+S10590,26-09-2023,Hillcrest Academy,Jaipur,Male,Master's,13.0,88.7,Yes,48,43,No
+S10591,2024-05-31,Greenfield High,Bengaluru,Female,Bachelor's,10.9,83.2,No,72,76,Yes
+S10592,2025-07-16,Riverside Public,Bombay,Female,Bachelor's,12.9,,No,55,50,No
+S10593,02-01-2024,Greenfield High,Bengaluru,Female,Bachelor's,12.8,83.6,Yes,87,91,Yes
+S10594,2024-08-07,Hillcrest Academy,Jaipur,Male,High school,15.0,86.3,No,56,75,Yes
+S10595,13-02-2024,Greenfield High,Bengaluru,Female,High school,8.0,100.0,No,91,89,Yes
+S10596,14-04-2025,Riverside Public,Mumbai,Female,High school,11.6,89.7,Yes,68,66,Yes
+S10597,2024-01-03,Riverside Public,Pune,Female,Bachelor's,5.8,93.7,No,76,70,Yes
+S10598,2024-10-09,Riverside Public,Pune,Male,Master's,12.5,84.9,Yes,70,76,Yes
+S10599,2024-12-09,Riverside Public,Mumbai,Female,High school,6.7,90.5,No,52,48,No
+S10600,07-04-2024,Hillcrest Academy,Jaipur,Female,Bachelor's,7.6,87.8,Yes,48,58,No
+S10601,2025-06-24,Greenfield High,Mysuru,Male,Bachelor's,8.0,92.4,Yes,72,82,Yes
+S10602,2024-01-29,Riverside Public,Bombay,Male,Master's,8.5,92.8,Yes,60,65,Yes
+S10603,2023-10-21,Hillcrest Academy,Jaipur,Female,Bachelor's,12.8,93.6,Yes,48,67,No
+S10604,2025-06-25,Hillcrest Academy,Jaipur,Male,Bachelor's,8.1,98.8,Yes,62,58,Yes
+S10605,2025-03-02,Greenfield High,Mysuru,Male,Bachelor's,9.6,98.0,No,71,73,Yes
+S10606,13-08-2023,Hillcrest Academy,Delhi,Male,High school,8.5,86.2,Yes,67,76,Yes
+S10607,2023-08-02,Greenfield High,Bengaluru ,Female,High school,3.4,85.2,No,63,70,Yes
+S10608,2025-03-09,Hillcrest Academy,delhi,Male,Master's,11.3,89.1,Yes,55,56,No
+S10609,2025-01-25,Hillcrest Academy,Jaipur,Male,Bachelor's,18.4,98.9,Yes,71,69,Yes
+S10610,2025-06-15,Riverside Public,mumbai,Male,Bachelor's,9.8,,No,75,74,Yes
+S10611,2025-06-09,Hillcrest Academy,Jaipur,Female,Bachelor's,7.2,91.0,Yes,72,66,Yes
+S10612,2023-06-25,Greenfield High,Mysuru,Female,High school,8.5,86.9,Yes,87,87,Yes
+S10613,29-01-2024,Greenfield High,Mysuru,Male,Bachelor's,5.4,84.1,No,71,68,Yes
+S10614,2024-07-06,Greenfield High,Mysuru,Non-binary,High school,13.2,90.0,No,80,84,Yes
+S10615,2024-08-30,Hillcrest Academy,Delhi,Male,Master's,6.2,84.8,Yes,63,64,Yes
+S10616,2025-01-21,Riverside Public,Mumbai,Male,High school,7.3,81.3,No,50,56,No
+S10617,08-01-2024,Hillcrest Academy,Delhi,Male,PhD,12.2,,Yes,59,66,Yes
+S10618,2023-11-10,Greenfield High,Bengaluru,Female,High school,15.2,87.7,Yes,94,100,Yes
+S10619,2025-03-28,Greenfield High,Bengaluru,Female,High school,9.5,88.1,Yes,87,100,Yes
+S10620,2024-03-29,Hillcrest Academy,Delhi,Male,High school,7.8,85.9,Yes,54,54,No
+S10621,2025-07-10,Riverside Public,Mumbai,Male,Master's,11.9,93.4,No,80,75,Yes
+S10622,2023-09-17,Hillcrest Academy,Jaipur,Female,Bachelor's,10.8,82.9,Yes,46,48,No
+S10623,2024-08-06,Riverside Public,Mumbai,Male,Bachelor's,13.8,83.6,Yes,60,70,Yes
+S10624,2024-01-12,Greenfield High,Mysuru,Male,Bachelor's,10.8,94.5,No,78,70,Yes
+S10625,2024-07-22,Greenfield High,Mysuru,Female,Bachelor's,11.2,93.0,No,77,83,Yes
+S10626,2024-12-24,Hillcrest Academy,Jaipur,Male,High school,15.9,81.3,Yes,52,60,No
+S10627,2024-02-03,Riverside Public,Pune,Female,High school,13.1,78.0,Yes,72,81,Yes
+S10628,2023-09-25,Hillcrest Academy,Jaipur,Male,Bachelor's,10.4,94.9,Yes,70,72,Yes
+S10629,2023-12-05,Greenfield High,Mysuru,Male,High school,8.4,89.2,No,76,77,Yes
+S10630,2024-06-10,Greenfield High,Bengaluru,Male,High school,8.3,79.7,Yes,67,72,Yes
+S10631,2023-11-08,Greenfield High,Bengaluru,Male,Bachelor's,13.8,78.5,Yes,74,71,Yes
+S10632,2024-11-24,Greenfield High,Bengaluru,Male,Bachelor's,5.2,91.8,No,73,83,Yes
+S10633,2023-10-17,Riverside Public,Pune,Female,Bachelor's,11.7,,No,73,63,Yes
+S10634,2025-04-18,Riverside Public,Pune,Female,Bachelor's,6.0,81.3,Yes,69,63,Yes
+S10635,2025-01-03,Hillcrest Academy,Jaipur,Female,Bachelor's,14.2,89.0,Yes,70,67,Yes
+S10636,17-09-2023,Hillcrest Academy,Jaipur,Female,Bachelor's,6.2,90.4,No,55,53,No
+S10637,2023-09-02,Greenfield High,Bengaluru,Male,High school,3.6,87.0,No,75,70,Yes
+S10638,2025-04-25,Greenfield High,Bengaluru,Female,Master's,9.4,82.1,No,64,68,Yes
+S10639,2024-07-31,Riverside Public,mumbai,Male,PhD,10.9,,Yes,76,88,Yes
+S10640,2023-10-18,Hillcrest Academy,Jaipur,Female,Master's,11.9,90.2,Yes,70,76,Yes
+S10641,2023-11-05,Hillcrest Academy,Delhi,Female,High school,5.7,92.4,No,51,43,No
+S10642,2024-11-24,Hillcrest Academy,Jaipur,Female,High school,6.4,85.6,Yes,60,60,Yes
+S10643,2025-02-22,Riverside Public,Mumbai,Female,PhD,10.0,89.7,Yes,69,73,Yes
+S10644,2024-12-13,Hillcrest Academy,Jaipur,Female,High school,12.0,88.1,No,50,56,No
+S10645,2024-02-28,Greenfield High,Bengaluru,Male,Master's,8.9,98.7,No,84,87,Yes
+S10646,2023-12-27,Greenfield High,Mysuru,Female,PhD,6.9,81.2,No,76,76,Yes
+S10647,2023-12-29,Greenfield High,Bengaluru,Female,Master's,10.7,88.4,Yes,94,96,Yes
+S10648,2023-07-23,Greenfield High,Bengaluru,Male,High school,9.1,81.1,No,67,68,Yes
+S10649,2024-12-09,Greenfield High,Mysuru,Male,PhD,7.0,88.4,No,56,58,No
+S10650,2024-03-30,Riverside Public,Pune,Male,Bachelor's,13.1,,Yes,78,83,Yes
+S10651,2023-12-09,Greenfield High,Mysuru,Male,Bachelor's,10.4,85.0,No,79,65,Yes
+S10652,08-04-2025,Greenfield High,Bengaluru,Male,High school,8.8,82.1,No,82,88,Yes
+S10653,2024-11-21,Greenfield High,Bengaluru,Female,Bachelor's,11.6,94.8,Yes,86,90,Yes
+S10654,25-07-2023,Hillcrest Academy,New Delhi,Female,Bachelor's,9.8,97.2,Yes,48,58,No
+S10655,2024-12-24,Greenfield High,Mysuru,Male,High school,8.3,90.1,No,82,76,Yes
+S10656,2023-12-08,Riverside Public,Pune,Male,High school,9.2,82.5,No,61,70,Yes
+S10657,2023-10-23,Riverside Public,Mumbai,Female,Bachelor's,10.1,79.7,No,71,62,Yes
+S10658,2024-11-25,Greenfield High,Bangalore,Male,Bachelor's,11.1,92.7,No,73,69,Yes
+S10659,2025-04-25,Hillcrest Academy,Jaipur,Male,Bachelor's,7.8,100.0,No,55,61,No
+S10660,2024-09-13,Riverside Public,Pune,Male,Bachelor's,7.9,88.1,No,61,68,Yes
+S10661,2024-01-29,Hillcrest Academy,Delhi,Female,Bachelor's,8.4,84.7,No,44,52,No
+S10662,2025-03-14,Greenfield High,Mysuru,Male,Bachelor's,11.6,84.2,No,81,81,Yes
+S10663,03-08-2023,Riverside Public,Mumbai,Male,Master's,7.1,93.2,Yes,68,74,Yes
+S10664,2025-07-09,Greenfield High,Mysuru,Female,High school,7.1,82.4,No,83,88,Yes
+S10665,2025-04-11,Riverside Public,Pune,Female,Master's,10.6,84.1,Yes,89,98,Yes
+S10666,2024-10-27,Greenfield High,Mysuru,Male,High school,9.4,90.5,No,77,79,Yes
+S10667,2024-07-10,Hillcrest Academy,Jaipur,Male,Bachelor's,7.4,85.6,Yes,61,61,Yes
+S10668,2023-06-25,Hillcrest Academy,Delhi,Female,PhD,10.7,93.3,Yes,75,79,Yes
+S10669,11-03-2024,Riverside Public,Pune,Female,Master's,9.7,88.2,No,45,45,No
+S10670,2024-07-01,Greenfield High,Mysuru,Female,Bachelor's,9.5,80.1,No,71,77,Yes
+S10671,17-08-2024,Hillcrest Academy,Delhi,Male,Master's,8.1,76.1,Yes,68,63,Yes
+S10672,09-08-2024,Riverside Public,Bombay,Male,High school,3.8,100.0,No,56,56,No
+S10673,2023-07-06,Hillcrest Academy,Delhi,Female,Master's,17.3,82.7,Yes,63,61,Yes
+S10674,2024-05-10,Greenfield High,Bengaluru,Female,PhD,10.9,,No,94,100,Yes
+S10675,2023-08-18,Riverside Public,Pune,Male,High school,4.8,93.9,No,65,77,Yes
+S10676,2025-06-15,Riverside Public,Mumbai,Male,Bachelor's,9.0,96.7,No,69,63,Yes
+S10677,13-11-2023,Hillcrest Academy,delhi,Female,Master's,11.0,83.5,No,52,53,No
+S10678,25-06-2023,Riverside Public,Pune,Female,Bachelor's,4.4,,No,61,57,No
+S10679,2024-02-04,Riverside Public,Pune,Male,Bachelor's,12.6,,Yes,71,62,Yes
+S10680,2024-09-16,Greenfield High,Mysuru,Female,Master's,11.4,77.2,No,80,80,Yes
+S10681,2025-02-11,Hillcrest Academy,Delhi,Female,Bachelor's,9.2,86.3,Yes,57,59,No
+S10682,04-12-2023,Hillcrest Academy,Jaipur,Male,Bachelor's,8.6,92.4,Yes,52,51,No
+S10683,2023-08-13,Riverside Public,Pune,Male,Bachelor's,6.5,93.9,No,57,67,Yes
+S10684,2024-09-11,Hillcrest Academy,Jaipur,Male,Bachelor's,11.2,91.9,No,66,71,Yes
+S10685,2025-02-15,Hillcrest Academy,Jaipur,Female,High school,11.3,88.7,Yes,50,51,No
+S10686,2023-06-30,Greenfield High,Mysuru,Female,Master's,6.0,87.7,No,86,92,Yes
+S10687,2024-07-12,Hillcrest Academy,Delhi,Male,High school,8.5,74.9,Yes,57,55,No
+S10688,2024-01-06,Greenfield High,Mysuru,Male,Bachelor's,9.5,100.0,No,80,81,Yes
+S10689,2024-02-22,Hillcrest Academy,Delhi,Female,High school,13.7,89.6,No,50,56,No
+S10690,08-01-2024,Greenfield High,Mysuru,Male,High school,13.1,93.9,No,89,97,Yes
+S10691,2025-05-24,Hillcrest Academy,Delhi,Female,High school,6.6,95.0,Yes,62,63,Yes
+S10692,2024-12-25,Riverside Public,Pune,Male,Master's,11.1,82.3,No,56,63,No
+S10693,2023-08-01,Riverside Public,Pune,Male,Bachelor's,4.3,83.3,Yes,64,77,Yes
+S10694,2024-03-17,Hillcrest Academy,delhi,Male,Bachelor's,11.3,94.9,Yes,69,61,Yes
+S10695,2023-11-17,Riverside Public,Pune,Female,High school,8.8,82.1,Yes,71,78,Yes
+S10696,2023-09-29,Riverside Public,Mumbai,Male,High school,12.0,84.1,No,63,71,Yes
+S10697,13-10-2023,Riverside Public,mumbai,Female,Bachelor's,8.4,86.5,No,75,74,Yes
+S10698,2024-09-23,Riverside Public,Pune,Female,Master's,12.6,92.3,No,80,92,Yes
+S10699,2024-03-15,Hillcrest Academy,delhi,Female,High school,7.9,94.4,Yes,66,71,Yes
+S10700,2023-11-17,Riverside Public,Pune,Female,PhD,5.0,,No,60,70,Yes
+S10701,2023-09-22,Greenfield High,Mysuru,Male,High school,11.1,95.8,Yes,93,100,Yes
+S10702,2023-10-10,Hillcrest Academy,Jaipur,Male,High school,12.7,87.6,No,58,54,No
+S10703,2024-03-21,Hillcrest Academy,Jaipur,Female,High school,16.7,87.9,Yes,57,62,No
+S10704,2025-03-06,Greenfield High,Mysuru,Male,Bachelor's,8.9,83.5,No,92,81,Yes
+S10705,2024-10-07,Hillcrest Academy,Jaipur,Male,Master's,15.0,89.4,Yes,62,58,Yes
+S10706,2025-06-27,Hillcrest Academy,Jaipur,Female,Bachelor's,9.4,90.3,Yes,53,54,No
+S10707,15-03-2025,Greenfield High,Mysuru,Male,High school,7.5,87.1,No,84,86,Yes
+S10708,2024-10-04,Hillcrest Academy,Delhi,Male,Bachelor's,8.3,100.0,No,61,71,Yes
+S10709,2023-12-05,Riverside Public,Mumbai,Male,High school,8.1,72.3,No,64,61,Yes
+S10710,2025-02-18,Greenfield High,Mysuru,Male,Bachelor's,7.5,,No,82,81,Yes
+S10711,2024-11-05,Hillcrest Academy,New Delhi,Male,Master's,11.2,,Yes,57,54,No
+S10712,06-07-2024,Greenfield High,Bengaluru,Male,Master's,11.7,89.0,No,83,84,Yes
+S10713,2024-04-20,Hillcrest Academy,Jaipur,Male,Bachelor's,12.3,95.5,Yes,67,81,Yes
+S10714,18-01-2024,Greenfield High,Bengaluru,Male,Master's,13.1,84.9,No,73,77,Yes
+S10715,12-03-2024,Greenfield High,Mysuru,Female,Bachelor's,11.8,92.8,No,70,77,Yes
+S10716,2024-08-07,Hillcrest Academy,Delhi,Male,Master's,8.7,83.5,Yes,55,57,No
+S10717,2023-12-16,Hillcrest Academy,Delhi,Male,Master's,10.2,89.3,Yes,49,54,No
+S10718,05-11-2024,Riverside Public,Mumbai,Female,High school,6.8,85.5,Yes,67,74,Yes
+S10719,2024-06-16,Riverside Public,Pune,Male,High school,10.1,91.8,Yes,80,89,Yes
+S10720,12-06-2023,Hillcrest Academy,Jaipur,Male,Bachelor's,12.3,87.8,Yes,55,55,No
+S10721,2025-05-02,Hillcrest Academy,Jaipur,Female,High school,9.6,,Yes,67,76,Yes
+S10722,2024-11-17,Riverside Public,Pune,Female,Master's,10.4,,No,75,75,Yes
+S10723,2024-02-22,Riverside Public,Mumbai,Male,High school,8.4,95.5,No,75,93,Yes
+S10724,2024-01-12,Greenfield High,Bengaluru,Male,Master's,4.4,86.4,No,68,70,Yes
+S10725,2024-08-26,Greenfield High,Bengaluru ,Female,PhD,12.7,97.6,Yes,91,82,Yes
+S10726,2025-07-06,Riverside Public,Mumbai,Male,Bachelor's,8.7,88.4,No,76,76,Yes
+S10727,2024-04-12,Greenfield High,Mysuru,Female,Bachelor's,13.3,82.2,No,93,100,Yes
+S10728,2024-04-02,Riverside Public,Bombay,Female,Bachelor's,8.8,73.0,Yes,71,78,Yes
+S10729,2024-03-11,Hillcrest Academy,Jaipur,Male,High school,12.9,100.0,Yes,47,56,No
+S10730,12-02-2025,Greenfield High,Mysuru,Non-binary,High school,10.1,83.0,Yes,73,77,Yes
+S10731,06-07-2025,Hillcrest Academy,Jaipur,Male,High school,7.8,,Yes,59,60,No
+S10732,2025-02-28,Greenfield High,Mysuru,Male,Master's,9.9,83.7,No,84,88,Yes
+S10733,2025-04-17,Riverside Public,Pune,Female,High school,6.8,86.4,No,68,74,Yes
+S10734,2024-03-15,Riverside Public,Mumbai,Male,Bachelor's,10.6,95.7,No,67,75,Yes
+S10735,16-02-2025,Hillcrest Academy,Jaipur,Male,Master's,7.6,93.2,No,45,51,No
+S10736,2024-09-03,Greenfield High,Bengaluru,Female,Bachelor's,10.3,89.4,No,96,96,Yes
+S10737,22-07-2025,Greenfield High,Mysuru,Female,High school,14.0,85.8,Yes,98,100,Yes
+S10738,2023-06-10,Greenfield High,Mysuru,Female,High school,10.2,82.2,Yes,84,92,Yes
+S10739,2023-10-26,Riverside Public,Pune,Female,Master's,10.6,86.9,Yes,58,67,Yes
+S10740,2025-02-08,Riverside Public,Mumbai,Female,High school,13.4,91.2,No,55,66,Yes
+S10741,11-07-2025,Hillcrest Academy,Delhi,Female,Bachelor's,6.2,81.8,Yes,67,58,Yes
+S10742,2024-06-05,Greenfield High,Bengaluru,Female,Bachelor's,3.8,,No,72,66,Yes
+S10743,2025-06-28,Hillcrest Academy,New Delhi,Male,High school,9.0,86.2,Yes,63,73,Yes
+S10744,2024-03-18,Hillcrest Academy,Jaipur,Male,Bachelor's,14.1,93.2,Yes,63,56,No
+S10745,2024-06-28,Greenfield High,Mysuru,Female,High school,5.4,92.9,Yes,71,74,Yes
+S10746,26-04-2024,Riverside Public,Mumbai,Male,Bachelor's,10.5,91.4,Yes,76,75,Yes
+S10747,2024-02-12,Greenfield High,Bengaluru,Female,High school,9.5,98.5,No,75,80,Yes
+S10748,09-10-2023,Hillcrest Academy,Jaipur,Female,Master's,14.4,81.8,Yes,57,62,No
+S10749,2025-07-13,Riverside Public,Pune,Male,High school,120.0,92.3,Yes,71,76,Yes
+S10750,2024-05-28,Riverside Public,Pune,Female,Master's,7.5,85.0,No,69,68,Yes
+S10751,2024-07-03,Greenfield High,Bengaluru,Male,Bachelor's,9.6,91.5,No,65,69,Yes
+S10752,2024-02-23,Riverside Public,mumbai,Male,Master's,5.1,94.3,No,56,60,No
+S10753,2023-07-04,Riverside Public,Pune,Female,High school,10.7,71.4,Yes,66,69,Yes
+S10754,2025-06-05,Riverside Public,Mumbai,Female,High school,10.5,100.0,Yes,82,90,Yes
+S10755,2024-01-20,Greenfield High,Mysuru,Female,High school,15.3,73.5,No,64,62,Yes
+S10756,2025-05-21,Riverside Public,Pune,Female,High school,9.8,78.2,Yes,59,67,Yes
+S10757,08-01-2024,Riverside Public,Mumbai,Male,Bachelor's,2.3,89.6,Yes,56,59,No
+S10758,2025-05-22,Hillcrest Academy,Delhi,Female,Master's,12.8,86.8,No,52,46,No
+S10759,2023-07-06,Greenfield High,Bengaluru,Male,Master's,9.3,91.4,No,81,81,Yes
+S10760,2025-04-28,Hillcrest Academy,Delhi,Female,Master's,11.3,96.4,Yes,49,38,No
+S10761,2024-09-11,Riverside Public,Pune,Male,Master's,9.8,84.7,Yes,84,85,Yes
+S10762,2025-02-05,Hillcrest Academy,Jaipur,Male,Master's,13.9,92.5,Yes,54,52,No
+S10763,2025-03-20,Riverside Public,Bombay,Female,Bachelor's,4.1,93.7,No,56,62,No
+S10764,21-01-2024,Greenfield High,Bengaluru,Male,High school,5.6,84.4,No,57,40,No
+S10765,2024-02-08,Hillcrest Academy,Jaipur,Male,Bachelor's,10.4,95.6,Yes,57,66,Yes
+S10766,2024-01-19,Greenfield High,Bengaluru,Male,High school,11.9,76.3,No,65,65,Yes
+S10767,2025-07-21,Hillcrest Academy,delhi,Male,Bachelor's,9.7,95.5,Yes,70,76,Yes
+S10768,2023-08-27,Hillcrest Academy,Jaipur,Female,High school,7.1,100.0,Yes,70,80,Yes
+S10769,20-11-2024,Greenfield High,Bengaluru ,Male,High school,7.5,89.4,No,79,77,Yes
+S10770,03-03-2025,Riverside Public,Mumbai,Male,High school,9.7,98.4,No,76,77,Yes
+S10771,2024-12-16,Greenfield High,Bengaluru,Female,Bachelor's,8.2,88.5,No,68,74,Yes
+S10772,16-11-2024,Greenfield High,Mysuru,Female,Master's,11.9,100.0,No,68,71,Yes
+S10773,2023-06-11,Greenfield High,Bangalore,Female,Bachelor's,9.0,77.8,No,72,79,Yes
+S10774,2024-07-05,Riverside Public,Mumbai,Male,PhD,9.6,83.1,Yes,78,79,Yes
+S10775,2023-07-18,Hillcrest Academy,Delhi,Male,Bachelor's,9.8,97.1,No,45,35,No
+S10776,2023-07-30,Hillcrest Academy,New Delhi,Female,Bachelor's,12.4,84.4,No,66,71,Yes
+S10777,2024-06-21,Greenfield High,Mysuru,Female,High school,8.6,95.4,No,91,94,Yes
+S10778,21-12-2023,Hillcrest Academy,Delhi,Female,High school,4.5,85.4,No,36,28,No
+S10779,2023-06-20,Hillcrest Academy,Jaipur,Female,Bachelor's,11.4,,Yes,61,65,Yes
+S10780,05-06-2024,Riverside Public,Pune,Male,Master's,2.6,86.4,Yes,74,87,Yes
+S10781,21-05-2025,Hillcrest Academy,Jaipur,Female,Master's,8.1,85.4,No,44,39,No
+S10782,01-03-2024,Riverside Public,Pune,Female,Bachelor's,11.2,90.6,No,79,88,Yes
+S10783,2025-02-24,Riverside Public,Pune,Female,Bachelor's,15.0,78.2,Yes,70,66,Yes
+S10784,2025-04-07,Greenfield High,Mysuru,Female,Master's,3.9,92.6,No,66,70,Yes
+S10785,2024-03-27,Riverside Public,Mumbai,Male,Bachelor's,10.0,90.0,No,63,80,Yes
+S10786,2024-08-26,Riverside Public,mumbai,Male,Bachelor's,4.7,87.0,No,71,81,Yes
+S10787,01-04-2025,Hillcrest Academy,Delhi,Male,High school,13.2,93.9,Yes,61,70,Yes
+S10788,2025-07-27,Greenfield High,Bengaluru,Female,High school,10.6,88.0,Yes,95,100,Yes
+S10789,2024-08-04,Hillcrest Academy,Jaipur,Male,Master's,7.0,88.2,Yes,70,72,Yes
+S10790,20-07-2023,Riverside Public,Pune,Female,Bachelor's,8.2,89.9,No,60,61,Yes
+S10791,2024-07-15,Greenfield High,Mysuru,Male,High school,14.1,87.8,No,78,86,Yes
+S10792,2024-11-17,Hillcrest Academy,Delhi,Female,Bachelor's,6.0,80.4,Yes,62,73,Yes
+S10793,2024-07-16,Hillcrest Academy,Jaipur,Female,PhD,9.2,94.3,Yes,55,60,No
+S10794,14-11-2023,Hillcrest Academy,Delhi,Male,Bachelor's,10.5,86.6,Yes,63,59,Yes
+S10795,2023-11-21,Greenfield High,Mysuru,Male,Bachelor's,6.9,,No,77,80,Yes
+S10796,15-05-2024,Riverside Public,Pune,Male,Master's,9.5,86.8,No,57,50,No
+S10797,2023-12-02,Riverside Public,Pune,Female,Bachelor's,17.8,80.7,No,78,89,Yes
+S10798,01-06-2025,Greenfield High,Mysuru,Male,High school,5.9,85.4,No,63,81,Yes
+S10799,2025-03-25,Hillcrest Academy,Delhi,Female,Master's,10.0,88.4,No,51,53,No
+S10800,2023-12-26,Greenfield High,Bengaluru,Female,High school,11.7,78.5,No,76,77,Yes
+S10801,2024-04-15,Hillcrest Academy,Jaipur,Female,Master's,9.8,91.9,Yes,52,48,No
+S10802,2023-08-11,Greenfield High,Mysuru,Male,Bachelor's,6.9,90.8,No,63,75,Yes
+S10803,2023-11-30,Riverside Public,Pune,Male,High school,2.4,87.1,No,54,56,No
+S10804,2023-12-06,Riverside Public,Mumbai,Male,Bachelor's,16.3,94.1,No,84,80,Yes
+S10805,2024-07-10,Greenfield High,Bengaluru,Male,Bachelor's,9.7,84.2,No,61,70,Yes
+S10806,2024-09-27,Riverside Public,Pune,Female,Master's,10.4,87.9,No,73,78,Yes
+S10807,2024-03-05,Greenfield High,Mysuru,Female,Bachelor's,7.1,85.5,No,71,66,Yes
+S10808,05-11-2024,Greenfield High,Bengaluru,Male,High school,12.2,,No,78,70,Yes
+S10809,09-11-2023,Greenfield High,Mysuru,Male,Master's,12.5,93.9,No,87,93,Yes
+S10810,2024-02-03,Greenfield High,Bengaluru,Female,Bachelor's,10.3,88.9,No,85,82,Yes
+S10811,2024-03-19,Greenfield High,Mysuru,Female,High school,5.0,93.3,No,72,72,Yes
+S10812,2023-07-16,Greenfield High,bengaluru,Non-binary,High school,9.6,80.1,No,88,86,Yes
+S10813,28-05-2024,Greenfield High,Mysuru,Male,High school,6.3,98.4,No,67,66,Yes
+S10814,22-01-2025,Riverside Public,Pune,Male,High school,8.6,77.2,No,79,85,Yes
+S10815,2024-05-08,Greenfield High,Bengaluru,Female,High school,11.6,83.2,No,90,100,Yes
+S10816,2024-02-04,Riverside Public,Pune,Male,Bachelor's,9.3,,No,76,86,Yes
+S10817,2024-04-30,Hillcrest Academy,Jaipur,Female,Bachelor's,11.9,90.0,Yes,56,65,Yes
+S10818,2025-04-20,Hillcrest Academy,Jaipur,Female,Bachelor's,6.1,82.4,Yes,50,51,No
+S10819,14-07-2025,Riverside Public,Mumbai,Male,Master's,10.4,,No,84,81,Yes
+S10820,2025-05-20,Greenfield High,Bengaluru ,Male,High school,10.0,83.0,No,75,83,Yes
+S10821,2025-04-18,Hillcrest Academy,Delhi,Female,Master's,10.3,,No,51,61,No
+S10822,2023-08-08,Riverside Public,Pune,Male,PhD,7.6,79.6,Yes,64,53,No
+S10823,2023-09-18,Riverside Public,Mumbai,Male,Bachelor's,10.2,100.0,No,74,71,Yes
+S10824,03-05-2025,Hillcrest Academy,delhi,Male,Master's,13.4,83.2,Yes,51,68,No
+S10825,2025-05-02,Riverside Public,Pune,Male,Bachelor's,5.3,89.8,Yes,87,91,Yes
+S10826,24-04-2025,Hillcrest Academy,Jaipur,Male,Bachelor's,5.9,98.0,Yes,69,76,Yes
+S10827,2024-07-29,Hillcrest Academy,Delhi,Male,Bachelor's,14.2,94.8,Yes,48,46,No
+S10828,2023-08-17,Riverside Public,Bombay,Female,High school,12.6,88.0,Yes,71,80,Yes
+S10829,2024-04-26,Greenfield High,Bengaluru,Female,PhD,9.2,84.1,No,78,83,Yes
+S10830,2023-11-26,Hillcrest Academy,Delhi,Non-binary,Bachelor's,14.2,92.3,Yes,57,59,No
+S10831,16-02-2025,Hillcrest Academy,Delhi,Male,Bachelor's,14.2,81.6,Yes,57,54,No
+S10832,2023-06-12,Riverside Public,Pune,Male,Master's,5.2,85.7,Yes,58,53,No
+S10833,2025-01-05,Greenfield High,Mysuru,Female,High school,7.7,88.4,No,80,91,Yes
+S10834,2024-01-26,Greenfield High,Bengaluru,Non-binary,Bachelor's,15.2,71.9,Yes,98,91,Yes
+S10835,2024-04-10,Greenfield High,bengaluru,Male,Bachelor's,10.9,100.0,No,76,73,Yes
+S10836,2023-08-18,Riverside Public,mumbai,Female,High school,11.0,,No,70,76,Yes
+S10837,2024-02-13,Greenfield High,Mysuru,Female,High school,8.3,86.3,No,61,65,Yes
+S10838,2024-01-12,Riverside Public,Mumbai,Male,Master's,10.3,100.0,Yes,77,84,Yes
+S10839,2025-07-06,Riverside Public,Mumbai,Female,Bachelor's,4.8,91.8,No,56,58,No
+S10840,2025-04-08,Hillcrest Academy,Delhi,Male,Bachelor's,10.1,95.2,Yes,58,55,No
+S10841,2023-06-01,Hillcrest Academy,Jaipur,Male,High school,8.4,88.8,Yes,70,87,Yes
+S10842,2023-06-30,Hillcrest Academy,Delhi,Male,Bachelor's,10.8,87.2,No,56,47,No
+S10843,2025-04-30,Greenfield High,Bengaluru,Female,High school,8.7,91.7,No,66,71,Yes
+S10844,2024-09-22,Riverside Public,Pune,Male,Bachelor's,7.2,89.0,No,54,47,No
+S10845,2024-08-14,Greenfield High,Bengaluru,Male,Bachelor's,12.6,95.8,No,88,94,Yes
+S10846,2024-01-15,Greenfield High,Bengaluru,Male,Bachelor's,12.6,79.8,No,99,100,Yes
+S10847,2024-06-14,Greenfield High,Mysuru,Female,Bachelor's,10.4,,No,97,100,Yes
+S10848,2024-07-11,Hillcrest Academy,Delhi,Female,PhD,8.6,85.5,Yes,67,70,Yes
+S10849,2023-11-23,Hillcrest Academy,Delhi,Female,High school,8.4,93.8,Yes,66,76,Yes
+S10850,2024-05-17,Greenfield High,Bengaluru,Male,Bachelor's,14.0,93.9,Yes,93,89,Yes
+S10851,2024-03-18,Hillcrest Academy,Delhi,Male,High school,5.6,86.5,Yes,61,75,Yes
+S10852,2024-07-19,Hillcrest Academy,Jaipur,Female,High school,13.0,100.0,Yes,52,52,No
+S10853,10-06-2025,Greenfield High,Bengaluru,Male,Bachelor's,8.1,81.0,No,78,96,Yes
+S10854,12-06-2023,Greenfield High,bengaluru,Female,Master's,6.7,79.1,No,92,85,Yes
+S10855,2025-05-08,Greenfield High,Bengaluru,Male,Master's,7.5,86.4,No,61,62,Yes
+S10856,2023-09-24,Greenfield High,Mysuru,Male,Bachelor's,12.4,89.0,No,83,87,Yes
+S10857,2023-09-16,Greenfield High,Mysuru,Male,Master's,17.6,93.0,Yes,91,94,Yes
+S10858,2023-08-22,Riverside Public,Pune,Male,Bachelor's,9.6,95.6,No,74,72,Yes
+S10859,2024-10-29,Hillcrest Academy,Jaipur,Female,High school,10.8,95.1,Yes,52,47,No
+S10860,2024-10-14,Riverside Public,Pune,Male,High school,14.0,94.5,No,74,78,Yes
+S10861,2024-07-15,Hillcrest Academy,Jaipur,Male,Bachelor's,14.5,79.6,No,56,44,No
+S10862,2025-03-13,Greenfield High,Mysuru,Female,Master's,2.6,90.1,No,86,99,Yes
+S10863,2023-06-17,Riverside Public,Mumbai,Male,Master's,12.0,80.1,No,60,60,Yes
+S10864,2023-08-14,Riverside Public,Mumbai,Male,Bachelor's,7.3,95.7,No,45,41,No
+S10865,2024-05-05,Hillcrest Academy,Delhi,Male,Bachelor's,13.8,67.3,Yes,75,80,Yes
+S10866,11-04-2025,Riverside Public,Mumbai,Female,High school,4.2,92.7,No,76,89,Yes
+S10867,28-07-2024,Riverside Public,Mumbai,Female,Bachelor's,12.5,96.8,Yes,68,59,Yes
+S10868,2023-08-01,Hillcrest Academy,Jaipur,Female,Master's,10.0,82.1,Yes,62,64,Yes
+S10869,2025-05-31,Riverside Public,Mumbai,Male,Bachelor's,9.4,74.4,No,89,85,Yes
+S10870,05-07-2025,Hillcrest Academy,Delhi,Female,Master's,7.9,73.0,Yes,45,51,No
+S10871,2025-05-16,Greenfield High,Mysuru,Female,High school,6.0,,No,77,90,Yes
+S10872,2024-06-11,Hillcrest Academy,Delhi,Male,Bachelor's,12.4,86.4,Yes,78,73,Yes
+S10873,09-04-2024,Hillcrest Academy,Jaipur,Male,High school,13.1,76.2,Yes,59,45,No
+S10874,2023-09-27,Greenfield High,Mysuru,Male,High school,10.7,,No,82,70,Yes
+S10875,2024-05-04,Hillcrest Academy,New Delhi,Female,Master's,3.5,80.9,Yes,66,67,Yes
+S10876,2025-03-07,Riverside Public,Pune,Male,Bachelor's,2.5,99.0,No,55,54,No
+S10877,2024-03-23,Greenfield High,bengaluru,Female,High school,8.9,74.4,No,55,58,No
+S10878,09-08-2024,Greenfield High,Bengaluru,Female,Bachelor's,12.0,78.4,No,83,98,Yes
+S10879,2024-04-13,Hillcrest Academy,Jaipur,Male,High school,17.7,94.6,Yes,55,65,Yes
+S10880,16-11-2023,Greenfield High,Bengaluru,Female,Bachelor's,12.2,92.5,No,75,75,Yes
+S10881,2025-07-04,Riverside Public,Mumbai,Male,Bachelor's,11.4,84.4,Yes,89,93,Yes
+S10882,2025-03-22,Riverside Public,Pune,Male,High school,12.4,100.0,No,62,69,Yes
+S10883,2023-06-27,Greenfield High,Mysuru,Male,High school,8.3,90.6,No,73,70,Yes
+S10884,2025-03-13,Riverside Public,Pune,Female,Bachelor's,7.6,,Yes,68,85,Yes
+S10885,2025-04-30,Riverside Public,Mumbai,Female,High school,11.6,93.8,No,65,70,Yes
+S10886,2025-02-27,Hillcrest Academy,Delhi,Male,Master's,9.1,100.0,Yes,61,60,Yes
+S10887,2024-07-16,Greenfield High,Mysuru,Male,High school,4.9,99.4,No,68,72,Yes
+S10888,2025-04-03,Greenfield High,Bengaluru,Male,Bachelor's,10.7,84.3,No,84,91,Yes
+S10889,2024-03-31,Riverside Public,Mumbai,Female,Master's,11.7,85.1,Yes,80,84,Yes
+S10890,2023-09-18,Hillcrest Academy,Jaipur,Male,High school,10.4,74.5,Yes,69,70,Yes
+S10891,2024-11-17,Greenfield High,Bengaluru,Male,High school,6.2,93.2,No,66,63,Yes
+S10892,12-03-2024,Greenfield High,Mysuru,Female,Bachelor's,8.9,83.2,No,83,83,Yes
+S10893,16-01-2024,Greenfield High,Bengaluru,Male,Bachelor's,5.6,95.6,No,81,75,Yes
+S10894,2025-01-03,Riverside Public,Bombay,Male,High school,16.9,78.2,No,64,69,Yes
+S10895,2023-08-21,Riverside Public,Pune,Female,Bachelor's,6.5,84.5,Yes,61,58,No
+S10896,24-06-2024,Greenfield High,Mysuru,Female,High school,10.4,97.2,No,88,90,Yes
+S10897,2024-10-11,Hillcrest Academy,Jaipur,Female,Bachelor's,12.9,85.5,No,56,67,Yes
+S10898,2023-08-03,Hillcrest Academy,Delhi,Male,PhD,9.0,75.6,No,48,48,No
+S10899,2025-01-22,Hillcrest Academy,Jaipur,Male,Bachelor's,11.4,85.7,Yes,65,54,No
+S10900,2023-08-09,Riverside Public,Mumbai,Male,Bachelor's,5.4,91.9,No,69,61,Yes
+S10901,10-06-2025,Riverside Public,Bombay,Female,Bachelor's,9.0,97.1,No,74,89,Yes
+S10902,2025-02-01,Hillcrest Academy,Delhi,Male,Bachelor's,11.2,89.7,Yes,64,60,Yes
+S10903,2024-01-11,Hillcrest Academy,Jaipur,Male,High school,11.5,93.2,Yes,49,51,No
+S10904,2024-10-07,Greenfield High,Bengaluru,Female,Bachelor's,9.6,87.0,Yes,82,94,Yes
+S10905,2025-05-15,Riverside Public,Pune,Female,Master's,10.6,86.7,No,59,64,Yes
+S10906,25-08-2023,Riverside Public,Pune,Male,High school,9.3,87.6,No,58,56,No
+S10907,2023-07-02,Hillcrest Academy,Jaipur,Male,Bachelor's,8.2,91.9,Yes,55,62,No
+S10908,08-07-2025,Hillcrest Academy,Jaipur,Female,Master's,13.9,94.1,No,42,44,No
+S10909,2023-08-06,Greenfield High,bengaluru,Male,PhD,12.7,87.1,No,80,74,Yes
+S10910,2024-03-15,Hillcrest Academy,Jaipur,Male,Bachelor's,11.9,77.1,Yes,70,78,Yes
+S10911,2024-07-14,Greenfield High,Mysuru,Male,High school,7.4,96.6,No,78,90,Yes
+S10912,2024-11-21,Greenfield High,Bengaluru,Male,Master's,4.1,91.9,No,92,92,Yes
+S10913,2024-10-03,Greenfield High,bengaluru,Male,Bachelor's,9.7,95.6,No,81,81,Yes
+S10914,2025-07-24,Riverside Public,Pune,Female,Master's,15.0,90.4,Yes,69,71,Yes
+S10915,19-12-2024,Riverside Public,Pune,Male,Bachelor's,13.6,78.0,Yes,58,57,No
+S10916,2023-10-02,Hillcrest Academy,Delhi,Female,Master's,5.3,87.7,Yes,69,61,Yes
+S10917,2023-06-16,Hillcrest Academy,Jaipur,Female,High school,9.0,90.1,No,55,66,Yes
+S10918,2023-07-03,Riverside Public,Mumbai,Female,High school,6.9,91.6,No,68,80,Yes
+S10919,2025-01-02,Hillcrest Academy,Jaipur,Female,High school,8.8,84.9,No,49,60,No
+S10920,02-09-2023,Greenfield High,Bengaluru ,Male,High school,8.9,91.2,No,58,57,No
+S10921,2024-08-22,Riverside Public,Mumbai,Female,High school,9.9,88.8,Yes,63,76,Yes
+S10922,2024-10-25,Greenfield High,Mysuru,Non-binary,PhD,11.9,100.0,No,89,99,Yes
+S10923,04-07-2023,Greenfield High,Mysuru,Female,Bachelor's,12.7,76.9,Yes,74,85,Yes
+S10924,2024-07-09,Hillcrest Academy,Delhi,Male,High school,13.4,93.1,Yes,59,67,Yes
+S10925,2025-04-05,Greenfield High,Bengaluru,Female,Bachelor's,7.6,90.6,No,68,65,Yes
+S10926,2024-09-07,Greenfield High,Bengaluru,Female,Bachelor's,7.7,87.3,No,91,98,Yes
+S10927,2024-04-23,Greenfield High,Mysuru,Female,Bachelor's,15.9,83.8,Yes,86,97,Yes
+S10928,2023-08-23,Greenfield High,Bengaluru,Female,PhD,7.3,78.4,No,72,62,Yes
+S10929,2024-05-30,Riverside Public,Mumbai,Male,High school,12.5,90.9,No,81,96,Yes
+S10930,2023-09-22,Riverside Public,Mumbai,Male,High school,9.5,89.7,No,62,74,Yes
+S10931,11-09-2023,Riverside Public,Pune,Female,Master's,9.4,96.4,No,69,75,Yes
+S10932,2024-05-29,Hillcrest Academy,Delhi,Male,Bachelor's,8.9,,Yes,68,67,Yes
+S10933,2025-06-10,Riverside Public,Bombay,Female,Bachelor's,10.9,82.1,No,71,85,Yes
+S10934,06-07-2023,Greenfield High,Mysuru,Female,Master's,3.1,92.5,No,73,87,Yes
+S10935,2025-05-07,Riverside Public,Bombay,Male,Master's,5.9,94.9,No,65,84,Yes
+S10936,2024-08-21,Riverside Public,Mumbai,Male,High school,13.7,93.9,Yes,99,100,Yes
+S10937,2024-09-06,Greenfield High,Bengaluru ,Female,Master's,10.8,100.0,No,69,58,Yes
+S10938,2024-06-04,Greenfield High,Mysuru,Male,High school,9.8,95.1,No,71,93,Yes
+S10939,2024-07-16,Greenfield High,Bengaluru ,Male,Master's,9.1,88.2,No,62,55,No
+S10940,2023-08-01,Greenfield High,Mysuru,Male,PhD,11.9,97.1,Yes,87,95,Yes
+S10941,2025-05-22,Riverside Public,Mumbai,Female,Master's,8.8,94.2,Yes,74,75,Yes
+S10942,06-07-2024,Riverside Public,Pune,Female,Master's,14.2,89.9,Yes,80,86,Yes
+S10943,2023-07-24,Hillcrest Academy,Jaipur,Male,Master's,9.8,98.1,Yes,62,63,Yes
+S10944,2024-12-24,Greenfield High,Mysuru,Female,High school,7.9,93.0,No,83,92,Yes
+S10945,12-01-2025,Riverside Public,Mumbai,Male,High school,16.3,85.7,Yes,80,82,Yes
+S10946,2025-04-30,Riverside Public,Pune,Male,High school,4.1,90.9,No,64,64,Yes
+S10947,2024-02-17,Riverside Public,Pune,Female,High school,13.2,88.8,Yes,66,65,Yes
+S10948,2024-08-11,Greenfield High,Bangalore,Female,High school,9.9,91.4,No,69,72,Yes
+S10949,2023-12-09,Greenfield High,Mysuru,Female,High school,8.4,,No,81,81,Yes
+S10950,2024-01-19,Hillcrest Academy,Jaipur,Male,High school,15.3,79.8,Yes,65,72,Yes
+S10951,2024-12-04,Greenfield High,Bengaluru,Male,PhD,11.7,91.2,No,84,84,Yes
+S10952,20-04-2024,Greenfield High,Mysuru,Female,High school,5.9,83.5,No,85,89,Yes
+S10953,2024-06-09,Riverside Public,Pune,Male,High school,4.7,83.2,No,59,57,No
+S10954,20-11-2024,Riverside Public,Pune,Female,Bachelor's,11.2,76.5,Yes,56,59,No
+S10955,2025-02-13,Hillcrest Academy,Jaipur,Male,Master's,11.5,84.7,Yes,71,69,Yes
+S10956,2025-04-22,Greenfield High,Mysuru,Male,High school,9.5,91.5,No,71,86,Yes
+S10957,2025-06-07,Riverside Public,Mumbai,Female,Bachelor's,6.8,82.7,No,65,81,Yes
+S10958,2023-09-04,Greenfield High,Bengaluru,Male,High school,9.6,89.2,No,81,74,Yes
+S10959,2024-04-16,Hillcrest Academy,Jaipur,Male,Bachelor's,8.1,94.1,Yes,49,52,No
+S10960,2025-02-08,Hillcrest Academy,Jaipur,Female,High school,10.6,86.9,Yes,59,61,Yes
+S10961,2023-08-06,Greenfield High,Bengaluru,Male,High school,11.0,86.9,No,64,66,Yes
+S10962,2024-11-26,Greenfield High,Bengaluru,Male,High school,12.7,88.2,No,79,79,Yes
+S10963,2024-05-25,Hillcrest Academy,Jaipur,Male,Bachelor's,14.5,,Yes,64,62,Yes
+S10964,2023-12-07,Greenfield High,Mysuru,Female,Bachelor's,2.7,86.1,No,97,100,Yes
+S10965,2024-10-15,Riverside Public,Pune,Male,Bachelor's,7.9,,No,61,74,Yes
+S10966,2024-11-30,Riverside Public,Pune,Male,PhD,15.4,,Yes,95,100,Yes
+S10967,2024-09-04,Greenfield High,Bengaluru,Male,High school,5.6,85.9,No,81,82,Yes
+S10968,2023-09-24,Riverside Public,Pune,Male,High school,9.7,79.0,No,62,72,Yes
+S10969,2024-09-24,Greenfield High,Mysuru,Female,High school,12.9,78.3,Yes,91,88,Yes
+S10970,2024-10-21,Greenfield High,Mysuru,Male,High school,5.4,99.9,No,66,83,Yes
+S10971,10-06-2025,Riverside Public,Pune,Female,High school,13.7,75.9,Yes,73,74,Yes
+S10972,2024-03-02,Greenfield High,Mysuru,Male,Bachelor's,5.7,88.0,No,61,64,Yes
+S10973,13-03-2025,Greenfield High,Mysuru,Male,High school,5.7,97.0,No,84,89,Yes
+S10974,2024-11-02,Greenfield High,Bengaluru,Male,Bachelor's,12.5,89.7,No,77,76,Yes
+S10975,2024-05-11,Greenfield High,Bangalore,Male,Bachelor's,8.9,92.1,Yes,94,99,Yes
+S10976,20-10-2024,Hillcrest Academy,Delhi,Female,High school,15.4,83.4,Yes,56,63,No
+S10977,2023-08-29,Riverside Public,Mumbai,Male,High school,5.4,84.0,No,64,61,Yes
+S10978,2024-08-26,Riverside Public,Pune,Female,Bachelor's,12.4,84.9,Yes,67,67,Yes
+S10979,20-07-2025,Greenfield High,Mysuru,Male,Bachelor's,6.4,81.0,No,70,79,Yes
+S10980,2024-03-04,Hillcrest Academy,Jaipur,Male,Master's,13.4,97.2,Yes,47,48,No
+S10981,2024-07-17,Riverside Public,Mumbai,Male,Bachelor's,6.9,100.0,No,70,67,Yes
+S10982,2024-10-24,Riverside Public,Mumbai,Female,Bachelor's,4.6,85.8,Yes,74,69,Yes
+S10983,2024-02-16,Riverside Public,Mumbai,Female,Bachelor's,6.9,,No,59,60,No
+S10984,06-09-2023,Greenfield High,Bengaluru,Male,Bachelor's,11.9,91.5,No,80,74,Yes
+S10985,2025-02-28,Hillcrest Academy,Delhi,Female,Master's,7.6,87.6,Yes,47,41,No
+S10986,17-11-2024,Hillcrest Academy,Jaipur,Male,High school,11.7,,No,60,66,Yes
+S10987,27-07-2023,Greenfield High,Mysuru,Male,Bachelor's,7.7,,No,79,71,Yes
+S10988,2025-05-16,Hillcrest Academy,Delhi,Male,Bachelor's,9.4,92.5,No,72,70,Yes
+S10989,2024-12-17,Greenfield High,Bengaluru,Female,Bachelor's,9.5,82.1,No,90,98,Yes
+S10990,2025-07-13,Hillcrest Academy,Delhi,Female,High school,12.2,89.6,No,65,67,Yes
+S10991,2023-08-03,Hillcrest Academy,New Delhi,Female,High school,10.4,78.0,Yes,56,67,Yes
+S10992,2024-10-01,Riverside Public,mumbai,Female,High school,11.6,85.1,Yes,75,87,Yes
+S10993,08-05-2025,Hillcrest Academy,Jaipur,Male,Bachelor's,13.2,87.3,Yes,57,74,Yes
+S10994,2025-02-26,Greenfield High,Mysuru,Male,High school,10.4,100.0,No,79,77,Yes
+S10995,2025-02-06,Riverside Public,Pune,Female,Bachelor's,8.1,79.9,No,64,75,Yes
+S10996,2023-08-16,Hillcrest Academy,Delhi,Female,High school,4.1,83.3,No,57,77,Yes
+S10997,2025-03-09,Riverside Public,Mumbai,Female,Bachelor's,9.8,86.2,Yes,67,75,Yes
+S10998,2025-02-12,Riverside Public,Mumbai,Female,High school,13.9,91.3,Yes,80,80,Yes
+S10999,08-10-2023,Greenfield High,Bengaluru,Female,Master's,4.0,86.5,No,66,71,Yes
+S11000,30-10-2023,Riverside Public,Pune,Female,High school,8.4,82.9,Yes,73,63,Yes
+S11001,29-11-2023,Greenfield High,Mysuru,Male,Master's,8.5,90.2,No,77,81,Yes
+S11002,2023-06-15,Riverside Public,Pune,Male,Bachelor's,11.0,,Yes,84,90,Yes
+S11003,2024-01-10,Greenfield High,Mysuru,Male,Master's,10.5,79.7,No,89,98,Yes
+S11004,2023-11-05,Riverside Public,Pune,Female,Bachelor's,15.0,86.0,Yes,66,71,Yes
+S11005,20-07-2024,Greenfield High,Bengaluru,Male,Bachelor's,4.6,81.6,No,82,94,Yes
+S11006,2025-06-26,Riverside Public,Pune,Male,PhD,8.8,84.1,No,60,64,Yes
+S11007,2025-04-26,Hillcrest Academy,Delhi,Male,Bachelor's,6.9,,Yes,49,63,No
+S11008,2023-12-12,Riverside Public,Pune,Female,High school,12.3,84.4,No,62,67,Yes
+S11009,2023-09-12,Greenfield High,Bengaluru,Female,Bachelor's,9.7,91.0,No,82,78,Yes
+S11010,2023-09-26,Hillcrest Academy,Delhi,Male,High school,11.1,94.5,Yes,64,57,Yes
+S11011,07-02-2025,Greenfield High,Bengaluru,Male,High school,8.8,92.4,Yes,89,99,Yes
+S11012,2023-08-13,Greenfield High,Mysuru,Female,Master's,11.3,92.3,Yes,74,71,Yes
+S11013,2025-02-16,Hillcrest Academy,Jaipur,Male,Bachelor's,13.6,85.9,Yes,60,60,Yes
+S11014,2025-03-15,Hillcrest Academy,Jaipur,Female,Master's,10.2,88.7,Yes,72,79,Yes
+S11015,2025-06-16,Hillcrest Academy,Jaipur,Female,Bachelor's,10.2,95.4,No,57,53,No
+S11016,2025-07-10,Greenfield High,Bengaluru,Female,High school,12.5,79.1,No,76,77,Yes
+S11017,2024-10-19,Hillcrest Academy,Delhi,Female,High school,13.5,96.1,Yes,58,54,No
+S11018,2024-06-17,Hillcrest Academy,Delhi,Male,Bachelor's,11.4,85.8,Yes,77,83,Yes
+S11019,2024-10-22,Greenfield High,Mysuru,Female,Master's,8.9,82.3,No,75,81,Yes
+S11020,2023-08-14,Greenfield High,Mysuru,Male,Master's,5.7,100.0,Yes,85,84,Yes
+S11021,2025-06-12,Hillcrest Academy,Jaipur,Male,Bachelor's,7.5,100.0,Yes,49,53,No
+S11022,2025-01-21,Riverside Public,Pune,Male,High school,5.6,81.2,Yes,68,76,Yes
+S11023,2025-02-06,Riverside Public,Pune,Female,Bachelor's,9.1,91.2,Yes,66,73,Yes
+S11024,2024-09-04,Riverside Public,Pune,Male,Bachelor's,4.3,82.4,No,51,45,No
+S11025,2025-05-22,Riverside Public,Pune,Female,High school,9.1,85.4,Yes,82,92,Yes
+S11026,2024-05-20,Greenfield High,Mysuru,Non-binary,Master's,10.1,77.3,No,61,76,Yes
+S11027,2025-01-21,Greenfield High,bengaluru,Male,Bachelor's,8.3,71.3,No,64,66,Yes
+S11028,2024-05-11,Greenfield High,Bengaluru,Female,Master's,11.3,89.6,No,77,81,Yes
+S11029,2023-12-26,Riverside Public,mumbai,Male,Master's,9.2,92.8,Yes,74,61,Yes
+S11030,2024-08-01,Greenfield High,Mysuru,Female,High school,4.0,83.8,No,78,87,Yes
+S11031,16-05-2024,Hillcrest Academy,Jaipur,Male,High school,9.6,88.2,Yes,73,72,Yes
+S11032,2024-07-14,Riverside Public,Mumbai,Female,Bachelor's,9.9,86.6,No,82,91,Yes
+S11033,10-10-2023,Riverside Public,Pune,Female,PhD,8.1,100.0,No,79,79,Yes
+S11034,2025-01-05,Hillcrest Academy,Delhi,Female,Bachelor's,10.9,82.5,Yes,64,73,Yes
+S11035,2023-06-25,Greenfield High,Mysuru,Male,Master's,12.2,94.8,No,64,69,Yes
+S11036,2025-05-12,Hillcrest Academy,Jaipur,Male,Bachelor's,8.1,100.0,No,42,31,No
+S11037,2023-06-24,Greenfield High,Mysuru,Male,Master's,9.4,76.7,No,87,93,Yes
+S11038,2024-07-09,Hillcrest Academy,New Delhi,Male,Bachelor's,11.6,74.8,Yes,75,76,Yes
+S11039,2024-07-31,Hillcrest Academy,Jaipur,Female,High school,8.2,95.5,Yes,55,49,No
+S11040,2025-02-22,Hillcrest Academy,Jaipur,Female,Master's,7.0,86.6,No,48,40,No
+S11041,2023-06-11,Greenfield High,Mysuru,Non-binary,High school,12.8,82.4,No,87,93,Yes
+S11042,2023-12-13,Hillcrest Academy,Jaipur,Male,Master's,7.8,92.0,Yes,65,66,Yes
+S11043,2025-03-05,Riverside Public,Bombay,Female,Master's,8.5,89.2,Yes,68,69,Yes
+S11044,2023-06-23,Hillcrest Academy,Delhi,Male,PhD,9.9,,Yes,72,62,Yes
+S11045,2024-07-19,Riverside Public,Pune,Male,Master's,6.5,77.7,No,57,60,No
+S11046,2024-07-19,Riverside Public,mumbai,Male,High school,11.0,96.4,No,60,55,No
+S11047,2024-01-04,Riverside Public,Mumbai,Male,High school,14.9,93.5,No,81,77,Yes
+S11048,2024-09-03,Hillcrest Academy,Jaipur,Male,High school,11.4,85.9,Yes,66,63,Yes
+S11049,22-02-2025,Riverside Public,Pune,Male,Master's,7.1,82.9,No,52,52,No
+S11050,2024-06-24,Greenfield High,Mysuru,Female,High school,16.6,78.2,No,89,92,Yes
+S11051,2024-09-05,Greenfield High,Bengaluru,Male,High school,5.8,83.6,Yes,84,95,Yes
+S11052,25-11-2023,Riverside Public,Mumbai,Male,High school,8.5,88.3,No,79,87,Yes
+S11053,2024-04-27,Greenfield High,Mysuru,Male,High school,14.2,73.1,No,82,82,Yes
+S11054,2024-02-16,Hillcrest Academy,Delhi,Female,Master's,10.0,95.6,Yes,79,80,Yes
+S11055,2024-04-06,Greenfield High,Mysuru,Male,Bachelor's,7.2,85.0,Yes,78,80,Yes
+S11056,2024-02-04,Greenfield High,Mysuru,Male,Bachelor's,10.4,83.1,No,73,91,Yes
+S11057,12-04-2025,Greenfield High,Bengaluru ,Female,Bachelor's,10.1,,No,71,75,Yes
+S11058,2025-05-24,Hillcrest Academy,Jaipur,Male,Bachelor's,15.9,84.5,Yes,74,86,Yes
+S11059,2024-07-17,Riverside Public,Pune,Male,High school,10.4,90.7,No,69,82,Yes
+S11060,2025-01-18,Hillcrest Academy,delhi,Male,Bachelor's,12.6,97.1,Yes,57,56,No
+S11061,14-01-2024,Riverside Public,Mumbai,Male,Bachelor's,7.4,,Yes,60,64,Yes
+S11062,2024-02-28,Hillcrest Academy,Delhi,Female,High school,11.8,100.0,Yes,41,51,No
+S11063,2024-03-24,Hillcrest Academy,Jaipur,Female,Master's,8.3,88.4,Yes,73,81,Yes
+S11064,2025-06-11,Greenfield High,Bengaluru,Male,Bachelor's,11.2,,No,66,78,Yes
+S11065,2023-11-15,Riverside Public,Mumbai,Female,High school,8.3,89.5,Yes,76,94,Yes
+S11066,2025-01-14,Hillcrest Academy,Delhi,Female,Master's,14.3,86.1,Yes,54,60,No
+S11067,18-02-2025,Hillcrest Academy,Jaipur,Female,High school,16.0,97.8,Yes,52,50,No
+S11068,13-06-2025,Hillcrest Academy,Jaipur,Male,High school,7.5,79.2,Yes,55,60,No
+S11069,2025-04-10,Hillcrest Academy,Jaipur,Female,High school,9.3,90.4,Yes,66,72,Yes
+S11070,2024-12-12,Hillcrest Academy,Jaipur,Female,Bachelor's,12.7,76.4,Yes,51,42,No
+S11071,06-02-2024,Greenfield High,Bangalore,Male,High school,8.7,76.7,No,57,54,No
+S11072,2023-08-13,Hillcrest Academy,Delhi,Male,High school,11.7,93.4,Yes,67,66,Yes
+S11073,22-03-2024,Hillcrest Academy,Jaipur,Male,Master's,16.5,95.4,Yes,72,54,Yes
+S11074,2025-03-08,Hillcrest Academy,Jaipur,Male,Master's,8.6,96.1,No,45,53,No
+S11075,2024-02-11,Greenfield High,Mysuru,Female,PhD,9.9,100.0,No,97,100,Yes
+S11076,2023-09-21,Riverside Public,Pune,Male,High school,6.6,98.5,No,75,80,Yes
+S11077,2024-12-04,Greenfield High,Mysuru,Male,Master's,4.8,90.2,No,71,82,Yes
+S11078,2024-10-14,Greenfield High,Mysuru,Male,Master's,9.9,79.9,No,60,67,Yes
+S11079,2024-02-20,Hillcrest Academy,Jaipur,Male,Master's,17.8,82.4,Yes,55,54,No
+S11080,2024-05-01,Greenfield High,Bengaluru,Male,Bachelor's,16.9,79.6,Yes,100,98,Yes
+S11081,01-03-2024,Hillcrest Academy,Jaipur,Male,High school,14.9,82.8,Yes,56,63,No
+S11082,19-01-2025,Greenfield High,Bengaluru,Female,High school,9.6,97.2,No,63,64,Yes
+S11083,2025-07-01,Hillcrest Academy,Jaipur,Female,High school,15.0,91.1,Yes,59,62,Yes
+S11084,2023-08-14,Riverside Public,Pune,Female,High school,8.9,,No,66,68,Yes
+S11085,2024-10-06,Hillcrest Academy,Jaipur,Female,High school,10.1,93.3,Yes,66,76,Yes
+S11086,2024-11-15,Riverside Public,Pune,Male,Bachelor's,12.4,80.2,Yes,86,86,Yes
+S11087,2025-01-27,Greenfield High,Mysuru,Female,Bachelor's,6.4,100.0,No,81,89,Yes
+S11088,2023-08-05,Hillcrest Academy,Jaipur,Female,PhD,5.9,82.2,Yes,74,79,Yes
+S11089,2023-09-16,Hillcrest Academy,Jaipur,Male,High school,9.1,88.3,Yes,70,78,Yes
+S11090,2024-07-05,Riverside Public,Pune,Male,High school,10.3,,No,73,63,Yes
+S11091,19-06-2025,Greenfield High,Mysuru,Male,High school,16.2,97.5,No,80,83,Yes
+S11092,2025-07-20,Hillcrest Academy,Jaipur,Female,Bachelor's,10.8,82.4,Yes,52,51,No
+S11093,2025-01-10,Hillcrest Academy,New Delhi,Male,Bachelor's,11.5,96.4,Yes,64,62,Yes
+S11094,2023-10-27,Riverside Public,Mumbai,Female,Bachelor's,5.7,78.5,No,72,68,Yes
+S11095,23-01-2024,Greenfield High,Mysuru,Male,Bachelor's,9.9,79.7,Yes,83,83,Yes
+S11096,18-02-2025,Riverside Public,Pune,Male,Bachelor's,13.2,79.8,No,68,77,Yes
+S11097,2023-08-14,Riverside Public,Mumbai,Female,High school,4.0,88.2,No,76,70,Yes
+S11098,2025-07-15,Greenfield High,Bengaluru,Female,High school,9.1,78.6,No,84,91,Yes
+S11099,2024-09-13,Riverside Public,Mumbai,Female,Bachelor's,15.4,84.5,Yes,70,71,Yes
+S11100,2024-06-08,Hillcrest Academy,Delhi,Female,High school,15.4,91.0,Yes,51,64,No
+S11101,2023-09-25,Hillcrest Academy,Jaipur,Female,Bachelor's,8.3,88.2,No,41,39,No
+S11102,2024-05-09,Hillcrest Academy,Delhi,Female,High school,13.7,84.3,Yes,52,57,No
+S11103,2024-10-13,Riverside Public,Mumbai,Female,Bachelor's,9.2,92.4,No,67,75,Yes
+S11104,2024-12-28,Hillcrest Academy,Jaipur,Female,Master's,5.9,90.1,Yes,36,33,No
+S11105,2025-03-04,Riverside Public,Pune,Female,High school,12.1,85.7,Yes,69,80,Yes
+S11106,2023-10-19,Greenfield High,Bangalore,Male,High school,5.9,91.7,No,82,96,Yes
+S11107,2025-05-28,Hillcrest Academy,delhi,Female,Bachelor's,13.4,93.9,Yes,66,77,Yes
+S11108,2024-04-01,Hillcrest Academy,Delhi,Female,Bachelor's,11.7,95.9,Yes,53,55,No
+S11109,14-12-2024,Greenfield High,Mysuru,Female,High school,12.8,94.6,Yes,69,74,Yes
+S11110,2023-07-15,Greenfield High,Bengaluru,Female,High school,14.2,92.3,No,89,98,Yes
+S11111,2025-05-29,Riverside Public,Mumbai,Female,High school,6.8,94.2,No,67,75,Yes
+S11112,2023-07-14,Hillcrest Academy,Jaipur,Male,Bachelor's,11.6,100.0,No,61,63,Yes
+S11113,2024-03-17,Greenfield High,Mysuru,Female,High school,9.1,84.1,No,77,85,Yes
+S11114,2023-07-31,Greenfield High,Bengaluru,Male,Bachelor's,9.5,95.8,No,78,84,Yes
+S11115,2023-08-09,Hillcrest Academy,Delhi,Male,Bachelor's,10.4,92.4,Yes,75,84,Yes
+S11116,2025-03-25,Riverside Public,Pune,Male,High school,7.2,100.0,No,53,52,No
+S11117,15-10-2024,Riverside Public,Pune,Female,Bachelor's,14.7,90.2,Yes,83,93,Yes
+S11118,2024-04-22,Greenfield High,Mysuru,Female,Master's,10.5,92.9,No,86,89,Yes
+S11119,2023-08-19,Riverside Public,Pune,Female,High school,7.1,95.5,No,62,79,Yes
+S11120,2024-02-20,Hillcrest Academy,Jaipur,Male,Bachelor's,6.0,96.3,Yes,75,57,Yes
+S11121,2024-02-03,Greenfield High,Mysuru,Male,High school,6.6,89.7,No,73,79,Yes
+S11122,2025-06-23,Hillcrest Academy,Delhi,Female,Master's,10.3,96.1,Yes,66,74,Yes
+S11123,2025-07-03,Hillcrest Academy,Jaipur,Male,Master's,11.7,88.1,No,57,63,Yes
+S11124,2023-12-23,Greenfield High,Bengaluru,Female,Bachelor's,14.0,91.1,Yes,91,100,Yes
+S11125,2024-04-11,Greenfield High,Bengaluru,Male,High school,9.9,91.1,No,82,83,Yes
+S11126,2025-01-04,Greenfield High,Mysuru,Male,High school,12.4,,No,81,85,Yes
+S11127,2024-02-26,Greenfield High,Mysuru,Male,Bachelor's,11.2,83.8,No,64,76,Yes
+S11128,25-07-2023,Greenfield High,Bengaluru,Female,Bachelor's,8.5,70.8,No,80,84,Yes
+S11129,2025-06-25,Hillcrest Academy,Jaipur,Female,Bachelor's,11.2,80.3,No,72,85,Yes
+S11130,2024-07-31,Greenfield High,Bengaluru,Male,Bachelor's,5.3,100.0,No,69,70,Yes
+S11131,2024-06-08,Greenfield High,Bengaluru,Female,High school,6.4,88.8,No,66,68,Yes
+S11132,28-11-2024,Greenfield High,Bengaluru,Female,Bachelor's,11.6,87.8,No,73,89,Yes
+S11133,2023-09-30,Hillcrest Academy,Delhi,Female,Bachelor's,10.2,92.4,Yes,69,91,Yes
+S11134,2023-07-18,Greenfield High,Mysuru,Male,High school,10.7,97.2,No,61,65,Yes
+S11135,20-04-2024,Riverside Public,Mumbai,Female,Bachelor's,11.7,86.1,No,46,34,No
+S11136,2024-10-21,Hillcrest Academy,Jaipur,Female,High school,13.1,74.7,Yes,51,58,No
+S11137,2024-09-09,Riverside Public,Mumbai,Male,Master's,8.8,92.8,Yes,73,79,Yes
+S11138,23-02-2024,Greenfield High,Bengaluru,Male,Bachelor's,11.7,,No,67,77,Yes
+S11139,2024-07-19,Riverside Public,Pune,Female,High school,8.9,92.1,Yes,71,75,Yes
+S11140,24-05-2025,Hillcrest Academy,delhi,Female,High school,11.6,100.0,Yes,67,66,Yes
+S11141,2023-11-20,Greenfield High,Bengaluru,Male,Master's,2.5,93.6,No,73,73,Yes
+S11142,2024-03-26,Hillcrest Academy,Delhi,Female,Bachelor's,11.9,84.9,Yes,59,54,No
+S11143,22-11-2023,Hillcrest Academy,Jaipur,Female,Bachelor's,7.2,98.3,Yes,63,54,No
+S11144,2024-01-17,Riverside Public,Mumbai,Female,Bachelor's,11.8,86.8,Yes,84,93,Yes
+S11145,2024-01-21,Hillcrest Academy,Jaipur,Male,Bachelor's,12.9,86.1,Yes,61,63,Yes
+S11146,2023-09-14,Greenfield High,Bengaluru ,Male,High school,5.9,90.1,No,59,66,Yes
+S11147,2025-02-25,Greenfield High,Bengaluru,Female,Bachelor's,3.9,86.8,No,67,64,Yes
+S11148,07-03-2025,Riverside Public,Pune,Male,Bachelor's,6.8,85.2,Yes,71,81,Yes
+S11149,2023-07-08,Greenfield High,Mysuru,Female,High school,9.9,82.0,Yes,83,98,Yes
+S11150,2023-08-21,Greenfield High,Mysuru,Male,Bachelor's,17.3,80.4,No,81,85,Yes
+S11151,2024-07-14,Riverside Public,Pune,Male,High school,4.4,95.5,No,74,70,Yes
+S11152,2024-10-10,Riverside Public,Pune,Male,Master's,7.6,84.1,No,60,63,Yes
+S11153,2024-05-24,Riverside Public,Mumbai,Male,Master's,7.3,,No,60,60,Yes
+S11154,26-08-2023,Riverside Public,Pune,Male,Master's,10.8,86.8,No,67,72,Yes
+S11155,2023-11-09,Hillcrest Academy,delhi,Female,Master's,12.7,91.5,Yes,80,88,Yes
+S11156,10-09-2024,Hillcrest Academy,Jaipur,Female,Bachelor's,8.8,85.1,Yes,51,58,No
+S11157,16-02-2025,Greenfield High,Bengaluru,Female,High school,11.7,88.4,Yes,64,71,Yes
+S11158,2024-06-25,Riverside Public,Mumbai,Female,High school,5.8,88.2,No,69,73,Yes
+S11159,2025-04-15,Riverside Public,Pune,Female,Bachelor's,10.5,81.0,No,66,76,Yes
+S11160,2024-08-27,Greenfield High,Bangalore,Male,Master's,8.9,85.7,No,67,73,Yes
+S11161,2025-06-28,Hillcrest Academy,Jaipur,Male,High school,9.1,100.0,Yes,60,46,No
+S11162,2025-03-21,Greenfield High,Mysuru,Male,Bachelor's,12.3,87.9,No,73,66,Yes
+S11163,2025-07-24,Riverside Public,Pune,Non-binary,High school,14.5,89.3,No,57,55,No
+S11164,2025-05-08,Hillcrest Academy,Jaipur,Male,High school,6.5,82.0,Yes,63,69,Yes
+S11165,2023-10-16,Greenfield High,Mysuru,Female,Bachelor's,7.7,88.5,No,77,84,Yes
+S11166,2025-07-05,Greenfield High,Bengaluru,Female,Bachelor's,10.4,95.5,No,87,98,Yes
+S11167,01-07-2023,Riverside Public,Bombay,Male,High school,12.5,85.4,No,72,81,Yes
+S11168,2024-06-15,Hillcrest Academy,New Delhi,Male,High school,3.6,100.0,Yes,64,62,Yes
+S11169,2025-05-18,Greenfield High,Mysuru,Female,High school,5.3,86.6,No,71,81,Yes
+S11170,2025-01-23,Riverside Public,Mumbai,Female,High school,13.3,89.4,Yes,76,77,Yes
+S11171,2023-12-16,Greenfield High,Bangalore,Female,High school,6.6,86.6,No,86,90,Yes
+S11172,2024-11-21,Greenfield High,Mysuru,Male,High school,9.9,88.8,No,71,72,Yes
+S11173,2024-11-07,Riverside Public,Mumbai,Male,Bachelor's,12.6,90.4,No,65,67,Yes
+S11174,2025-07-26,Greenfield High,Bengaluru,Male,High school,9.5,88.1,No,70,69,Yes
+S11175,2025-07-01,Greenfield High,Mysuru,Male,High school,13.9,84.6,No,90,97,Yes
+S11176,31-07-2024,Greenfield High,Mysuru,Female,Bachelor's,14.4,79.5,No,93,100,Yes
+S11177,2024-05-03,Greenfield High,Mysuru,Female,Bachelor's,16.1,80.1,No,82,95,Yes
+S11178,2025-05-09,Greenfield High,Bengaluru,Female,Bachelor's,6.1,78.0,No,91,93,Yes
+S11179,2024-05-14,Riverside Public,Mumbai,Female,High school,12.3,80.6,No,81,77,Yes
+S11180,2024-08-24,Hillcrest Academy,Delhi,Female,Bachelor's,9.8,86.3,Yes,66,66,Yes
+S11181,2024-11-21,Riverside Public,Mumbai,Male,Bachelor's,7.2,88.2,Yes,72,84,Yes
+S11182,2024-08-03,Riverside Public,Pune,Female,High school,1.2,94.1,Yes,75,72,Yes
+S11183,2024-01-19,Hillcrest Academy,Jaipur,Female,Bachelor's,10.9,83.6,Yes,42,36,No
+S11184,2025-02-26,Hillcrest Academy,Delhi,Male,Bachelor's,12.7,95.2,No,65,68,Yes
+S11185,2023-08-15,Riverside Public,Mumbai,Male,High school,10.5,86.5,No,57,55,No
+S11186,2023-11-17,Hillcrest Academy,Jaipur,Female,High school,6.1,87.9,Yes,41,55,No
+S11187,20-01-2025,Greenfield High,Mysuru,Male,Bachelor's,10.1,77.7,No,72,82,Yes
+S11188,2024-09-08,Riverside Public,Pune,Female,Bachelor's,12.1,86.7,Yes,64,66,Yes
+S11189,2023-09-12,Hillcrest Academy,Delhi,Male,Bachelor's,6.6,96.3,No,63,60,Yes
+S11190,03-09-2023,Greenfield High,bengaluru,Male,Bachelor's,11.0,88.5,Yes,91,95,Yes
+S11191,03-03-2025,Riverside Public,Pune,Male,Bachelor's,3.6,86.8,No,59,56,No
+S11192,2024-05-30,Riverside Public,Mumbai,Female,High school,8.6,99.7,Yes,67,71,Yes
+S11193,2025-06-18,Riverside Public,Pune,Male,Master's,12.6,96.6,No,71,71,Yes
+S11194,2023-10-24,Hillcrest Academy,Delhi,Female,Master's,8.0,89.8,Yes,54,50,No
+S11195,10-04-2024,Greenfield High,Mysuru,Male,Bachelor's,12.3,94.4,Yes,87,85,Yes
+S11196,2024-07-06,Hillcrest Academy,Delhi,Female,High school,6.3,,No,53,56,No
+S11197,2024-05-05,Greenfield High,Mysuru,Male,Bachelor's,8.7,90.8,No,73,56,Yes
+S11198,2024-03-11,Hillcrest Academy,Jaipur,Female,High school,10.7,,Yes,60,64,Yes
+S11199,2025-07-20,Greenfield High,Mysuru,Female,Master's,8.9,88.7,No,84,83,Yes
+S10822,2023-08-08,Riverside Public,Pune,Male,PhD,7.6,79.6,Yes,64,53,No
+S10448,2025-01-15,Riverside Public,Pune,Male,High school,10.4,84.9,Yes,86,73,Yes
+S10806,2024-09-27,Riverside Public,Pune,Female,Master's,10.4,87.9,No,73,78,Yes
+S10415,2023-08-25,Hillcrest Academy,Jaipur,Female,Bachelor's,7.1,84.1,Yes,49,47,No
+S10290,2023-08-10,Hillcrest Academy,Jaipur,Non-binary,Bachelor's,15.7,81.3,Yes,59,57,No
+S10619,2025-03-28,Greenfield High,Bengaluru,Female,High school,9.5,88.1,Yes,87,100,Yes
+S11117,15-10-2024,Riverside Public,Pune,Female,Bachelor's,14.7,90.2,Yes,83,93,Yes
+S10343,22-07-2025,Greenfield High,Bengaluru,Male,Master's,16.7,86.5,No,72,72,Yes
+S10360,2024-11-05,Riverside Public,Mumbai,Female,Bachelor's,13.2,100.0,Yes,80,94,Yes
+S11147,2025-02-25,Greenfield High,Bengaluru,Female,Bachelor's,3.9,86.8,No,67,64,Yes
+S10852,2024-07-19,Hillcrest Academy,Jaipur,Female,High school,13.0,100.0,Yes,52,52,No
+S10269,2024-04-25,Hillcrest Academy,Jaipur,Female,Bachelor's,11.5,97.5,Yes,52,50,No
+S10883,2023-06-27,Greenfield High,Mysuru,Male,High school,8.3,90.6,No,73,70,Yes
+S10700,2023-11-17,Riverside Public,Pune,Female,PhD,5.0,,No,60,70,Yes
+S10574,2024-02-12,Riverside Public,Mumbai,Male,High school,11.7,90.3,No,63,56,No

@@ -37,3 +37,19 @@ def test_dates_and_numbers_are_typed(sample_session):
     assert types["order_date"] == "date"
     assert types["order_value"] == "number"
     assert types["city"] == "text"
+
+
+def test_male_female_not_flagged_but_typos_are():
+    s = pd.Series(["Male"] * 30 + ["Female"] * 30 + ["Delhi"] * 10 + ["Dehli"] + ["Mumbai"] * 10 + ["Mumbia"])
+    groups = near_duplicate_categories(s)
+    flat = {v for g in groups for v in g}
+    assert {"Delhi", "Dehli", "Mumbai", "Mumbia"} <= flat
+    assert "Male" not in flat and "Female" not in flat
+
+
+def test_day_first_dates_are_not_misread():
+    from analyst_agent.data.store import parse_dates
+    out = parse_dates(pd.Series(["2024-06-01", "01-06-2024", "25-12-2024"]))
+    assert list(out.dt.strftime("%Y-%m-%d")) == ["2024-06-01", "2024-06-01", "2024-12-25"]
+    us = parse_dates(pd.Series(["06/01/2024", "12/25/2024"]))
+    assert list(us.dt.strftime("%Y-%m-%d")) == ["2024-06-01", "2024-12-25"]

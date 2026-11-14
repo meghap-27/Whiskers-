@@ -106,10 +106,35 @@ def _infer_types(raw: pd.DataFrame) -> pd.DataFrame:
             df[col] = pd.to_numeric(raw[col].str.replace(",", "", regex=False).str.strip(), errors="coerce")
             continue
         if _looks_like_date(s):
-            parsed = pd.to_datetime(raw[col].str.strip(), errors="coerce", format="mixed", dayfirst=False)
+            parsed = parse_dates(raw[col])
             if parsed.notna().sum() >= 0.9 * len(s):
                 df[col] = parsed
     return df
+
+
+def parse_dates(col: pd.Series) -> pd.Series:
+    """Parse a text column that may mix ISO dates with DD-MM-YYYY or MM/DD/YYYY.
+
+    ISO (2024-06-01) is unambiguous. For the rest, the values decide: a first number above 12
+    means day-first, a second number above 12 means month-first. If no value settles it,
+    '-' and '.' separators are read day-first (Indian/European style) and '/' month-first.
+    """
+    s = col.astype("string").str.strip()
+    out = pd.Series(pd.NaT, index=s.index, dtype="datetime64[ns]")
+    iso = s.str.match(r"^\d{4}[-/.]\d{1,2}[-/.]\d{1,2}", na=False)
+    out[iso] = pd.to_datetime(s[iso], errors="coerce", format="mixed", yearfirst=True)
+    rest = s[~iso & s.notna()]
+    if not rest.empty:
+        parts = rest.str.extract(r"^(\d{1,2})([-/.])(\d{1,2})")
+        first, second = pd.to_numeric(parts[0], errors="coerce"), pd.to_numeric(parts[2], errors="coerce")
+        if (first > 12).any() and not (second > 12).any():
+            dayfirst = True
+        elif (second > 12).any():
+            dayfirst = False
+        else:
+            dayfirst = parts[1].mode().iat[0] in "-." if not parts[1].dropna().empty else False
+        out[rest.index] = pd.to_datetime(rest, errors="coerce", format="mixed", dayfirst=dayfirst)
+    return out
 
 
 def _looks_like_date(s: pd.Series) -> bool:
