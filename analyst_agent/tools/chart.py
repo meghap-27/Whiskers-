@@ -5,8 +5,8 @@ import pandas as pd
 import plotly.express as px
 
 CHART_TYPES = ("bar", "line", "scatter", "histogram", "box", "pie", "heatmap")
-# cat-coat palette: ginger, chocolate, cream, rust, smoke grey, black, peach, tortoiseshell
-PALETTE = ["#E07A2E", "#7B4A2C", "#E9B97A", "#B4531A", "#8C8279", "#3A2417", "#F2A889", "#5E6B4E"]
+# desk palette: ginger cat, graph-paper blue, chocolate, smoke grey, rust, light blue, amber, ink
+PALETTE = ["#D9772B", "#3557A0", "#6C4128", "#837B75", "#8F4318", "#7FA0D6", "#E2B23C", "#2B1B12"]
 
 
 def make_chart(df: pd.DataFrame, chart_type: str, x: str, y: str | None = None,
@@ -41,13 +41,14 @@ def make_chart(df: pd.DataFrame, chart_type: str, x: str, y: str | None = None,
             raise ValueError("heatmap needs x, y and color (the value column).")
         pivot = df.pivot_table(index=y, columns=x, values=color, aggfunc="mean")
         fig = px.imshow(pivot, text_auto=".2s", aspect="auto", title=title,
-                        color_continuous_scale=["#FBF1E3", "#E9B97A", "#E07A2E", "#7B4A2C"])
+                        color_continuous_scale=["#FBF7F0", "#F1C690", "#D9772B", "#6C4128"])
 
     fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=60, b=40),
                       paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                      font=dict(family="JetBrains Mono, monospace", color="#3A2417"))
-    fig.update_xaxes(gridcolor="#EAD3B2")
-    fig.update_yaxes(gridcolor="#EAD3B2")
+                      font=dict(family="Atkinson Hyperlegible, system-ui, sans-serif", color="#2B1B12", size=13),
+                      title_font=dict(size=17), legend_title_text="")
+    fig.update_xaxes(gridcolor="#E6D9C6", linecolor="#2B1B12", ticks="outside", tickcolor="#2B1B12")
+    fig.update_yaxes(gridcolor="#E6D9C6", zeroline=False)
     return {"figure_json": fig.to_json(), "code": chart_code(chart_type, x, y, color, title)}
 
 

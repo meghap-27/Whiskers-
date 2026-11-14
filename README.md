@@ -7,16 +7,20 @@ learns your metric definitions, and exports every answer as a notebook that re-r
 
 ![tests](https://github.com/meghap-27/Data-Analyst-Agent/actions/workflows/tests.yml/badge.svg)
 
-## Home page
+## Design
 
-The app opens on a ginger-tabby themed home page (`ui/home_component/`): a pixel-font hero with an animated
-scanline cat ("Whiskers"), and a shelf of three folders. The questions in the folders are written for whatever file you uploaded
-(`analyst_agent/suggest.py` builds them from its columns and data-quality report, no AI call needed); before an
-upload they are sample questions about the retail data. Hover a folder and its questions float out; click one and
-the agent runs it on your file. The offline demo runs in its own workspace, so it never mixes with your data. The folders are a plain-JavaScript port of the
-[FolderFloat](https://reactbits.dev) component from React Bits, with cat-ear tabs, tabby-striped flaps, keyboard
-support and tap-to-open on touch screens. The page talks to Streamlit through the custom-component message
-protocol, so no React build step is needed.
+The look is a cat on an analyst's desk: a cardboard surface, answers on sheets of paper, dark-brown ink, a ginger
+cat, and graph-paper blue for links and charts. Type is Atkinson Hyperlegible (chosen for reading numbers) with
+Silkscreen for the wordmark; both are bundled in `ui/static/fonts` (SIL Open Font License), so no request goes
+to Google.
+
+The 3D is kept to two places. On the home page the sheet tilts toward the pointer, the extruded wordmark's shadow
+moves with the light, and the scanline cat turns: each scanline shifts by how far that part of the body bulges
+toward you, so the head and belly rotate as shapes; its eyes follow the pointer. Below it, three folders stand on
+the desk in perspective, lean toward the pointer and lift when hovered. Their questions are written for whatever
+file you uploaded (`analyst_agent/suggest.py`, built from its columns and data-quality report, no AI call). The
+folders are a plain-JavaScript port of [FolderFloat](https://reactbits.dev) from React Bits. Reduced-motion
+settings turn the movement off.
 
 ## What makes it different
 
@@ -139,8 +143,9 @@ analyst_agent/
   export/       notebook.py
   glossary.py, pins.py, api.py, demo.py, config.py
 ui/streamlit_app.py
-ui/home_component/   home page: hero + FolderFloat shelf (HTML/JS, bundled matter-js)
-.streamlit/config.toml   cat-palette theme
+ui/home_component/   home page: 3D hero + FolderFloat shelf (HTML/JS, bundled matter-js and fonts)
+ui/static/           fonts and avatars served by Streamlit
+.streamlit/config.toml   theme (desk palette, fonts, hidden toolbar)
 evals/  sample_data/  tests/
 ```
 

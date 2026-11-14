@@ -1,0 +1,7 @@
+/* Bundled fonts (SIL Open Font License 1.1), served locally so no request goes to Google. */
+@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("silkscreen-latin-700-normal.woff2") format("woff2"); }

@@ -3,151 +3,184 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Data Analyst Agent</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Whiskers</title>
+<link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="folder-float.css">
 <style>
+  /* A cat on an analyst's desk: cardboard, paper, ink, a ginger cat, graph-paper blue. */
   :root {
-    --cream: #FBF1E3;   /* background: belly fur */
-    --cream-2: #F3E0C4;
-    --ginger: #E07A2E;  /* coat */
-    --rust: #B4531A;    /* stripes */
-    --ink: #3A2417;     /* nose-leather brown, used instead of black */
-    --ink-soft: #7A5A44;
+    --kraft: #C9A37C;        /* the cardboard box the cat sits in */
+    --paper: #FBF7F0;
+    --ink: #2B1B12;
+    --ink-soft: #5E4636;
+    --ginger: #D9772B;
+    --rust: #8F4318;
+    --blue: #3557A0;         /* graph paper */
+    --grid: #DCE3F0;
+    --rx: 0deg; --ry: 0deg;  /* hero tilt, set by script */
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: transparent; }
-  body { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; color: var(--ink); }
-  a { color: inherit; }
-
-  /* ---------------- hero ---------------- */
-  .hero {
-    position: relative; overflow: hidden; height: 540px;
-    background: var(--cream); border: 1px solid var(--cream-2); border-radius: 18px;
-    display: grid; grid-template-columns: minmax(300px, 0.9fr) 1.1fr;
+  body {
+    font-family: "Atkinson Hyperlegible", system-ui, sans-serif; color: var(--ink);
+    -webkit-font-smoothing: antialiased; padding: 18px 6px 18px;
   }
-  .brand {
-    position: absolute; top: 16px; left: 28px; z-index: 3;
-    font-family: "Silkscreen", monospace; font-size: 13px; display: flex; align-items: center;
+  a { color: var(--blue); text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+  /* ---------------------------------------------------------------- hero */
+  .desk { perspective: 1400px; perspective-origin: 50% 40%; padding: 0 26px; }
+  .card {
+    position: relative; min-height: 520px; padding: 56px 48px 48px;
+    display: grid; grid-template-columns: minmax(300px, 0.95fr) 1.05fr; align-items: center; gap: 12px;
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% 24px,
+      var(--paper);
+    border-radius: 6px;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx)) rotateY(var(--ry));
+    box-shadow:
+      0 1px 0 rgba(43, 27, 18, .10),
+      var(--shx, 6px) var(--shy, 18px) 30px -6px rgba(60, 35, 15, .45);
   }
-  .brand i { width: 10px; height: 10px; background: var(--ginger); box-shadow: 10px 0 0 var(--rust); margin-right: 20px; }
-  nav { position: absolute; top: 18px; right: 28px; display: flex; gap: 26px; font-size: 11px; z-index: 3; }
-  nav a { text-decoration: none; opacity: .85; cursor: pointer; }
-  nav a:hover { color: var(--ginger); opacity: 1; }
+  /* a strip of tape holding the sheet to the desk */
+  .card::before {
+    content: ""; position: absolute; top: -12px; left: 46px; width: 92px; height: 26px;
+    background: rgba(255, 246, 214, .75); transform: rotate(-3deg) translateZ(4px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+  }
+  .copy { position: relative; transform-style: preserve-3d; max-width: 480px; }
+  .wordmark {
+    font-family: "Silkscreen", monospace; font-weight: 700; line-height: .9; letter-spacing: .01em;
+    font-size: clamp(52px, 8vw, 104px); color: var(--ginger);
+    transform: translateZ(60px);
+    text-shadow: var(--extrude, 1px 1px 0 var(--rust), 2px 2px 0 var(--rust), 3px 3px 0 var(--rust),
+                 4px 4px 0 var(--rust), 5px 5px 0 var(--rust), 6px 6px 0 var(--rust));
+  }
+  .tagline { margin-top: 26px; font-size: 24px; line-height: 1.25; font-weight: 700; transform: translateZ(36px); }
+  .lede { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--ink-soft); max-width: 44ch; transform: translateZ(28px); }
+  .ctas { margin-top: 28px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; transform: translateZ(44px); }
+  .btn {
+    font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; border: 0; border-radius: 4px;
+    background: var(--ink); color: var(--paper); padding: 12px 18px;
+    box-shadow: 0 4px 0 var(--rust); transform: translateY(0);
+    transition: transform .08s ease, box-shadow .08s ease, background .15s ease;
+  }
+  .btn:hover { background: #3b2618; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--rust); }
+  .link { font-size: 15px; cursor: pointer; background: none; border: 0; font-family: inherit; color: var(--blue);
+          text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
 
-  .copy { position: relative; z-index: 2; padding-left: 40px; display: flex; flex-direction: column; justify-content: center; }
-  h1, h2 { font-family: "Silkscreen", monospace; font-weight: 700; letter-spacing: -.01em; }
-  h1 { line-height: .92; font-size: clamp(40px, 6.2vw, 74px); }
-  .accent { color: var(--ginger); }
-  .lede { margin-top: 26px; max-width: 360px; font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
-  .ctas { margin-top: 26px; display: flex; align-items: center; gap: 18px; font-size: 12px; }
-  .btn { background: var(--ink); color: var(--cream); padding: 10px 16px; border-radius: 2px; text-decoration: none; cursor: pointer; border: 0; font: inherit; }
-  .btn:hover { background: var(--ginger); }
-  .ghost { text-decoration: none; cursor: pointer; }
-  .ghost:hover { color: var(--ginger); }
-  .stats { margin-top: 28px; font-size: 11px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 6px 0; }
-  .stats span { white-space: nowrap; }
-  .stats span + span::before { content: "•"; margin: 0 10px; color: var(--cream-2); }
-  .stats b { color: var(--rust); font-weight: 600; }
-
-  .stage { position: relative; }
+  .stage { position: relative; height: 440px; transform-style: preserve-3d; transform: translateZ(80px); }
   #cat { position: absolute; inset: 0; width: 100%; height: 100%; }
   .bubble {
-    position: absolute; top: 40px; left: 54%; z-index: 3; background: var(--cream);
-    border: 1.5px solid var(--ink); padding: 9px 12px; min-width: 214px;
-    font-size: 11.5px; line-height: 1.5; box-shadow: 4px 4px 0 var(--ginger);
+    position: absolute; top: 0; left: 52%; z-index: 3; transform: translateZ(50px);
+    background: var(--paper); border: 2px solid var(--ink); border-radius: 10px; padding: 10px 14px; min-width: 236px;
+    font-size: 15px; line-height: 1.4; box-shadow: 0 6px 0 -2px var(--ink);
   }
   .bubble::after {
-    content: ""; position: absolute; left: 18px; bottom: -9px; width: 14px; height: 14px; background: var(--cream);
-    border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: skewY(-35deg) rotate(-10deg);
+    content: ""; position: absolute; left: 22px; bottom: -10px; width: 16px; height: 16px; background: var(--paper);
+    border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg);
   }
-  .caret { display: inline-block; width: 7px; height: 12px; background: var(--ink); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  .caret { display: inline-block; width: 2px; height: 1em; background: var(--ink); vertical-align: -2px; margin-left: 1px;
+           animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* ---------------- folder shelf ---------------- */
-  .shelf-wrap {
-    margin-top: 18px; padding: 34px 32px 30px; border-radius: 18px;
-    background: var(--cream); border: 1px solid var(--cream-2); position: relative; overflow: hidden;
-  }
-  .shelf-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  .shelf-head h2 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1; }
-  .shelf-head p { max-width: 380px; font-size: 12px; line-height: 1.6; color: var(--ink-soft); }
-  .kbd { border: 1px solid var(--ink-soft); border-radius: 3px; padding: 0 4px; font-size: 10.5px; }
+  /* ---------------------------------------------------------------- shelf */
+  .shelf-wrap { margin-top: 52px; padding: 0 12px; position: relative; }
+  .shelf-head { display: grid; grid-template-columns: 1fr minmax(260px, 420px); gap: 12px 40px; align-items: end; }
+  .shelf-head h2 { font-size: 28px; line-height: 1.2; font-weight: 700; color: var(--ink); }
+  .shelf-head h2 .file { font-weight: 400; color: var(--paper); background: var(--ink); padding: 0 8px; border-radius: 3px;
+                         box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .shelf-head p { font-size: 15px; line-height: 1.55; color: var(--ink); max-width: 48ch; }
 
-  .shelf { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px 12px; padding-top: 185px; }
-  .slot { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  .slot small { font-size: 10.5px; color: var(--ink-soft); letter-spacing: .04em; }
-  .shelf-line { height: 10px; margin: 6px -32px 0; background:
-      repeating-linear-gradient(90deg, var(--cream-2) 0 12px, transparent 12px 18px); opacity: .9; }
-
-  .peek {
-    margin-top: 18px; min-height: 42px; display: flex; align-items: center; gap: 12px;
-    font-size: 12px; color: var(--ink-soft); border-top: 1px dashed var(--cream-2); padding-top: 14px;
+  .shelf { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px 16px; padding-top: 190px;
+           perspective: 1100px; perspective-origin: 50% 0%; }
+  .slot { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px;
+          transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+          transform: rotateX(var(--fx, 10deg)) rotateY(var(--fy, 0deg)) translateZ(var(--fz, 0px)); }
+  .slot:hover, .slot:focus-within { --fz: 34px; }
+  /* contact shadow on the desk; it softens and spreads as the folder lifts */
+  .slot::after {
+    content: ""; position: absolute; left: 6%; right: 6%; top: 136px; height: 36px; z-index: -1;
+    background: radial-gradient(closest-side, rgba(60, 35, 15, .5), transparent);
+    transform: translateZ(-1px) scale(var(--shadow, 1)); opacity: var(--shadow-o, .9);
+    transition: transform .35s ease, opacity .35s ease; pointer-events: none;
   }
-  .peek b { color: var(--ink); font-weight: 600; }
-  .peek .paw { color: var(--ginger); font-size: 15px; }
+  .slot:hover::after, .slot:focus-within::after { --shadow: 1.3; --shadow-o: .5; }
+  .slot small { font-size: 14px; color: var(--ink); }
+
+  .peek { margin-top: 30px; min-height: 48px; padding: 12px 16px; border-radius: 6px; font-size: 15px; line-height: 1.45;
+          background: rgba(251, 247, 240, .6); color: var(--ink); }
+  .peek b { font-weight: 700; }
+  .source { margin-top: 16px; font-size: 14px; color: var(--ink); }
 
   .toast {
-    position: absolute; right: 24px; top: 24px; background: var(--ink); color: var(--cream);
-    padding: 10px 14px; font-size: 12px; border-radius: 3px; box-shadow: 4px 4px 0 var(--ginger);
-    opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .25s ease; pointer-events: none;
+    position: fixed; right: 18px; top: 14px; background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 4px;
+    font-size: 14px; box-shadow: 0 4px 0 var(--rust); opacity: 0; transform: translateY(-8px);
+    transition: opacity .2s ease, transform .2s ease; pointer-events: none;
   }
   .toast.show { opacity: 1; transform: none; }
 
-  @media (max-width: 760px) {
-    .hero { grid-template-columns: 1fr; height: auto; }
-    .copy { padding: 90px 24px 10px; }
-    .stage { height: 340px; }
-    nav { display: none; }
+  @media (max-width: 820px) {
+    .desk { padding: 0 10px; }
+    .card { grid-template-columns: 1fr; padding: 36px 22px 22px; min-height: 0; }
+    /* on small screens the layers sit flat on the sheet; only the sheet itself tilts */
+    .wordmark, .tagline, .lede, .ctas, .stage, .bubble { transform: none; }
+    .wordmark { font-size: clamp(36px, 11vw, 64px); }
+    .tagline { font-size: 21px; }
+    .stage { height: 320px; margin-top: 8px; }
+    .bubble { left: auto; right: 0; top: -6px; min-width: 0; max-width: 78%; }
+    .shelf-head { grid-template-columns: 1fr; }
     .shelf { padding-top: 170px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slot { transition: none; }
+    .caret { animation: none; }
   }
 </style>
 </head>
 <body>
-<section class="hero">
-  <div class="brand"><i></i>analyst.cat</div>
-  <nav>
-    <a data-scroll="#shelf">Questions</a>
-    <a data-action="demo">Demo</a>
-    <a href="https://github.com/meghap-27/Data-Analyst-Agent" target="_blank" rel="noopener">GitHub</a>
-  </nav>
-  <div class="copy">
-    <h1>DATA<br>ANALYST<br><span class="accent">AGENT</span></h1>
-    <p class="lede">Whiskers reads your CSV, writes the SQL, runs the stats, and pounces on Simpson's paradox
-      before it reaches your slide deck.</p>
-    <div class="ctas">
-      <button class="btn" data-action="demo">Try the demo</button>
-      <a class="ghost" data-scroll="#shelf">Pick a question &rsaquo;</a>
+<div class="desk">
+  <section class="card" id="card">
+    <div class="copy">
+      <h1 class="wordmark" id="wordmark">WHISKERS</h1>
+      <p class="tagline">Ask questions about your spreadsheet.</p>
+      <p class="lede">Whiskers writes the SQL, runs the statistics, and tells you when a number is misleading:
+        duplicate rows, outliers, small samples, Simpson's paradox. You can see every query it ran.</p>
+      <div class="ctas">
+        <button class="btn" data-action="demo">Run the sample demo</button>
+        <button class="link" data-scroll="#shelf">See questions for your file</button>
+      </div>
     </div>
-    <p class="stats"><span><b>36</b> tests passing</span><span><b>4</b> traps sniffed</span><span><b>0</b> made-up numbers</span></p>
-  </div>
-  <div class="stage">
-    <canvas id="cat" aria-label="Animated scanline drawing of a ginger cat" role="img"></canvas>
-    <div class="bubble" aria-live="polite"><span id="say"></span><span class="caret"></span></div>
-  </div>
-</section>
+    <div class="stage">
+      <canvas id="cat" role="img" aria-label="A ginger cat drawn in horizontal lines, turning to follow the pointer"></canvas>
+      <div class="bubble" aria-live="polite"><span id="say"></span><span class="caret"></span></div>
+    </div>
+  </section>
+</div>
 
 <section class="shelf-wrap" id="shelf">
   <div class="shelf-head">
-    <h2>OPEN A<br><span class="accent">FOLDER</span></h2>
-    <p id="intro">Hover a folder (or <span class="kbd">Tab</span> to it), then pick a question. Whiskers runs it on the
-      sample retail data. Upload your own file and these questions are rewritten for it.</p>
+    <h2 id="shelf-title">Sample questions</h2>
+    <p id="intro">These ask about the sample retail data. Upload your own file in the sidebar and they are rewritten
+      for it. Hover a folder, or tab to it, then pick a question.</p>
   </div>
   <div class="shelf" id="folders"></div>
-  <div class="shelf-line"></div>
-  <div class="peek" id="peek"><span class="paw">&#x1F43E;</span><span>Hover a note to see what Whiskers will check.</span></div>
-  <div class="toast" id="toast"></div>
+  <div class="peek" id="peek">Hover a question to see what Whiskers checks before answering.</div>
+  <p class="source">Source code: <a href="https://github.com/meghap-27/Data-Analyst-Agent" target="_blank" rel="noopener">github.com/meghap-27/Data-Analyst-Agent</a></p>
+  <div class="toast" id="toast" role="status"></div>
 </section>
 
 <script src="matter.min.js"></script>
 <script src="folder-float.js"></script>
 <script>
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /* ============ Streamlit component bridge (works standalone too) ============ */
 const inStreamlit = window.parent !== window;
 function toStreamlit(type, data) {
-  if (!inStreamlit) return;
-  window.parent.postMessage(Object.assign({ isStreamlitMessage: true, type }, data), "*");
+  if (inStreamlit) window.parent.postMessage(Object.assign({ isStreamlitMessage: true, type }, data), "*");
 }
 function send(value) {
   toStreamlit("streamlit:setComponentValue", { value: Object.assign({ ts: Date.now() }, value), dataType: "json" });
@@ -161,97 +194,134 @@ const toast = document.getElementById("toast");
 let toastTimer;
 function showToast(msg) {
   toast.textContent = msg; toast.classList.add("show");
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 2000);
+}
+document.querySelectorAll("[data-action='demo']").forEach(el => el.addEventListener("click", () => {
+  send({ action: "demo" }); showToast("Running the sample demo");
+}));
+document.querySelectorAll("[data-scroll]").forEach(el => el.addEventListener("click", () => {
+  document.querySelector(el.dataset.scroll).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+}));
+
+/* ============ pointer → tilt (shared by the sheet, the cat and the folders) ============ */
+const tilt = { x: 0, y: 0, tx: 0, ty: 0, last: 0 };     // -1..1, eased toward the target
+addEventListener("pointermove", e => {
+  tilt.tx = (e.clientX / innerWidth) * 2 - 1;
+  tilt.ty = (e.clientY / innerHeight) * 2 - 1;
+  tilt.last = performance.now();
+});
+const card = document.getElementById("card");
+const wordmark = document.getElementById("wordmark");
+const slots = [];
+
+function extrusion(dx, dy) {
+  // pixel-block extrusion in 7 steps, pointing away from the light (the light sits where the pointer is)
+  const out = [];
+  for (let i = 1; i <= 7; i++) out.push(`${(dx * i).toFixed(2)}px ${(dy * i).toFixed(2)}px 0 var(--rust)`);
+  return out.join(",");
 }
 
-document.querySelectorAll("[data-action='demo']").forEach(el => el.addEventListener("click", e => {
-  e.preventDefault(); send({ action: "demo" }); showToast("Running the demo…");
-}));
-document.querySelectorAll("[data-scroll]").forEach(el => el.addEventListener("click", e => {
-  e.preventDefault(); document.querySelector(el.dataset.scroll).scrollIntoView({ behavior: "smooth" });
-}));
+function updateTilt(t) {
+  if (reduceMotion) return;
+  if (!tilt.last || t - tilt.last > 3500) {            // idle: a slow look around
+    tilt.tx = Math.sin(t / 2600) * 0.45;
+    tilt.ty = Math.sin(t / 3700) * 0.25;
+  }
+  tilt.x += (tilt.tx - tilt.x) * 0.08;
+  tilt.y += (tilt.ty - tilt.y) * 0.08;
+  const amp = innerWidth < 820 ? 0.4 : 1;
+  card.style.setProperty("--ry", `${(tilt.x * 6 * amp).toFixed(2)}deg`);
+  card.style.setProperty("--rx", `${(-tilt.y * 4).toFixed(2)}deg`);
+  card.style.setProperty("--shx", `${(6 - tilt.x * 10).toFixed(1)}px`);
+  card.style.setProperty("--shy", `${(18 - tilt.y * 6).toFixed(1)}px`);
+  wordmark.style.setProperty("--extrude", extrusion(1 - tilt.x * 0.7, 1 - tilt.y * 0.5));
+  slots.forEach(s => {
+    const r = s.getBoundingClientRect();
+    const cx = (r.left + r.width / 2) / innerWidth * 2 - 1;
+    s.style.setProperty("--fy", `${((tilt.x - cx) * 9).toFixed(2)}deg`);
+    s.style.setProperty("--fx", `${(10 - tilt.y * 4).toFixed(2)}deg`);
+  });
+}
 
-/* ============ folders: three cat coats ============ */
-const coats = {
-  ginger:    { folderColor: "#B4531A", frontColor: "#E07A2E", labelColor: "#FFF6EA" },
-  chocolate: { folderColor: "#4A2C1B", frontColor: "#7B4A2C", labelColor: "#FFF6EA" },
-  cream:     { folderColor: "#C98F55", frontColor: "#EFCB97", labelColor: "#3A2417" },
+/* ============ folders ============ */
+const coats = {   // three cat coats
+  ginger:    { folderColor: "#9E4C1A", frontColor: "#D9772B", labelColor: "#FBF7F0" },
+  chocolate: { folderColor: "#3A2316", frontColor: "#6C4128", labelColor: "#FBF7F0" },
+  grey:      { folderColor: "#4E4A47", frontColor: "#837B75", labelColor: "#FBF7F0" },
 };
 const shared = {
   trigger: "hover", closeOnSelect: true, physics: true, drift: 0.5,
-  paperColor: "#FFF8EE", itemColor: "#FFF8EE", itemTextColor: "#3A2417",
-  width: 210, height: 140, radius: 14, spread: 175, lift: 26, tilt: 5,
-  flapAngle: 34, restAngle: 14, openDuration: 520, stagger: 45, bounce: 0.35,
+  paperColor: "#FBF7F0", itemColor: "#FBF7F0", itemTextColor: "#2B1B12",
+  width: 210, height: 140, radius: 12, spread: 175, lift: 30, tilt: 5,
+  flapAngle: 36, restAngle: 14, openDuration: 520, stagger: 45, bounce: 0.35,
 };
 const defaultFolders = [
-  { coat: "ginger", label: "Data checks", caption: "CLEAN BEFORE YOU COUNT", items: [
-    { label: "Duplicate rows?", value: "How many duplicate rows are there, and how do they change the totals?", icon: "⧉", hint: "Counts exact duplicates and shows how they inflate totals" },
-    { label: "Misspelled cities?", value: "Which city names look misspelled or inconsistent?", icon: "✎", hint: "Groups near-identical spellings like Delhi / Dehli" },
-    { label: "Mixed date formats?", value: "Are the order dates stored in more than one format?", icon: "◷", hint: "Finds YYYY-MM-DD mixed with MM/DD/YYYY" },
-    { label: "Empty columns?", value: "Which columns are mostly empty?", icon: "▢", hint: "Lists columns with 30%+ missing values" },
+  { coat: "ginger", label: "Data checks", caption: "Clean before you count", items: [
+    { label: "Duplicate rows?", value: "How many duplicate rows are there, and how do they change the totals?", hint: "Counts exact duplicates and shows how they inflate totals." },
+    { label: "Misspelled cities?", value: "Which city names look misspelled or inconsistent?", hint: "Groups near-identical spellings such as Delhi and Dehli." },
+    { label: "Mixed date formats?", value: "Are the order dates stored in more than one format?", hint: "Finds YYYY-MM-DD mixed with MM/DD/YYYY." },
+    { label: "Empty columns?", value: "Which columns are mostly empty?", hint: "Lists columns that are 30% or more blank." },
   ]},
-  { coat: "chocolate", label: "Is it real?", caption: "STATS BEFORE CLAIMS", items: [
-    { label: "Store vs Online", value: "Do Store or Online orders have a higher average order value?", icon: "⇄", hint: "t-test + Simpson's paradox check by region" },
-    { label: "Rating by region", value: "Does customer rating differ by region?", icon: "★", hint: "ANOVA with effect size; says so if there's no difference" },
-    { label: "Discount → rating?", value: "Is discount related to customer rating?", icon: "∿", hint: "Correlation, with a caveat that it isn't causation" },
-    { label: "Skewed average?", value: "Is the average order value skewed by outliers?", icon: "⚖", hint: "Mean vs median and the share held by the top 1%" },
+  { coat: "chocolate", label: "Is it real?", caption: "Statistics before claims", items: [
+    { label: "Store vs Online", value: "Do Store or Online orders have a higher average order value?", hint: "Runs a t-test and checks for Simpson's paradox by region." },
+    { label: "Rating by region", value: "Does customer rating differ by region?", hint: "ANOVA with effect size. Says so plainly if there is no difference." },
+    { label: "Discount and rating", value: "Is discount related to customer rating?", hint: "Correlation, with a note that it doesn't show cause." },
+    { label: "Skewed average?", value: "Is the average order value skewed by outliers?", hint: "Compares mean and median, and the share held by the top 1%." },
   ]},
-  { coat: "cream", label: "Business questions", caption: "THE EVERYDAY STUFF", items: [
-    { label: "Top categories", value: "What are the top 5 categories by revenue?", icon: "▤", hint: "Uses your saved 'revenue' definition if you set one" },
-    { label: "Monthly trend", value: "Show the monthly trend of total order value.", icon: "↗", hint: "Line chart across 2024–2025" },
-    { label: "Refund rate", value: "What is the refund rate by channel?", icon: "↺", hint: "Share of orders refunded, per channel" },
-    { label: "Best city: Electronics", value: "Which city sells the most Electronics?", icon: "⌂", hint: "Cleans city spellings first, then ranks" },
+  { coat: "grey", label: "Business questions", caption: "The everyday ones", items: [
+    { label: "Top categories", value: "What are the top 5 categories by revenue?", hint: "Uses your saved definition of revenue if you set one." },
+    { label: "Monthly trend", value: "Show the monthly trend of total order value.", hint: "Line chart across 2024 and 2025." },
+    { label: "Refund rate", value: "What is the refund rate by channel?", hint: "Share of orders refunded in each channel." },
+    { label: "Best city for Electronics", value: "Which city sells the most Electronics?", hint: "Cleans city spellings first, then ranks." },
   ]},
 ];
+
 const peek = document.getElementById("peek");
 const shelf = document.getElementById("folders");
 const intro = document.getElementById("intro");
+const shelfTitle = document.getElementById("shelf-title");
 let mounted = [];
 
-function showPeek(item) {
-  // built with textContent: questions contain column names from the user's file
-  peek.replaceChildren();
-  const paw = document.createElement("span"); paw.className = "paw"; paw.textContent = "\u{1F43E}";
-  const text = document.createElement("span");
+function showPeek(item) {             // textContent only: questions contain column names from the user's file
   const b = document.createElement("b"); b.textContent = item.value;
-  text.append(b, document.createTextNode(item.hint ? " — " + item.hint : ""));
-  peek.append(paw, text);
+  peek.replaceChildren(b, document.createTextNode(item.hint ? " " + item.hint : ""));
 }
+
+function sentenceCase(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : ""; }
 
 function buildShelf(list) {
   mounted.forEach(m => m.destroy());
-  mounted = [];
+  mounted = []; slots.length = 0;
   shelf.replaceChildren();
   list.forEach(f => {
     const slot = document.createElement("div");
     slot.className = "slot";
     shelf.appendChild(slot);
+    slots.push(slot);
+    const items = f.items.map(({ label, value, hint }) => ({ label, value, hint }));   // no icon glyphs
     mounted.push(FolderFloat(slot, Object.assign({}, shared, coats[f.coat] || coats.ginger, {
-      items: f.items, label: f.label, sublabel: `${f.items.length} questions`,
+      items, label: f.label, sublabel: `${items.length} questions`,
       onPeek: showPeek,
-      onSelect: (value) => { send({ action: "ask", question: value }); showToast("Sent to Whiskers ↗"); },
+      onSelect: value => { send({ action: "ask", question: value }); showToast("Question sent to Whiskers"); },
     })));
     const cap = document.createElement("small");
-    cap.textContent = f.caption || "";
+    cap.textContent = sentenceCase(f.caption);
     slot.appendChild(cap);
   });
 }
 
 function setIntro(dataset) {
   if (!dataset) return;
-  intro.replaceChildren(
-    document.createTextNode("Questions written for "),
-    Object.assign(document.createElement("b"), { textContent: dataset }),
-    document.createTextNode(". Hover a folder (or "),
-    Object.assign(document.createElement("span"), { className: "kbd", textContent: "Tab" }),
-    document.createTextNode(" to it), pick a question, and Whiskers runs it on your file."));
+  const name = Object.assign(document.createElement("span"), { className: "file", textContent: dataset });
+  shelfTitle.replaceChildren(document.createTextNode("Questions for "), name);
+  intro.textContent = "Written from your file's columns and its data-quality report. Hover a folder, or tab to it, "
+    + "then pick a question and Whiskers answers it from your data.";
 }
 
 buildShelf(defaultFolders);
 
-// Streamlit sends the folders for the uploaded file as component args on every render
 let lastArgs = "";
-window.addEventListener("message", e => {
+addEventListener("message", e => {
   const d = e.data;
   if (!d || d.type !== "streamlit:render") return;
   const args = d.args || {};
@@ -265,33 +335,47 @@ window.addEventListener("message", e => {
 
 /* ============ speech bubble ============ */
 const lines = [
-  "Meow! 3 queries run,\n1 paradox caught.",
-  "Purr. 25 duplicate rows\nswept under the rug.",
-  "Hiss. That's correlation,\nnot causation.",
-  "Mrrp. p = 0.31.\nNo real difference.",
+  "Found 25 duplicate rows.\nCounting each order once.",
+  "That's a correlation,\nnot a cause.",
+  "p = 0.31.\nNo real difference here.",
+  "Online wins in every region.\nThe overall average hides it.",
 ];
 const say = document.getElementById("say");
 let li = 0, ci = 0, erasing = false;
-(function tick() {
+function typeLine() {
   const full = lines[li];
-  if (!erasing) { ci++; if (ci > full.length) { erasing = true; return setTimeout(tick, 1900); } }
-  else { ci -= 2; if (ci <= 0) { ci = 0; erasing = false; li = (li + 1) % lines.length; return setTimeout(tick, 350); } }
-  say.innerHTML = full.slice(0, ci).replace(/\n/g, "<br>");
-  setTimeout(tick, erasing ? 18 : 42);
-})();
+  if (reduceMotion) { say.textContent = full.replace("\n", " "); li = (li + 1) % lines.length; return setTimeout(typeLine, 5000); }
+  if (!erasing) { ci++; if (ci > full.length) { erasing = true; return setTimeout(typeLine, 2200); } }
+  else { ci -= 2; if (ci <= 0) { ci = 0; erasing = false; li = (li + 1) % lines.length; return setTimeout(typeLine, 400); } }
+  say.replaceChildren(...full.slice(0, ci).split("\n").flatMap((t, i) => i ? [document.createElement("br"), t] : [t]));
+  setTimeout(typeLine, erasing ? 16 : 38);
+}
+typeLine();
 
-/* ============ the cat: shapes drawn offscreen, shown as scanlines ============ */
-const C = { ginger: "#E07A2E", rust: "#B4531A", fur: "#F2C994", pink: "#EE9C8E", ink: "#3A2417" };
+/* ============ the cat: shapes drawn offscreen, shown as scanlines with depth ============ */
+const C = { ginger: "#D9772B", rust: "#8F4318", fur: "#F1C690", pink: "#E8958A", ink: "#2B1B12", iris: "#E2B23C" };
 const view = document.getElementById("cat"), ctx = view.getContext("2d");
 const S = 420, off = document.createElement("canvas"); off.width = off.height = S;
 const o = off.getContext("2d", { willReadFrequently: true });
-const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function ell(x, y, rx, ry, fill) { o.beginPath(); o.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); o.fillStyle = fill; o.fill(); }
 
-function drawCat(t) {
+// Head and body treated as ellipsoids. A point's depth (how far it bulges toward you) decides how far its
+// scanline moves when the cat turns, so the face swings more than the edges and the shape reads as round.
+const HEAD = { x: 200, y: 170, rx: 96, ry: 82 }, BODY = { x: 210, y: 300, rx: 104, ry: 86 };
+function depth(x, y, headShift) {
+  const hx = (x - HEAD.x - headShift) / HEAD.rx, hy = (y - HEAD.y) / HEAD.ry;
+  const bx = (x - BODY.x) / BODY.rx, by = (y - BODY.y) / BODY.ry;
+  const h = 1 - hx * hx - hy * hy, b = 1 - bx * bx - by * by;
+  return Math.max(h > 0 ? Math.sqrt(h) + 0.3 : 0, b > 0 ? Math.sqrt(b) : 0, 0.15);
+}
+
+function drawCat(t, lookX, lookY) {
   o.clearRect(0, 0, S, S);
-  const bob = Math.sin(t * 1.6) * 3, sway = Math.sin(t * 1.1);
-  const blink = (t % 4.2) < 0.14 ? 0.12 : 1, twitch = (t % 6.5) < 0.25 ? -0.12 : 0;
+  const bob = reduceMotion ? 0 : Math.sin(t * 1.6) * 3;
+  const sway = reduceMotion ? 0 : Math.sin(t * 1.1);
+  const blink = !reduceMotion && (t % 4.6) < 0.13 ? 0.1 : 1;
+  const head = lookX * 9, headY = lookY * 5;          // the head turns toward the pointer
+
   const tail = () => { o.beginPath(); o.moveTo(275, 330); o.bezierCurveTo(350, 330, 360 + sway * 12, 250, 330 + sway * 30, 190 + Math.abs(sway) * 6); o.stroke(); };
   o.lineCap = "round"; o.lineWidth = 30; o.strokeStyle = C.ginger; tail();
   o.strokeStyle = C.rust; o.setLineDash([12, 16]); tail(); o.setLineDash([]);
@@ -303,26 +387,34 @@ function drawCat(t) {
   for (let i = 0; i < 3; i++) { o.beginPath(); o.arc(285, 270 + i * 26, 34, Math.PI * 0.95, Math.PI * 1.35); o.stroke(); }
   ell(168, 372, 26, 16, C.fur); ell(236, 374, 26, 16, C.fur);
 
-  o.save(); o.translate(132, 110); o.rotate(twitch);
-  o.beginPath(); o.moveTo(-20, 20); o.lineTo(-8, -58); o.lineTo(42, 0); o.closePath(); o.fillStyle = C.ginger; o.fill();
-  o.beginPath(); o.moveTo(-8, 10); o.lineTo(-3, -36); o.lineTo(24, 2); o.closePath(); o.fillStyle = C.pink; o.fill();
-  o.restore();
+  o.save(); o.translate(head, headY);
+  o.beginPath(); o.moveTo(112, 130); o.lineTo(124, 52); o.lineTo(174, 110); o.closePath(); o.fillStyle = C.ginger; o.fill();
+  o.beginPath(); o.moveTo(124, 120); o.lineTo(129, 74); o.lineTo(156, 112); o.closePath(); o.fillStyle = C.pink; o.fill();
   o.beginPath(); o.moveTo(208, 104); o.lineTo(262, 52); o.lineTo(272, 128); o.closePath(); o.fillStyle = C.ginger; o.fill();
   o.beginPath(); o.moveTo(222, 108); o.lineTo(256, 76); o.lineTo(262, 120); o.closePath(); o.fillStyle = C.pink; o.fill();
-
   ell(200, 170, 92, 76, C.ginger);
   o.strokeStyle = C.rust; o.lineWidth = 8;
   for (let i = -1; i <= 1; i++) { o.beginPath(); o.moveTo(200 + i * 20, 102); o.lineTo(200 + i * 14, 132); o.stroke(); }
   o.lineWidth = 7;
   [[118, 168, 140, 172], [116, 184, 138, 186], [282, 168, 260, 172], [284, 184, 262, 186]].forEach(([a, b, c, d]) => {
     o.beginPath(); o.moveTo(a, b); o.lineTo(c, d); o.stroke(); });
-  ell(200, 200, 46, 30, C.fur);
-  [[164, 164], [236, 164]].forEach(([x, y]) => { ell(x, y, 15, 18 * blink, C.ink); if (blink > 0.5) ell(x + 5, y - 6, 4.5, 5, "#FFF6EA"); });
-  o.beginPath(); o.moveTo(191, 187); o.lineTo(209, 187); o.lineTo(200, 198); o.closePath(); o.fillStyle = C.pink; o.fill();
+  ell(200, 202, 46, 30, C.fur);
+  // amber eyes with slit pupils that follow the pointer
+  [[164, 164], [236, 164]].forEach(([x, y]) => {
+    ell(x, y, 16, 19 * blink, C.ink);
+    if (blink > 0.5) {
+      ell(x, y, 13, 16, C.iris);
+      ell(x + lookX * 5, y + lookY * 4, 3.6, 12, C.ink);
+      ell(x + 5 + lookX * 2, y - 7, 3.5, 4, "#FFF6EA");
+    }
+  });
+  o.beginPath(); o.moveTo(191, 189); o.lineTo(209, 189); o.lineTo(200, 200); o.closePath(); o.fillStyle = C.pink; o.fill();
   o.strokeStyle = C.ink; o.lineWidth = 3;
-  o.beginPath(); o.moveTo(200, 198); o.lineTo(200, 205); o.quadraticCurveTo(190, 214, 182, 206);
-  o.moveTo(200, 205); o.quadraticCurveTo(210, 214, 218, 206); o.stroke();
+  o.beginPath(); o.moveTo(200, 200); o.lineTo(200, 207); o.quadraticCurveTo(190, 216, 182, 208);
+  o.moveTo(200, 207); o.quadraticCurveTo(210, 216, 218, 208); o.stroke();
   o.restore();
+  o.restore();
+  return head;
 }
 
 let W = 0, H = 0;
@@ -332,47 +424,44 @@ function resize() {
   view.width = W * dpr; view.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 addEventListener("resize", resize); resize();
+new ResizeObserver(resize).observe(view);          // the frame is sized after load inside Streamlit
 
 const lum = (r, g, b) => (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-let glitchRow = -1, glitchUntil = 0, visible = true;
-new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(view);
+// No visibility check here: inside Streamlit's frame it reports the wrong state on first load,
+// and browsers already pause animation frames in frames that are scrolled out of view.
 
 function frame(ms) {
   requestAnimationFrame(frame);
-  if (!visible) return;                       // don't burn CPU while scrolled away
-  const t = still ? 0 : ms / 1000;
-  drawCat(t);
+  updateTilt(ms);
+  if (!W || !H || document.hidden) return;
+  const t = ms / 1000;
+  const lookX = tilt.x, lookY = tilt.y;
+  const head = drawCat(t, lookX, lookY);
   const img = o.getImageData(0, 0, S, S).data;
   ctx.clearRect(0, 0, W, H);
-  const scale = Math.min(W / S, H / S) * 0.9;
-  const ox = (W - S * scale) / 2 - W * 0.05, oy = (H - S * scale) / 2 + 24;
+  const scale = Math.min(W / S, H / S) * 0.92;
+  const ox = (W - S * scale) / 2, oy = (H - S * scale) / 2 + 16;
   const pitch = 4.2 / scale;
-  if (!still && t > glitchUntil && Math.random() < 0.02) { glitchRow = Math.random() * S; glitchUntil = t + 0.12; }
+  const turn = 16 * lookX, nod = 8 * lookY;           // how far the nearest scanlines move
+
+  // soft shadow on the paper, pushed away from the light
+  ctx.fillStyle = "rgba(60,35,15,.14)";
+  ctx.beginPath();
+  ctx.ellipse(ox + (210 - turn * 1.5) * scale, oy + 392 * scale, 140 * scale, 14 * scale, 0, 0, Math.PI * 2);
+  ctx.fill();
 
   for (let y = 0; y < S; y += pitch) {
     const yy = Math.floor(y);
-    const shift = (t < glitchUntil && Math.abs(y - glitchRow) < 18) ? Math.random() * 14 - 7 : 0;
-    let edge = -1;
     for (let x = 0; x < S; x += 2) {
       const i = (yy * S + x) * 4;
       if (img[i + 3] < 40) continue;
       const r = img[i], g = img[i + 1], b = img[i + 2];
-      const th = (1.1 + 2.4 * (1 - lum(r, g, b))) * (0.92 + 0.08 * Math.sin(t * 6 + y * 0.3));
+      const z = depth(x, y, head);
+      const th = 1.1 + 2.5 * (1 - lum(r, g, b));
       ctx.fillStyle = `rgb(${r},${g},${b})`;
-      ctx.fillRect(ox + (x + shift) * scale, oy + y * scale - th / 2, 2 * scale + 0.4, th);
-      edge = x;
-    }
-    if (edge > 0 && yy % 3 === 0) {             // speed lines trailing to the right
-      const n = Math.sin(yy * 12.9898) * 43758.5453, rnd = n - Math.floor(n);
-      if (rnd > 0.45) {
-        const len = (60 + rnd * 220) * (0.6 + 0.4 * Math.sin(t * 2 + rnd * 9));
-        ctx.globalAlpha = 0.18 + rnd * 0.35; ctx.fillStyle = rnd > 0.8 ? C.ginger : C.ink;
-        ctx.fillRect(ox + (edge + 14) * scale, oy + y * scale - 0.6, len, 1.2); ctx.globalAlpha = 1;
-      }
+      ctx.fillRect(ox + (x + z * turn) * scale, oy + (y + z * nod) * scale - th / 2, 2 * scale + 0.4, th);
     }
   }
-  ctx.globalAlpha = .25; ctx.fillStyle = C.ink;
-  ctx.fillRect(ox + 40 * scale, oy + 394 * scale, 300 * scale, 1); ctx.globalAlpha = 1;
 }
 requestAnimationFrame(frame);
 </script>

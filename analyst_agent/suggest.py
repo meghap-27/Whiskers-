@@ -70,8 +70,10 @@ def _dates(profile: dict) -> list[str]:
     return [c["name"] for c in profile["columns"] if c["dtype"] == "date"]
 
 
-def _q(label: str, value: str, hint: str, icon: str) -> dict:
-    return {"label": _short(label), "value": value, "hint": hint, "icon": icon}
+def _q(label: str, value: str, hint: str, icon: str = "") -> dict:
+    """icon is accepted for older callers but no longer shown."""
+    hint = hint if hint.endswith(".") else hint + "."
+    return {"label": _short(label), "value": value, "hint": hint}
 
 
 def suggest_folders(profile: dict, dataset_name: str = "your data") -> list[dict]:
@@ -163,9 +165,9 @@ def suggest_folders(profile: dict, dataset_name: str = "your data") -> list[dict
     biz = _dedupe(biz)[:4]
 
     return [
-        {"coat": "ginger", "label": "Data checks", "caption": "CLEAN BEFORE YOU COUNT", "items": checks},
-        {"coat": "chocolate", "label": "Is it real?", "caption": "STATS BEFORE CLAIMS", "items": stats},
-        {"coat": "cream", "label": "Business questions", "caption": "THE EVERYDAY STUFF", "items": biz},
+        {"coat": "ginger", "label": "Data checks", "caption": "Clean before you count", "items": checks},
+        {"coat": "chocolate", "label": "Is it real?", "caption": "Statistics before claims", "items": stats},
+        {"coat": "grey", "label": "Business questions", "caption": "The everyday ones", "items": biz},
     ]
 
 

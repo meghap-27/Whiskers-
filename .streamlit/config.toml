@@ -1,14 +1,54 @@
-# Ginger-tabby palette: cream fur background, ginger coat accent, nose-leather brown text
+# A cat on an analyst's desk: cardboard surface, paper cards, dark-brown ink,
+# ginger for the cat, graph-paper blue for links, focus and the primary action.
 [theme]
 base = "light"
-primaryColor = "#E07A2E"
-backgroundColor = "#FBF1E3"
-secondaryBackgroundColor = "#F3E0C4"
-textColor = "#3A2417"
-font = "monospace"
+primaryColor = "#3557A0"
+# paper is the base colour (tables, inputs); the cardboard desk is painted by CSS in streamlit_app.py
+backgroundColor = "#FBF7F0"
+secondaryBackgroundColor = "#F2EADD"
+textColor = "#2B1B12"
+linkColor = "#3557A0"
+borderColor = "#A9825C"
+showWidgetBorder = true
+baseRadius = "6px"
+buttonRadius = "4px"
+font = "Atkinson Hyperlegible, system-ui, sans-serif"
+headingFont = "Atkinson Hyperlegible, system-ui, sans-serif"
+headingFontWeights = [700, 700, 700, 700, 700, 700]
+codeFont = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+codeBackgroundColor = "#F2EADD"
+codeTextColor = "#2B1B12"
+baseFontSize = 15
+showSidebarBorder = false
+dataframeHeaderBackgroundColor = "#EFE3D2"
+dataframeBorderColor = "#E0D0BA"
+chartCategoricalColors = ["#D9772B", "#3557A0", "#6C4128", "#837B75", "#8F4318", "#7FA0D6", "#E2B23C", "#2B1B12"]
+yellowBackgroundColor = "#F6E3B4"
+yellowTextColor = "#5A3B07"
+redBackgroundColor = "#F3D2C8"
+blueBackgroundColor = "#DCE3F0"
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-latin-400-normal.woff2"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-latin-700-normal.woff2"
+weight = 700
+
+[theme.sidebar]
+backgroundColor = "#B48C63"
+secondaryBackgroundColor = "#FBF7F0"
+borderColor = "#8E6A47"
 
 [server]
 maxUploadSize = 20          # MB; keep in step with MAX_UPLOAD_MB
+enableStaticServing = true  # serves ui/static (fonts, avatars)
+
+[client]
+toolbarMode = "minimal"     # hide the Deploy button and developer menu
 
 [browser]
 gatherUsageStats = false

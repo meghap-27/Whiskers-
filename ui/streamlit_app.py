@@ -38,17 +38,60 @@ home = components.declare_component("analyst_home", path=str(Path(__file__).reso
 TOOL_LABEL = {"run_sql": "Query database", "run_python": "Run code", "make_chart": "Generate chart",
               "check_findings": "Check findings", "save_definition": "Save definition"}
 
-st.set_page_config(page_title="Data Analyst Agent", page_icon="🐈", layout="wide")
+STATIC = Path(__file__).resolve().parent / "static"
+WHISKERS_AVATAR = str(STATIC / "img" / "whiskers.png")
+YOU_AVATAR = str(STATIC / "img" / "you.png")
+st.set_page_config(page_title="Whiskers, a data analyst", page_icon=str(STATIC / "img" / "favicon.png"), layout="wide")
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@700&family=JetBrains+Mono:wght@400;600&display=swap');
-html, body, [class*="css"], .stMarkdown, .stButton button, .stTextInput input { font-family: 'JetBrains Mono', monospace; }
-h1, h2, h3 { font-family: 'Silkscreen', monospace !important; letter-spacing: -.01em; }
-.stButton button[kind="primary"], .stDownloadButton button { background: #3A2417; color: #FBF1E3; border: 0; border-radius: 2px; }
-.stButton button[kind="primary"]:hover, .stDownloadButton button:hover { background: #E07A2E; color: #FBF1E3; }
-[data-testid="stSidebar"] { border-right: 1px solid #EAD3B2; }
-[data-testid="stChatMessage"] { background: #FFF8EE; border: 1px solid #F3E0C4; border-radius: 12px; }
-.block-container { padding-top: 1.5rem; }
+/* cardboard grain on the desk */
+.stApp {
+  background-color: #C9A37C;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.block-container { padding-top: 1.2rem; max-width: 1180px; }
+
+/* answers and questions are sheets of paper resting on the desk */
+[data-testid="stChatMessage"] {
+  background: #FBF7F0; border: 0; border-radius: 6px; padding: 18px 20px;
+  box-shadow: 0 1px 0 rgba(43,27,18,.10), 0 14px 26px -14px rgba(60,35,15,.55);
+}
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarCustom"] img[src*="you"]) { background: #EFE3D2; }
+
+/* tactile buttons: they press down */
+.stButton > button, .stDownloadButton > button {
+  font-weight: 700; border: 1.5px solid #2B1B12; background: #FBF7F0; color: #2B1B12;
+  box-shadow: 0 3px 0 #2B1B12; transform: translateY(0); transition: transform .08s ease, box-shadow .08s ease;
+}
+.stButton > button:hover, .stDownloadButton > button:hover { border-color: #2B1B12; color: #2B1B12; background: #fff; }
+.stButton > button:active, .stDownloadButton > button:active { transform: translateY(3px); box-shadow: 0 0 0 #2B1B12; }
+.stButton > button:focus-visible, .stDownloadButton > button:focus-visible { outline: 3px solid #3557A0; outline-offset: 2px; }
+
+/* the chat box is the one place you type: give it weight */
+[data-testid="stChatInput"] { border: 2px solid #2B1B12 !important; border-radius: 8px !important;
+  box-shadow: 0 4px 0 #2B1B12; background: #FBF7F0; }
+[data-testid="stBottomBlockContainer"], [data-testid="stBottom"], [data-testid="stBottom"] > div,
+[data-testid="stHeader"], [data-testid="stMain"] { background: transparent; }
+
+/* tabs: ink underline */
+.stTabs [data-baseweb="tab-list"] { gap: 18px; }
+.stTabs [data-baseweb="tab"] { font-weight: 700; color: #5E4636; }
+.stTabs [aria-selected="true"] { color: #2B1B12; }
+.stTabs [data-baseweb="tab-highlight"] { background: #2B1B12; height: 3px; }
+
+/* sidebar sits on darker card stock */
+[data-testid="stSidebar"] { background-color: #B48C63; }
+[data-testid="stSidebar"] h2 { font-size: 1.05rem; margin-top: .6rem; }
+[data-testid="stSidebar"] [data-testid="stExpander"] { background: #FBF7F0; border-radius: 6px; border: 0;
+  box-shadow: 0 8px 18px -12px rgba(43,27,18,.6); }
+[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] { background: #FBF7F0; border: 1.5px dashed #2B1B12; }
+
+/* notes the agent raises read like margin notes, not traffic signs */
+[data-testid="stAlert"] { border-radius: 4px; }
+[data-testid="stExpander"] details { border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  .stButton > button, .stDownloadButton > button { transition: none; }
+}
 </style>""", unsafe_allow_html=True)
 init_error_tracking()
 
@@ -111,34 +154,35 @@ with st.sidebar:
 
     for ds in list(session.datasets.values()):
         p = ds.profile
-        main = " · main" if ds.table == session.main_table and len(session.datasets) > 1 else ""
-        with st.expander(f"{ds.table} · {p['row_count']:,} rows · {len(p['columns'])} cols{main}", expanded=True):
-            if st.button("✕ Remove this file", key=f"rm_{ds.table}"):
+        main = ", latest upload" if ds.table == session.main_table and len(session.datasets) > 1 else ""
+        with st.expander(f"{ds.name} ({p['row_count']:,} rows, {len(p['columns'])} columns{main})", expanded=True):
+            if st.button("Remove this file", key=f"rm_{ds.table}"):
                 session.remove(ds.table)
                 if ss.get("rejected") == ds.name:
                     ss.rejected = None
                 st.rerun()
             issues = p["quality"]["issues"]
             if issues:
-                st.markdown(f"**{len(issues)} data-quality issue(s)**")
+                st.markdown(f"**{len(issues)} data-quality issue{'s' if len(issues) != 1 else ''}**")
                 for i in issues:
-                    st.warning(i["message"], icon="⚠️")
+                    st.warning(i["message"])
             else:
                 st.success("No data-quality issues found")
             st.dataframe([{"column": c["name"], "type": c["dtype"], "nulls %": c["null_pct"],
                            "unique": c["unique"]} for c in p["columns"]], hide_index=True)
 
     st.header("Model")
-    choices = {"groq": "Groq · free", "gemini": "Gemini · free", "ollama": "Ollama · free, on your PC",
-               "anthropic": "Claude · paid"}
+    choices = {"groq": "Groq (free)", "gemini": "Gemini (free)", "ollama": "Ollama (free, runs on your computer)",
+               "anthropic": "Claude (paid)"}
     server_has_key = any(os.getenv(PROVIDERS[p][2]) for p in ("groq", "gemini"))
     byok = True
     if config.PUBLIC_MODE:
         choices.pop("ollama")                 # a hosted app can't reach the visitor's computer
         if server_has_key:
             left = limiter().remaining(session.id)
-            st.caption("Using this app's free AI key"
-                       + (f" · {left} question{'s' if left != 1 else ''} left this hour" if left is not None else ""))
+            st.caption("Using this app's free AI key."
+                       + (f" You have {left} question{'s' if left != 1 else ''} left this hour." if left is not None
+                          else ""))
         byok = st.toggle("Use my own API key", value=not server_has_key,
                          help="Your key is used only for your questions in this browser tab and is never stored.")
     provider = os.getenv("LLM_PROVIDER", "groq")
@@ -146,7 +190,7 @@ with st.sidebar:
     if byok:
         provider = st.selectbox("AI provider", list(choices), format_func=choices.get,
                                 index=list(choices).index(provider) if provider in choices else 0)
-        name = choices[provider].split(" ·")[0]
+        name = choices[provider].split(" (")[0]
         if provider == "ollama":
             key = "ollama"
             st.caption("Install Ollama, then run `ollama pull qwen2.5:7b`. Nothing leaves your computer.")
@@ -155,7 +199,7 @@ with st.sidebar:
             # A key from .env / secrets is used server-side only and never sent to the page.
             saved = "" if config.PUBLIC_MODE else os.getenv(env, "")
             if saved:
-                st.caption(f"🔑 Using the {name} key from your .env file.")
+                st.caption(f"Using the {name} key from your .env file.")
             typed = st.text_input(f"{name} API key" + (" (to use a different one)" if saved else ""),
                                   type="password", value="", placeholder="paste key" if not saved else "optional")
             key = typed.strip() or saved
@@ -181,7 +225,7 @@ with st.sidebar:
         c1, c2 = st.columns([5, 1])
         c1.markdown(f"**{d['term']}** ({d['dataset']}): {d['definition']}"
                     + (f"  \n`{d['sql_expression']}`" if d["sql_expression"] else ""))
-        if c2.button("✕", key=f"del_{d['dataset']}_{d['term']}"):
+        if c2.button("Delete", key=f"del_{d['dataset']}_{d['term']}"):
             glossary.delete(d["dataset"], d["term"])
             st.rerun()
 
@@ -189,7 +233,7 @@ with st.sidebar:
 # ------------------------------------------------------------------ helpers
 def show_run(run, i, work: Session):
     for w in run.warnings:
-        st.warning(w["message"], icon="🔎")
+        st.warning(w["message"])
     st.markdown(run.answer)
     v = run.verification
     if v.get("caveat"):
@@ -199,14 +243,15 @@ def show_run(run, i, work: Session):
     if run.definitions_used:
         st.caption("Definitions applied: " + ", ".join(run.definitions_used))
     if run.chart:
-        st.plotly_chart(pio.from_json(run.chart["figure_json"]), width="stretch", key=f"chart_{i}")
+        st.plotly_chart(pio.from_json(run.chart["figure_json"]), width="stretch", key=f"chart_{i}",
+                        theme=None)
     if run.table is not None:
         st.dataframe(run.table.head(200), hide_index=True)
 
-    with st.expander(f"How I got this · {len(run.steps)} steps · {run.latency_ms / 1000:.1f}s"):
+    with st.expander(f"How Whiskers got this ({len(run.steps)} steps, {run.latency_ms / 1000:.1f} s)"):
         for s in run.steps:
-            st.markdown(f"**{s.idx}. {TOOL_LABEL.get(s.tool, s.tool)}** · {s.duration_ms} ms"
-                        + (f" · {s.input.get('purpose')}" if s.input.get("purpose") else ""))
+            st.markdown(f"**{s.idx}. {TOOL_LABEL.get(s.tool, s.tool)}** ({s.duration_ms} ms)"
+                        + (f": {s.input.get('purpose')}" if s.input.get("purpose") else ""))
             if s.tool == "run_sql":
                 st.code(s.input["query"], language="sql")
             elif s.tool == "run_python":
@@ -245,7 +290,7 @@ if ss.show_home:
         ss.show_home = False
         st.rerun()
 else:
-    if st.sidebar.button("🏠 Back to home", width="stretch"):
+    if st.sidebar.button("Back to home", width="stretch"):
         ss.show_home = True
         st.rerun()
 
@@ -253,18 +298,18 @@ tab_ask, tab_dash = st.tabs(["Ask", "Dashboard"])
 
 with tab_ask:
     if ss.get("notice"):
-        st.info(ss.pop("notice"), icon="🔑")
+        st.info(ss.pop("notice"))
     if not session.datasets:
         st.info("Upload a CSV or load the sample dataset from the sidebar to start.")
     for i, (q, run, was_demo) in enumerate(ss.runs):
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar=YOU_AVATAR):
             st.markdown(q + ("  \n*(offline demo on the sample retail data)*" if was_demo else ""))
-        with st.chat_message("assistant", avatar="🐈"):
+        with st.chat_message("assistant", avatar=WHISKERS_AVATAR):
             show_run(run, i, demo_session() if was_demo else session)
 
     demo = False
     if not have_llm:
-        demo = st.button(f"▶ Offline demo on sample data: “{DEMO_QUESTION}”")
+        demo = st.button(f"Run the offline demo on sample data: “{DEMO_QUESTION}”")
     question = st.chat_input("Ask Whiskers about your data", disabled=not session.datasets)
     if demo:
         question = DEMO_QUESTION
@@ -284,7 +329,7 @@ with tab_ask:
             if config.PUBLIC_MODE and not byok:          # shared key: enforce the question limits
                 blocked = limiter().check(session.id)
                 if blocked:
-                    st.warning(blocked, icon="⏳")
+                    st.warning(blocked)
                     st.stop()
             try:
                 # a visitor's own key must not silently fall back to the server's keys
@@ -296,10 +341,10 @@ with tab_ask:
         else:
             st.error("Add a free API key in the sidebar (Model section), or run the offline demo.")
             st.stop()
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar=YOU_AVATAR):
             st.markdown(question)
-        with st.chat_message("assistant", avatar="🐈"):
-            status = st.status("Whiskers is sniffing around…", expanded=True)
+        with st.chat_message("assistant", avatar=WHISKERS_AVATAR):
+            status = st.status("Analysing your data", expanded=True)
             run = None
             os.utime(work.dir)                             # keep this session's uploads alive
             try:
@@ -307,7 +352,7 @@ with tab_ask:
                     if ev["type"] == "step_start":
                         status.write(f"{TOOL_LABEL.get(ev['tool'], ev['tool'])}…")
                     elif ev["type"] == "reanalyze":
-                        status.write("Verifier found unsupported numbers — re-checking…")
+                        status.write("Some numbers weren't backed by a query. Checking them again.")
                     elif ev["type"] == "done":
                         run = ev["run"]
             except Exception as e:  # show API problems (no credit, bad key…) as a message, not a traceback
@@ -317,8 +362,8 @@ with tab_ask:
                 if msg is None:
                     capture(e)
                     raise
-                status.update(label="Couldn't get an answer from the model", state="error", expanded=False)
-                st.error(msg, icon="🙀")
+                status.update(label="No answer from the AI provider", state="error", expanded=False)
+                st.error(msg)
                 st.stop()
             log_run(run, session.id, "demo" if demo else getattr(llm, "provider", ""), getattr(llm, "model", ""))
             status.update(label=f"Done in {run.latency_ms / 1000:.1f}s", state="complete", expanded=False)
@@ -338,7 +383,7 @@ with tab_dash:
             out = pins.refresh(p, session.con)
             if out["chart"]:
                 st.plotly_chart(pio.from_json(out["chart"]["figure_json"]), width="stretch",
-                                key=f"pinchart_{p['id']}")
+                                key=f"pinchart_{p['id']}", theme=None)
             else:
                 st.dataframe(out["table"], hide_index=True)
         except Exception as e:
