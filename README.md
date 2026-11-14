@@ -5,7 +5,7 @@ numbers have been checked. Unlike a plain text-to-SQL bot, the agent **thinks li
 on upload, runs significance tests before claiming a difference, catches Simpson's paradox and outlier-driven averages,
 learns your metric definitions, and exports every answer as a notebook that re-runs end to end.
 
-![tests](https://github.com/meghap-27/data-analyst-agent/actions/workflows/tests.yml/badge.svg)
+![tests](https://github.com/meghap-27/Data-Analyst-Agent/actions/workflows/tests.yml/badge.svg)
 
 ## What makes it different
 
@@ -40,7 +40,7 @@ and testable. A `ScriptedLLM` replays fixed tool calls, which lets the whole pip
 ## Quick start (VS Code, Windows)
 
 ```powershell
-git clone https://github.com/meghap-27/data-analyst-agent
+git clone https://github.com/meghap-27/Data-Analyst-Agent
 cd data-analyst-agent
 python -m venv .venv
 .venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
