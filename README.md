@@ -53,6 +53,14 @@ flowchart TD
 The loop is hand-written (`analyst_agent/agent/loop.py`, ~250 lines) rather than a framework, so every step is visible
 and testable. A `ScriptedLLM` replays fixed tool calls, which lets the whole pipeline be tested without an API key.
 
+## Try it in the browser (no install)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/meghap-27/Data-Analyst-Agent?quickstart=1)
+
+Click the badge: GitHub builds a cloud machine, installs everything and opens the app in a new browser tab
+(about 2 minutes the first time). Add your Groq key when asked, or under Settings > Codespaces > Secrets as
+`GROQ_API_KEY`. Each run uses the latest code on `main`.
+
 ## Quick start (VS Code, Windows)
 
 ```powershell
