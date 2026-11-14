@@ -38,7 +38,7 @@ def test_agent_runs_on_openai_compatible_provider(session, glossary):
         _tool_call("call_1", "run_sql", {"query": "SELECT COUNT(*) AS n FROM retail_orders"}),
         _text("There are 3025 rows."),
     ], seen)
-    llm = OpenAICompatLLM("groq", api_key="test", client=client)
+    llm = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", client=client)
     run = Agent(session, llm, glossary).ask("How many rows?")
 
     assert run.answer == "There are 3025 rows." and run.verification["verified"]
@@ -54,7 +54,7 @@ def test_agent_runs_on_openai_compatible_provider(session, glossary):
 def test_rate_limit_is_retried(session, glossary):
     seen = []
     client = _fake([_text("hello")], seen, status_first=[429])
-    llm = OpenAICompatLLM("groq", api_key="test", client=client)
+    llm = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", client=client)
     assert llm.create("sys", [{"role": "user", "content": "hi"}], [])["content"][0]["text"] == "hello"
     assert len(seen) == 2
 
@@ -88,7 +88,7 @@ def test_retired_model_switches_to_a_listed_one():
                                                        "message": "The model `old-model` does not exist"}})
         return httpx.Response(200, json=_text("ok"))
 
-    llm = OpenAICompatLLM("groq", api_key="t", model="old-model",
+    llm = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", model="old-model",
                           client=httpx.Client(transport=httpx.MockTransport(handler)))
     assert llm.create("s", [{"role": "user", "content": "hi"}], [])["content"][0]["text"] == "ok"
     assert seen == ["old-model", "qwen/qwen3.6-27b"] and llm.retired_model == "old-model"
@@ -102,7 +102,7 @@ def _tool_use_failed(generation):
 
 def test_raw_python_tool_call_is_rescued():
     gen = '{"name": "run_python", "arguments": import pandas as pd\nprint(df["discount_pct"].corr(df["customer_rating"]))}'
-    llm = OpenAICompatLLM("groq", api_key="t",
+    llm = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij",
                           client=httpx.Client(transport=httpx.MockTransport(lambda r: _tool_use_failed(gen))))
     out = llm.create("s", [{"role": "user", "content": "hi"}], [])
     call = next(b for b in out["content"] if b["type"] == "tool_use")
@@ -121,7 +121,15 @@ def test_unrescuable_bad_call_gets_a_resend_nudge():
         return httpx.Response(200, json=_tool_call("c1", "check_findings",
                                                    {"value_column": "customer_rating", "group_column": "region"}))
 
-    llm = OpenAICompatLLM("groq", api_key="t", client=httpx.Client(transport=httpx.MockTransport(handler)))
+    llm = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", client=httpx.Client(transport=httpx.MockTransport(handler)))
     out = llm.create("s", [{"role": "user", "content": "hi"}], [])
     assert out["stop_reason"] == "tool_use" and len(calls) == 2
     assert "not valid JSON" in calls[1]["messages"][-1]["content"]
+
+
+def test_placeholder_key_is_caught_before_calling_the_api():
+    import pytest
+    for key in ("gsk_...", "gsk_your_key", "abc"):
+        with pytest.raises(RuntimeError, match="placeholder"):
+            OpenAICompatLLM("groq", api_key=key)
+    assert OpenAICompatLLM("ollama").api_key == "ollama"          # Ollama needs no key

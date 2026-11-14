@@ -31,6 +31,9 @@ class AnthropicLLM:
         key = api_key or os.getenv("ANTHROPIC_API_KEY")
         if not key:
             raise RuntimeError("Set ANTHROPIC_API_KEY (see .env.example) or pass api_key.")
+        if looks_like_placeholder(key):
+            raise RuntimeError("The Claude key is still the placeholder from .env.example. Paste your full key "
+                               "into .env or the sidebar, then restart the app.")
         self.client = anthropic.Anthropic(api_key=key)
         self.model = model
 
@@ -68,6 +71,12 @@ FALLBACK_MODELS = {
 }
 
 
+def looks_like_placeholder(key: str) -> bool:
+    """Template values such as 'gsk_...' or 'sk-ant-...', or keys far too short to be real."""
+    key = key.strip()
+    return "..." in key or "your" in key.lower() or len(key) < 20
+
+
 class ProviderError(RuntimeError):
     """An HTTP error from an OpenAI-compatible provider, with the provider name attached."""
 
@@ -92,6 +101,10 @@ class OpenAICompatLLM:
         self.api_key = api_key or env_key or ("ollama" if provider == "ollama" else None)
         if not self.api_key:
             raise RuntimeError(f"Set {key_env} (free key from {PROVIDERS[provider][3]}) or pass api_key.")
+        if provider != "ollama" and looks_like_placeholder(self.api_key):
+            raise RuntimeError(f"The {provider.capitalize()} key is still the placeholder from .env.example "
+                               f"(\"{self.api_key[:8]}\"). Paste your full key from {PROVIDERS[provider][3]} "
+                               "into .env or the sidebar, then restart the app.")
         self.http = client or httpx.Client(timeout=timeout)
         self.retired_model = None   # set if we had to switch away from a retired model
         self.rate_retries = 3       # waits on HTTP 429; FallbackLLM sets 0 when a backup provider exists
@@ -281,15 +294,17 @@ def configured_llm(preferred: str | None = None, api_key: str | None = None, mod
     environment as fallback. A key typed by the user (api_key) applies to the preferred provider only."""
     preferred = preferred or os.getenv("LLM_PROVIDER", "groq")
     order = [preferred] + [p for p in ("groq", "gemini") if p != preferred]
-    llms = []
+    llms, first_error = [], None
     for p in order:
         try:
             if p == preferred:
                 llms.append(make_llm(p, api_key=api_key, model=model))
             elif fallback and p in PROVIDERS and os.getenv(PROVIDERS[p][2] or ""):
                 llms.append(make_llm(p))
-        except RuntimeError:
-            continue
+        except RuntimeError as e:
+            first_error = first_error or e      # e.g. placeholder key: show this, not a generic message
+    if not llms and first_error:
+        raise first_error
     return FallbackLLM(llms) if len(llms) > 1 else (llms[0] if llms else FallbackLLM([]))
 
 

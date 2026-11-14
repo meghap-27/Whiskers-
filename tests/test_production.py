@@ -90,8 +90,8 @@ def test_fallback_moves_to_next_provider_on_rate_limit():
 
     def ok(request):
         return httpx.Response(200, json={"choices": [{"message": {"content": "from gemini"}}]})
-    groq = OpenAICompatLLM("groq", api_key="g", client=httpx.Client(transport=httpx.MockTransport(busy)))
-    gem = OpenAICompatLLM("gemini", api_key="m", client=httpx.Client(transport=httpx.MockTransport(ok)))
+    groq = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", client=httpx.Client(transport=httpx.MockTransport(busy)))
+    gem = OpenAICompatLLM("gemini", api_key="gsk_test_0123456789abcdefghij", client=httpx.Client(transport=httpx.MockTransport(ok)))
     llm = FallbackLLM([groq, gem])
     import analyst_agent.agent.llm as L
     real_sleep, L.time.sleep = L.time.sleep, lambda s: None
@@ -105,7 +105,7 @@ def test_fallback_moves_to_next_provider_on_rate_limit():
 def test_fallback_does_not_hide_bad_key():
     def denied(request):
         return httpx.Response(401, json={"error": "bad key"})
-    groq = OpenAICompatLLM("groq", api_key="g", client=httpx.Client(transport=httpx.MockTransport(denied)))
+    groq = OpenAICompatLLM("groq", api_key="gsk_test_0123456789abcdefghij", client=httpx.Client(transport=httpx.MockTransport(denied)))
     with pytest.raises(ProviderError):
         FallbackLLM([groq, groq]).create("s", [{"role": "user", "content": "hi"}], [])
 
