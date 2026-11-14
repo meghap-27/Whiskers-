@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Streamlit app",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "streamlit",
+      "args": ["run", "ui/streamlit_app.py"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
+    },
+    {
+      "name": "FastAPI backend",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["analyst_agent.api:app", "--reload"],
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
+    },
+    {
+      "name": "Run evals (needs API key)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/evals/run_eval.py",
+      "args": ["--limit", "3"],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

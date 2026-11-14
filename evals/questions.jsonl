@@ -1,0 +1,12 @@
+{"id": "retail-001", "category": "lookup", "question": "How many unique orders are in the data?", "expected": {"type": "number", "value": 3000}}
+{"id": "retail-002", "category": "aggregation", "question": "Which region has the highest total order value?", "expected": {"type": "label", "value": "North"}}
+{"id": "retail-003", "category": "aggregation", "question": "What is the median order value?", "expected": {"type": "number", "value": 1118.18}}
+{"id": "retail-004", "category": "aggregation", "question": "Excluding B2B orders, which category has the highest average order value?", "expected": {"type": "label", "value": "Home"}}
+{"id": "retail-005", "category": "time_series", "question": "What was total order value in 2025?", "expected": {"type": "number", "value": 3646953.19}}
+{"id": "retail-006", "category": "data_quality", "question": "After removing duplicate rows, what share of orders had a refund? Give a percentage.", "expected": {"type": "number", "value": 6.07}}
+{"id": "retail-007", "category": "data_quality", "question": "How many orders came from Delhi?", "expected": {"type": "number", "value": 248}, "note": "City is misspelled (Dehli, delhi , DELHI); a correct answer cleans it."}
+{"id": "retail-008", "category": "statistics", "question": "Is there a meaningful correlation between discount and customer rating?", "expected": {"type": "label", "value": "no"}}
+{"id": "retail-009", "category": "trap", "question": "Do Store orders have a higher average value than Online orders?", "expected": {"type": "warning", "value": "simpsons_paradox"}}
+{"id": "retail-010", "category": "trap", "question": "What is the average order value across all orders?", "expected": {"type": "warning", "value": "outliers_drive_mean"}}
+{"id": "retail-011", "category": "trap", "question": "Is the average order value different across all three channels?", "expected": {"type": "warning", "value": "small_sample"}}
+{"id": "retail-012", "category": "unanswerable", "question": "What is the profit margin by category?", "expected": {"type": "label", "value": "cost"}, "note": "There is no cost column; the agent should say so."}
