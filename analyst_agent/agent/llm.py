@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 import uuid
 from typing import Protocol
@@ -164,9 +165,15 @@ class OpenAICompatLLM:
                     self.retired_model, self.model = self.model, replacement
                     payload = dict(payload, model=replacement)
                     continue
-            if r.status_code == 400 and "tool_use_failed" in r.text and attempt < 1:
-                payload = dict(payload, temperature=0.0)        # Groq: model wrote a bad tool call, try again
-                continue
+            if r.status_code == 400 and "tool_use_failed" in r.text:
+                # The model wrote a tool call whose arguments aren't valid JSON (e.g. raw Python).
+                rescued = _rescue_tool_call(r)
+                if rescued:
+                    return rescued
+                if attempt < 2:                                   # ask it to resend the call as JSON
+                    payload = dict(payload, temperature=0.0, messages=payload["messages"] + [{
+                        "role": "user", "content": _JSON_NUDGE}])
+                    continue
             raise ProviderError(self.provider, r.status_code, r.text)
         raise ProviderError(self.provider, 429, "rate limited")
 
@@ -182,6 +189,44 @@ class OpenAICompatLLM:
         except Exception:
             return None
         return next((m for m in FALLBACK_MODELS.get(self.provider, []) if m in have and m != self.model), None)
+
+
+_JSON_NUDGE = ("Your last tool call was rejected because its arguments were not valid JSON. Call the tool again "
+               'with a JSON object, e.g. {"code": "print(df.head())"} for run_python or '
+               '{"query": "SELECT ..."} for run_sql. Escape newlines and quotes inside strings.')
+
+# tools whose single required argument can be recovered from raw text
+_RAW_ARG = {"run_python": "code", "run_sql": "query"}
+
+
+def _rescue_tool_call(r) -> dict | None:
+    """Turn Groq's `failed_generation` (a tool call with non-JSON arguments) into a normal response.
+
+    Example failed_generation: {"name": "run_python", "arguments": import pandas as pd\nprint(df.head())}
+    """
+    try:
+        failed = r.json()["error"].get("failed_generation") or ""
+    except Exception:
+        return None
+    m = re.match(r'\s*\{\s*"name"\s*:\s*"([^"]+)"\s*,\s*"arguments"\s*:\s*(.*)\}\s*$', failed, re.S)
+    if not m or m.group(1) not in _RAW_ARG:
+        return None
+    name, raw = m.group(1), m.group(2).strip()
+    try:
+        args = json.loads(raw)
+        if isinstance(args, str):
+            args = {_RAW_ARG[name]: args}
+    except json.JSONDecodeError:
+        if raw.startswith("{") and f'"{_RAW_ARG[name]}"' in raw:
+            return None                       # a broken JSON object: safer to ask for a resend
+        args = {_RAW_ARG[name]: raw}
+    if not isinstance(args, dict) or not args.get(_RAW_ARG[name]):
+        return None
+    call = {"id": f"call_{uuid.uuid4().hex[:8]}", "type": "function",
+            "function": {"name": name, "arguments": json.dumps(args)}}
+    return {"choices": [{"finish_reason": "tool_calls",
+                         "message": {"role": "assistant", "content": None, "tool_calls": [call]}}],
+            "usage": {}}
 
 
 def make_llm(provider: str, api_key: str | None = None, model: str | None = None):

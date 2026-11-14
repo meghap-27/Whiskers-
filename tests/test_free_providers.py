@@ -92,3 +92,36 @@ def test_retired_model_switches_to_a_listed_one():
                           client=httpx.Client(transport=httpx.MockTransport(handler)))
     assert llm.create("s", [{"role": "user", "content": "hi"}], [])["content"][0]["text"] == "ok"
     assert seen == ["old-model", "qwen/qwen3.6-27b"] and llm.retired_model == "old-model"
+
+
+def _tool_use_failed(generation):
+    return httpx.Response(400, json={"error": {"message": "Failed to parse tool call arguments as JSON",
+                                               "type": "invalid_request_error", "code": "tool_use_failed",
+                                               "failed_generation": generation}})
+
+
+def test_raw_python_tool_call_is_rescued():
+    gen = '{"name": "run_python", "arguments": import pandas as pd\nprint(df["discount_pct"].corr(df["customer_rating"]))}'
+    llm = OpenAICompatLLM("groq", api_key="t",
+                          client=httpx.Client(transport=httpx.MockTransport(lambda r: _tool_use_failed(gen))))
+    out = llm.create("s", [{"role": "user", "content": "hi"}], [])
+    call = next(b for b in out["content"] if b["type"] == "tool_use")
+    assert out["stop_reason"] == "tool_use" and call["name"] == "run_python"
+    assert call["input"]["code"].startswith("import pandas as pd\nprint(df")
+
+
+def test_unrescuable_bad_call_gets_a_resend_nudge():
+    calls = []
+
+    def handler(request):
+        body = json.loads(request.content)
+        calls.append(body)
+        if len(calls) == 1:
+            return _tool_use_failed('{"name": "check_findings", "arguments": value_column=discount}')
+        return httpx.Response(200, json=_tool_call("c1", "check_findings",
+                                                   {"value_column": "customer_rating", "group_column": "region"}))
+
+    llm = OpenAICompatLLM("groq", api_key="t", client=httpx.Client(transport=httpx.MockTransport(handler)))
+    out = llm.create("s", [{"role": "user", "content": "hi"}], [])
+    assert out["stop_reason"] == "tool_use" and len(calls) == 2
+    assert "not valid JSON" in calls[1]["messages"][-1]["content"]

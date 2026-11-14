@@ -31,7 +31,8 @@ analysis using it.
 6. If the question is ambiguous (two plausible columns, unclear time range), ask one short \
 clarifying question instead of guessing.
 7. Chart only when it shows a trend, comparison or distribution better than a table.
-8. Finish with a short answer (2-5 sentences) with the key numbers, then any caveats. Do not \
+8. Tool arguments are always a JSON object, e.g. run_python {{"code": "..."}} and run_sql {{"query": "..."}}.
+9. Finish with a short answer (2-5 sentences) with the key numbers, then any caveats. Do not \
 repeat the SQL or code in the answer; the UI shows them.
 """
 
