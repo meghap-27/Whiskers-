@@ -76,7 +76,8 @@ def _finish(res, summary, value_col, group_col) -> dict:
     res["groups"] = summary
     small = [g["group"] for g in summary if g["n"] < SMALL_SAMPLE_N]
     res["small_groups"] = small
-    verdict = "a statistically significant difference" if res["significant"] else "no statistically significant difference"
+    verdict = ("a statistically significant difference" if res["significant"]
+               else "no statistically significant difference")
     res["summary"] = (f"{res['test']}: {verdict} in {value_col} across {group_col} "
                       f"(p = {res['p_value']}, alpha = {SIGNIFICANCE_ALPHA}).")
     if small:

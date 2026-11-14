@@ -10,6 +10,7 @@ GET/POST/DELETE /pins, GET /pins/{id}/refresh
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 from pathlib import Path
 
@@ -17,9 +18,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel
 
-import os
-
-from analyst_agent.agent.llm import friendly_error, make_llm
+from analyst_agent.agent.llm import configured_llm, friendly_error
 from analyst_agent.agent.loop import Agent
 from analyst_agent.data.store import SESSIONS, get_or_create
 from analyst_agent.export.notebook import notebook_bytes
@@ -36,7 +35,7 @@ _llm = None
 def llm():
     global _llm
     if _llm is None:
-        _llm = make_llm(os.getenv("LLM_PROVIDER", "groq"))
+        _llm = configured_llm(os.getenv("LLM_PROVIDER", "groq"))
     return _llm
 
 
@@ -165,7 +164,7 @@ def add_pin(body: PinBody):
     try:
         return pins.pin(run, body.title)
     except ValueError as e:
-        raise HTTPException(400, str(e))
+        raise HTTPException(400, str(e)) from e
 
 
 @app.delete("/pins/{pin_id}")

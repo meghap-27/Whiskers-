@@ -1,7 +1,6 @@
 """Export a run as a Jupyter notebook that reproduces the analysis end to end (PRD FR11)."""
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import nbformat

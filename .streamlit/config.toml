@@ -6,3 +6,9 @@ backgroundColor = "#FBF1E3"
 secondaryBackgroundColor = "#F3E0C4"
 textColor = "#3A2417"
 font = "monospace"
+
+[server]
+maxUploadSize = 20          # MB; keep in step with MAX_UPLOAD_MB
+
+[browser]
+gatherUsageStats = false

@@ -2,8 +2,13 @@ import numpy as np
 import pandas as pd
 
 from analyst_agent.analyst.stats import compare_groups
-from analyst_agent.analyst.traps import (causal_language, check_comparison, outlier_influence,
-                                         simpsons_paradox, small_samples)
+from analyst_agent.analyst.traps import (
+    causal_language,
+    check_comparison,
+    outlier_influence,
+    simpsons_paradox,
+    small_samples,
+)
 from analyst_agent.analyst.verify import verify_answer
 
 

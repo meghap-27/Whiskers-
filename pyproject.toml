@@ -1,0 +1,22 @@
+[project]
+name = "data-analyst-agent"
+version = "0.2.0"
+description = "AI data analyst agent: plain-English questions to checked SQL, stats and charts"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["ui/home_component"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E731", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"ui/streamlit_app.py" = ["E402", "E501"]   # long lines are the embedded CSS
+"evals/run_eval.py" = ["E402"]
+"tests/*" = ["E702", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

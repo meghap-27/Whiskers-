@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import re
+import shutil
+import time
 import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -9,8 +11,12 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-from analyst_agent.config import DATA_DIR
+from analyst_agent.config import DATA_DIR, DUCKDB_MEMORY, MAX_ROWS, MAX_UPLOAD_MB, SESSION_TTL_MIN
 from analyst_agent.data.profile import profile_dataframe
+
+
+class UploadTooLarge(ValueError):
+    pass
 
 
 def _table_name(name: str) -> str:
@@ -41,6 +47,8 @@ class Session:
         self.dir = DATA_DIR / "sessions" / self.id
         self.dir.mkdir(parents=True, exist_ok=True)
         self.con = duckdb.connect(":memory:")
+        self.con.execute(f"SET memory_limit = '{DUCKDB_MEMORY}'")
+        self.con.execute("SET threads = 2")
         # defence in depth: generated SQL can never touch the file system or re-enable it
         self.con.execute("SET enable_external_access = false")
         self.con.execute("SET lock_configuration = true")
@@ -49,6 +57,9 @@ class Session:
     def load_file(self, path: str | Path, name: str | None = None) -> Dataset:
         path = Path(path)
         name = name or path.name
+        size_mb = path.stat().st_size / 1e6
+        if size_mb > MAX_UPLOAD_MB:
+            raise UploadTooLarge(f"{name} is {size_mb:.1f} MB; the limit here is {MAX_UPLOAD_MB:g} MB.")
         if path.suffix.lower() in (".xlsx", ".xls"):
             df = pd.read_excel(path)
         else:
@@ -60,6 +71,9 @@ class Session:
 
     def load_dataframe(self, df: pd.DataFrame, name: str, source_path: Path | None = None,
                        raw: pd.DataFrame | None = None) -> Dataset:
+        if len(df) > MAX_ROWS:
+            raise UploadTooLarge(f"{name} has {len(df):,} rows; the limit here is {MAX_ROWS:,}. "
+                                 "Upload a sample or a filtered extract.")
         table = _table_name(name)
         base, i = table, 2
         while table in self.datasets:
@@ -143,7 +157,26 @@ def _looks_like_date(s: pd.Series) -> bool:
     return sample.str.match(pattern).mean() >= 0.9
 
 
-# simple process-wide registry (fine for a single-user demo)
+def cleanup_old_sessions(ttl_min: int = SESSION_TTL_MIN) -> int:
+    """Delete session folders (uploaded files) untouched for ttl_min minutes; drop them from memory."""
+    root, removed = DATA_DIR / "sessions", 0
+    if not root.exists():
+        return 0
+    cutoff = time.time() - ttl_min * 60
+    for d in root.iterdir():
+        try:
+            if d.is_dir() and d.stat().st_mtime < cutoff:
+                shutil.rmtree(d, ignore_errors=True)
+                s = SESSIONS.pop(d.name, None)
+                if s is not None:
+                    s.con.close()
+                removed += 1
+        except OSError:
+            pass
+    return removed
+
+
+# simple process-wide registry
 SESSIONS: dict[str, Session] = {}
 
 

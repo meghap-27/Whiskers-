@@ -54,7 +54,7 @@ git clone https://github.com/meghap-27/Data-Analyst-Agent
 cd data-analyst-agent
 python -m venv .venv
 .venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 copy .env.example .env          # then paste a free Groq key into .env (see below)
 streamlit run ui/streamlit_app.py
 ```
@@ -114,7 +114,7 @@ uvicorn analyst_agent.api:app --reload      # docs at http://localhost:8000/docs
 ## Tests and evaluation
 
 ```bash
-pytest -q                          # 36 tests, no API key needed
+pytest -q && ruff check .          # tests (no API key needed) and lint
 python evals/run_eval.py --provider groq   # benchmark with a real model (free Groq key)
 ```
 
@@ -141,17 +141,42 @@ ui/home_component/   home page: hero + FolderFloat shelf (HTML/JS, bundled matte
 evals/  sample_data/  tests/
 ```
 
-## Safety
+## Safety and production settings
 
-- SQL is parsed with sqlglot and must be a single `SELECT`; DuckDB file access is disabled and locked for the session.
-- Python runs in a separate `python -I` process with CPU, memory and time limits and an empty environment (no API
-  keys). **It does not block network access yet.** Before a public deploy, run it in a Docker container with
-  `--network none` or a hosted sandbox (E2B, Modal).
-- Data samples are sent to the LLM provider; don't upload data you can't share.
+- **SQL**: parsed with sqlglot, single `SELECT` only; DuckDB file access is disabled and locked, with a memory
+  limit and 2 threads per session.
+- **Python**: AI-written code is checked before it runs (`tools/code_guard.py`): imports must be on an allow-list,
+  and file, network, shell and dunder access is rejected. It then runs in a separate `python -I` process with CPU,
+  memory and time limits and no environment variables (so no API keys). It is still not a full sandbox, so
+  **public mode turns `run_python` off** and the agent works through SQL and `check_findings`.
+- **Uploads**: capped at `MAX_UPLOAD_MB` (20) and `MAX_ROWS` (200k); in public mode they are deleted after
+  `SESSION_TTL_MIN` (2 hours). Each question has an overall `RUN_TIMEOUT_S` (120 s).
+- **Shared API key**: in public mode each browser session gets `QUESTIONS_PER_HOUR` (15) and the whole app
+  `DAILY_QUESTION_CAP` (300) per day; visitors can switch on "Use my own API key" to skip the limits.
+  If Groq's free tier is busy and a `GEMINI_API_KEY` is set, requests fall back to Gemini automatically.
+- **Per-visitor data**: in public mode the glossary and pins are scoped to the browser session, so visitors never
+  see each other's definitions.
+- **Logs**: one JSON line per question (tools used, status, latency, tokens, warning types) with no question text,
+  SQL, answers or data. Set `SENTRY_DSN` for crash reports.
+- **Privacy**: column summaries and query results are sent to the AI provider; the sidebar says so.
+
+## Deploy (free, Streamlit Community Cloud)
+
+1. Push this repo to GitHub (done if you cloned it from there).
+2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub, click **Create app**.
+3. Repository `meghap-27/Data-Analyst-Agent`, branch `main`, main file `ui/streamlit_app.py`.
+4. **Advanced settings**: Python 3.13. Under **Secrets**, paste `.streamlit/secrets.toml.example` with your real
+   Groq key (and optionally a Gemini key and Sentry DSN). Keep `PUBLIC_MODE = "true"`.
+5. Click **Deploy**. Every push to `main` redeploys; CI runs lint, tests and a public-mode smoke test first.
+
+Free-tier apps sleep after a period without visitors and have about 1 GB of memory, which is why the upload
+limits above exist. Check Streamlit's current limits before relying on them.
 
 ## Roadmap
 
-- [ ] Docker sandbox with network disabled; Docker Compose deploy
+- [x] Public mode: code guard, upload/row/time limits, per-visitor data, question limits, provider fallback, logs
+- [ ] Docker sandbox with network disabled, so `run_python` can be enabled publicly
+- [ ] Store glossary and pins in hosted Postgres (Neon/Supabase) so they survive redeploys
 - [ ] Connect Postgres/MySQL read-only
 - [ ] Scheduled weekly reports from pinned answers
 - [ ] Run the eval set on 2-3 models and publish the comparison

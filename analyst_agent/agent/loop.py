@@ -4,8 +4,8 @@ from __future__ import annotations
 import json
 import time
 import uuid
+from collections.abc import Iterator
 from dataclasses import dataclass, field
-from typing import Iterator
 
 import pandas as pd
 import sqlglot
@@ -16,7 +16,7 @@ from analyst_agent.agent.prompts import SYSTEM_TEMPLATE, TOOLS
 from analyst_agent.analyst.stats import compare_groups
 from analyst_agent.analyst.traps import check_comparison
 from analyst_agent.analyst.verify import verify_answer
-from analyst_agent.config import MAX_STEPS, TOOL_OUTPUT_CHARS
+from analyst_agent.config import ALLOW_PYTHON, MAX_STEPS, RUN_TIMEOUT_S, TOOL_OUTPUT_CHARS
 from analyst_agent.data.store import Session
 from analyst_agent.glossary import Glossary
 from analyst_agent.tools.chart import make_chart
@@ -61,11 +61,15 @@ class Run:
 
 
 class Agent:
-    def __init__(self, session: Session, llm: LLM, glossary: Glossary | None = None, max_steps: int = MAX_STEPS):
+    def __init__(self, session: Session, llm: LLM, glossary: Glossary | None = None, max_steps: int = MAX_STEPS,
+                 allow_python: bool = ALLOW_PYTHON, timeout_s: int = RUN_TIMEOUT_S):
         self.session = session
         self.llm = llm
         self.glossary = glossary or Glossary()
         self.max_steps = max_steps
+        self.allow_python = allow_python
+        self.timeout_s = timeout_s
+        self.tools = [t for t in TOOLS if allow_python or t["name"] != "run_python"]
         self._last_table: pd.DataFrame | None = None
 
     # ------------------------------------------------------------------ public
@@ -86,7 +90,12 @@ class Agent:
         reanalyzed = False
 
         for _ in range(self.max_steps + 2):
-            resp = self.llm.create(system, messages, TOOLS)
+            if time.time() - t0 > self.timeout_s:
+                run.answer = (f"I stopped after {self.timeout_s}s without a complete answer. "
+                              "Try a narrower question, e.g. one metric for one time period.")
+                run.status = "timeout"
+                break
+            resp = self.llm.create(system, messages, self.tools)
             run.tokens_in += resp["usage"]["input_tokens"]
             run.tokens_out += resp["usage"]["output_tokens"]
             # the API rejects empty text blocks, so drop them from the history
@@ -132,7 +141,8 @@ class Agent:
 
         run.warnings += self._auto_trap_check(run)
         run.warnings = _dedupe(run.warnings)
-        run.status = "done"
+        if run.status != "timeout":
+            run.status = "done"
         run.latency_ms = int((time.time() - t0) * 1000)
         # keep the conversation for follow-ups (text only, to keep the context small)
         self.session.history += [{"role": "user", "content": question},
@@ -142,8 +152,12 @@ class Agent:
 
     # ------------------------------------------------------------------ internals
     def _system_prompt(self) -> str:
-        return SYSTEM_TEMPLATE.format(schema=self.session.schema_text(),
-                                      glossary=self.glossary.prompt_text(list(self.session.datasets)))
+        prompt = SYSTEM_TEMPLATE.format(schema=self.session.schema_text(),
+                                        glossary=self.glossary.prompt_text(list(self.session.datasets)))
+        if not self.allow_python:
+            prompt += ("\nNOTE: run_python is disabled in this deployment. Do all analysis with run_sql "
+                       "(DuckDB has corr(), stddev(), quantile_cont(), regr_slope(), etc.) and check_findings.\n")
+        return prompt
 
     @property
     def _main_table(self) -> str | None:
@@ -157,6 +171,8 @@ class Agent:
                 df = run_sql(self.session.con, args["query"])
                 step.table, self._last_table = df, df
                 step.output = json.dumps(df_preview(df), default=str)
+            elif name == "run_python" and not self.allow_python:
+                raise PermissionError("run_python is disabled here; use run_sql (DuckDB) instead.")
             elif name == "run_python":
                 res = run_python(args["code"], {k: d.path for k, d in self.session.datasets.items()},
                                  last_result=self._last_table, main_table=self._main_table)
@@ -172,7 +188,8 @@ class Agent:
                 chart = make_chart(self._last_table, args["chart_type"], args["x"], args.get("y"),
                                    args.get("color"), args.get("title", ""))
                 step.chart, step.table = chart, self._last_table
-                step.output = json.dumps({"ok": True, "chart": args["chart_type"], "rows_plotted": len(self._last_table)})
+                step.output = json.dumps({"ok": True, "chart": args["chart_type"],
+                                          "rows_plotted": len(self._last_table)})
             elif name == "check_findings":
                 sql = args.get("sql") or f'SELECT * FROM "{self._main_table}"'
                 df = run_sql(self.session.con, sql)

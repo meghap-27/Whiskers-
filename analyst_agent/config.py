@@ -27,3 +27,24 @@ PY_MEMORY_MB = 1024
 TOOL_OUTPUT_CHARS = 4000     # truncate tool output sent back to the LLM
 SMALL_SAMPLE_N = 30
 SIGNIFICANCE_ALPHA = 0.05
+
+
+def _flag(name: str, default: bool) -> bool:
+    return os.getenv(name, str(default)).strip().lower() in ("1", "true", "yes", "on")
+
+
+# ---------------------------------------------------------------- production settings
+# PUBLIC_MODE=true when the app is open to strangers (e.g. Streamlit Community Cloud).
+PUBLIC_MODE = _flag("PUBLIC_MODE", False)
+# LLM-written Python is the riskiest tool; it is off by default in public mode.
+ALLOW_PYTHON = _flag("ALLOW_PYTHON", not PUBLIC_MODE)
+
+MAX_UPLOAD_MB = float(os.getenv("MAX_UPLOAD_MB", "20"))
+MAX_ROWS = int(os.getenv("MAX_ROWS", "200000"))
+DUCKDB_MEMORY = os.getenv("DUCKDB_MEMORY", "512MB")
+RUN_TIMEOUT_S = int(os.getenv("RUN_TIMEOUT_S", "120"))          # whole question, all steps
+SESSION_TTL_MIN = int(os.getenv("SESSION_TTL_MIN", "120"))      # uploaded files are deleted after this
+
+# Protect the server's free API key: per-session and whole-app daily caps (0 = no limit).
+QUESTIONS_PER_HOUR = int(os.getenv("QUESTIONS_PER_HOUR", "15" if PUBLIC_MODE else "0"))
+DAILY_QUESTION_CAP = int(os.getenv("DAILY_QUESTION_CAP", "300" if PUBLIC_MODE else "0"))

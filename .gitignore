@@ -12,3 +12,4 @@ evals/.eval_glossary.sqlite
 .vscode/*
 !.vscode/settings.json
 !.vscode/launch.json
+.streamlit/secrets.toml

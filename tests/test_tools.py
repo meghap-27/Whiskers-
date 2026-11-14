@@ -27,7 +27,8 @@ def test_sql_runs_select(sample_session):
 
 
 def test_duckdb_file_access_disabled(sample_session):
-    with pytest.raises(Exception):
+    import duckdb
+    with pytest.raises(duckdb.Error):
         sample_session.con.execute("SELECT * FROM '/etc/hostname'").fetchall()
 
 

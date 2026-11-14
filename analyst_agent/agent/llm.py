@@ -88,11 +88,13 @@ class OpenAICompatLLM:
         self.provider = provider
         self.base_url = (base_url or os.getenv(f"{provider.upper()}_BASE_URL") or default_url).rstrip("/")
         self.model = model or os.getenv(f"{provider.upper()}_MODEL") or default_model
-        self.api_key = api_key or (os.getenv(key_env) if key_env else None) or ("ollama" if provider == "ollama" else None)
+        env_key = os.getenv(key_env) if key_env else None
+        self.api_key = api_key or env_key or ("ollama" if provider == "ollama" else None)
         if not self.api_key:
             raise RuntimeError(f"Set {key_env} (free key from {PROVIDERS[provider][3]}) or pass api_key.")
         self.http = client or httpx.Client(timeout=timeout)
         self.retired_model = None   # set if we had to switch away from a retired model
+        self.rate_retries = 3       # waits on HTTP 429; FallbackLLM sets 0 when a backup provider exists
 
     # ---- format translation
     @staticmethod
@@ -155,7 +157,7 @@ class OpenAICompatLLM:
             r = self.http.post(url, json=payload, headers=headers)
             if r.status_code == 200:
                 return r.json()
-            if r.status_code == 429 and attempt < 3:          # free tiers: wait and retry
+            if r.status_code == 429 and attempt < self.rate_retries:   # free tiers: wait and retry
                 wait = float(r.headers.get("retry-after", 0) or 0) or 5 * (attempt + 1)
                 time.sleep(min(wait, 30))
                 continue
@@ -227,6 +229,68 @@ def _rescue_tool_call(r) -> dict | None:
     return {"choices": [{"finish_reason": "tool_calls",
                          "message": {"role": "assistant", "content": None, "tool_calls": [call]}}],
             "usage": {}}
+
+
+class FallbackLLM:
+    """Try providers in order; move to the next on rate limits, outages or network errors.
+    With Groq first and Gemini second, a busy free tier doesn't stop the app."""
+
+    RETRYABLE_STATUS = {429, 500, 502, 503, 504}
+
+    def __init__(self, llms: list):
+        if not llms:
+            raise RuntimeError("No AI provider is configured. Add a free GROQ_API_KEY or GEMINI_API_KEY.")
+        self.llms = llms
+        self.active = 0
+        for llm in llms[:-1]:            # don't sit out a rate limit when another provider can answer
+            if hasattr(llm, "rate_retries"):
+                llm.rate_retries = 0
+
+    @property
+    def model(self):
+        return getattr(self.llms[self.active], "model", "")
+
+    @property
+    def provider(self):
+        return getattr(self.llms[self.active], "provider", "anthropic")
+
+    @property
+    def retired_model(self):
+        return getattr(self.llms[self.active], "retired_model", None)
+
+    def create(self, system, messages, tools):
+        import httpx
+        last = None
+        for i in range(self.active, len(self.llms)):
+            try:
+                out = self.llms[i].create(system, messages, tools)
+                self.active = i
+                return out
+            except ProviderError as e:
+                if e.status not in self.RETRYABLE_STATUS:
+                    raise
+                last = e
+            except httpx.TransportError as e:
+                last = e
+        raise last
+
+
+def configured_llm(preferred: str | None = None, api_key: str | None = None, model: str | None = None,
+                   fallback: bool = True):
+    """The server's LLM: the preferred provider first, then any other free provider with a key in the
+    environment as fallback. A key typed by the user (api_key) applies to the preferred provider only."""
+    preferred = preferred or os.getenv("LLM_PROVIDER", "groq")
+    order = [preferred] + [p for p in ("groq", "gemini") if p != preferred]
+    llms = []
+    for p in order:
+        try:
+            if p == preferred:
+                llms.append(make_llm(p, api_key=api_key, model=model))
+            elif fallback and p in PROVIDERS and os.getenv(PROVIDERS[p][2] or ""):
+                llms.append(make_llm(p))
+        except RuntimeError:
+            continue
+    return FallbackLLM(llms) if len(llms) > 1 else (llms[0] if llms else FallbackLLM([]))
 
 
 def make_llm(provider: str, api_key: str | None = None, model: str | None = None):

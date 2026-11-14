@@ -2,8 +2,9 @@
 
 v1 isolation: a fresh `python -I` subprocess per call with CPU, memory and wall-clock limits,
 an empty environment and a scratch working directory. This keeps bad code out of the API
-process. It does NOT block network access: before deploying publicly, run the same runner
-inside the Docker image in sandbox/ (network disabled) or a hosted sandbox such as E2B.
+process. Before that, code_guard rejects imports outside an allow-list and any file, network or
+interpreter access. It is still not a full sandbox, so public deployments default to
+ALLOW_PYTHON=false; for full isolation run the runner in a container with networking disabled.
 """
 from __future__ import annotations
 
@@ -17,6 +18,7 @@ from pathlib import Path
 import pandas as pd
 
 from analyst_agent.config import PY_MEMORY_MB, PY_TIMEOUT_S
+from analyst_agent.tools.code_guard import UnsafeCodeError, check_code
 
 RUNNER = Path(__file__).with_name("_runner.py")
 MARK = "__AGENT_RESULT__"
@@ -30,6 +32,10 @@ def run_python(code: str, datasets: dict[str, Path], last_result: pd.DataFrame |
     DataFrame in a variable called `output` (or as its last expression), it is returned
     as a table so it can be charted.
     """
+    try:
+        check_code(code)
+    except UnsafeCodeError as e:
+        return {"ok": False, "error": f"Blocked: {e}"}
     with tempfile.TemporaryDirectory(prefix="agent_py_") as tmp:
         tmp = Path(tmp)
         result_path = None
