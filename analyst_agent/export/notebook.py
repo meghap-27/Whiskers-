@@ -23,7 +23,7 @@ def run_to_notebook(run, session, data_dir: str = ".") -> nbformat.NotebookNode:
         else:
             load.append(f'{ds.table} = pd.read_csv("{path}")')
         load.append(f'con.register("{ds.table}", {ds.table})')
-    main = next(iter(session.datasets), None)
+    main = session.main_table
     if main:
         load.append(f"df = {main}")
     load.append("result = None")

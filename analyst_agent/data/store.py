@@ -89,10 +89,27 @@ class Session:
         self.datasets[table] = ds
         return ds
 
+    @property
+    def main_table(self) -> str | None:
+        """The most recently loaded table: questions are about it unless the user names another."""
+        return next(reversed(self.datasets), None)
+
+    def remove(self, table: str) -> bool:
+        ds = self.datasets.pop(table, None)
+        if ds is None:
+            return False
+        self.con.execute(f'DROP TABLE IF EXISTS "{table}"')
+        ds.path.unlink(missing_ok=True)
+        return True
+
     def schema_text(self) -> str:
-        """Compact schema + profile for the system prompt."""
+        """Compact schema + profile for the system prompt. The main table is listed first."""
         parts = []
-        for ds in self.datasets.values():
+        order = sorted(self.datasets.values(), key=lambda d: d.table != self.main_table)
+        if len(order) > 1:
+            parts.append(f'Main table: "{self.main_table}" (the latest upload). Answer about it unless the '
+                         "user names another table.")
+        for ds in order:
             p = ds.profile
             parts.append(f'Table "{ds.table}" (from {ds.name}): {p["row_count"]} rows')
             for c in p["columns"]:

@@ -28,6 +28,7 @@ from analyst_agent.export.notebook import notebook_bytes  # noqa: E402
 from analyst_agent.glossary import Glossary  # noqa: E402
 from analyst_agent.limits import RateLimiter  # noqa: E402
 from analyst_agent.pins import PinBoard  # noqa: E402
+from analyst_agent.suggest import suggest_folders  # noqa: E402
 from analyst_agent.telemetry import capture, init_error_tracking, log_run  # noqa: E402
 
 SAMPLE = Path(__file__).resolve().parent.parent / "sample_data" / "retail_orders.csv"
@@ -65,6 +66,15 @@ def sweep_old_sessions() -> int:       # at most every 10 minutes: delete expire
 sweep_old_sessions()
 ss = st.session_state
 ss.setdefault("session", Session())
+
+
+def demo_session() -> Session:
+    """The scripted demo runs on the retail sample in its own workspace, so it never mixes
+    with (or replaces) the visitor's uploaded file."""
+    if "demo_session" not in ss:
+        ss.demo_session = Session()
+        ss.demo_session.load_file(SAMPLE)
+    return ss.demo_session
 ss.setdefault("runs", [])
 ss.setdefault("show_home", True)
 ss.setdefault("last_home_event", None)
@@ -99,9 +109,15 @@ with st.sidebar:
                + "Column summaries and query results are sent to the AI provider to answer your questions, "
                "so don't upload confidential data.")
 
-    for ds in session.datasets.values():
+    for ds in list(session.datasets.values()):
         p = ds.profile
-        with st.expander(f"{ds.table} · {p['row_count']:,} rows · {len(p['columns'])} cols", expanded=True):
+        main = " · main" if ds.table == session.main_table and len(session.datasets) > 1 else ""
+        with st.expander(f"{ds.table} · {p['row_count']:,} rows · {len(p['columns'])} cols{main}", expanded=True):
+            if st.button("✕ Remove this file", key=f"rm_{ds.table}"):
+                session.remove(ds.table)
+                if ss.get("rejected") == ds.name:
+                    ss.rejected = None
+                st.rerun()
             issues = p["quality"]["issues"]
             if issues:
                 st.markdown(f"**{len(issues)} data-quality issue(s)**")
@@ -162,7 +178,7 @@ with st.sidebar:
 
 
 # ------------------------------------------------------------------ helpers
-def show_run(run, i):
+def show_run(run, i, work: Session):
     for w in run.warnings:
         st.warning(w["message"], icon="🔎")
     st.markdown(run.answer)
@@ -194,7 +210,7 @@ def show_run(run, i):
                 st.error(s.error)
 
     c1, c2, _ = st.columns([1, 1, 4])
-    c1.download_button("Notebook", notebook_bytes(run, session, data_dir="."), f"analysis_{run.id}.ipynb",
+    c1.download_button("Notebook", notebook_bytes(run, work, data_dir="."), f"analysis_{run.id}.ipynb",
                        key=f"nb_{i}")
     if c2.button("Pin to dashboard", key=f"pin_{i}"):
         try:
@@ -206,13 +222,17 @@ def show_run(run, i):
 
 # ------------------------------------------------------------------ main
 if ss.show_home:
-    event = home(key="home", default=None)
+    main_ds = session.datasets.get(session.main_table) if session.main_table else None
+    folders = suggest_folders(main_ds.profile, main_ds.name) if main_ds else None
+    event = home(key="home", default=None, folders=folders, dataset=main_ds.name if main_ds else None)
     if event and event.get("ts") != ss.last_home_event:      # each click carries a fresh timestamp
         ss.last_home_event = event["ts"]
-        if "retail_orders" not in session.datasets:
-            session.load_file(SAMPLE)
-        ss.pending_question = DEMO_QUESTION if event["action"] == "demo" else event.get("question")
-        ss.pending_is_demo = event["action"] == "demo"
+        if event["action"] == "demo":
+            ss.pending_question, ss.pending_is_demo = DEMO_QUESTION, True
+        else:
+            if not session.datasets:                         # nothing uploaded yet: use the sample
+                session.load_file(SAMPLE)
+            ss.pending_question, ss.pending_is_demo = event.get("question"), False
         ss.show_home = False
         st.rerun()
 else:
@@ -223,17 +243,19 @@ else:
 tab_ask, tab_dash = st.tabs(["Ask", "Dashboard"])
 
 with tab_ask:
+    if ss.get("notice"):
+        st.info(ss.pop("notice"), icon="🔑")
     if not session.datasets:
         st.info("Upload a CSV or load the sample dataset from the sidebar to start.")
-    for i, (q, run) in enumerate(ss.runs):
+    for i, (q, run, was_demo) in enumerate(ss.runs):
         with st.chat_message("user"):
-            st.markdown(q)
+            st.markdown(q + ("  \n*(offline demo on the sample retail data)*" if was_demo else ""))
         with st.chat_message("assistant", avatar="🐈"):
-            show_run(run, i)
+            show_run(run, i, demo_session() if was_demo else session)
 
     demo = False
-    if "retail_orders" in session.datasets and not have_llm:
-        demo = st.button(f"▶ Offline demo: “{DEMO_QUESTION}”")
+    if not have_llm:
+        demo = st.button(f"▶ Offline demo on sample data: “{DEMO_QUESTION}”")
     question = st.chat_input("Ask Whiskers about your data", disabled=not session.datasets)
     if demo:
         question = DEMO_QUESTION
@@ -241,10 +263,12 @@ with tab_ask:
         question, demo = ss.pending_question, ss.pop("pending_is_demo", False) or not have_llm
         ss.pending_question = None
         if demo and question != DEMO_QUESTION:
-            st.warning(f"“{question}” needs a free API key (sidebar → Model). Showing the offline demo instead.")
+            ss.notice = (f"“{question}” needs a free AI key (sidebar → Model) to run on your file. "
+                         "Showing the offline demo on sample data instead.")
             question = DEMO_QUESTION
 
     if question:
+        work = demo_session() if demo else session       # the demo never touches the user's data
         if demo:
             llm = demo_llm()
         elif have_llm:
@@ -268,9 +292,9 @@ with tab_ask:
         with st.chat_message("assistant", avatar="🐈"):
             status = st.status("Whiskers is sniffing around…", expanded=True)
             run = None
-            os.utime(session.dir)                          # keep this session's uploads alive
+            os.utime(work.dir)                             # keep this session's uploads alive
             try:
-                for ev in Agent(session, llm, glossary).stream(question):
+                for ev in Agent(work, llm, glossary).stream(question):
                     if ev["type"] == "step_start":
                         status.write(f"{TOOL_LABEL.get(ev['tool'], ev['tool'])}…")
                     elif ev["type"] == "reanalyze":
@@ -292,7 +316,7 @@ with tab_ask:
             if getattr(llm, "retired_model", None):
                 st.toast(f"{llm.retired_model} was retired by the provider; used {llm.model} instead. "
                          f"Update the model in .env to skip this check.")
-        ss.runs.append((question, run))
+        ss.runs.append((question, run, demo))
         st.rerun()
 
 with tab_dash:

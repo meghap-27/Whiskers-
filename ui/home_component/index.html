@@ -75,7 +75,7 @@
   .shelf-head p { max-width: 380px; font-size: 12px; line-height: 1.6; color: var(--ink-soft); }
   .kbd { border: 1px solid var(--ink-soft); border-radius: 3px; padding: 0 4px; font-size: 10.5px; }
 
-  .shelf { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px 12px; padding-top: 150px; }
+  .shelf { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px 12px; padding-top: 185px; }
   .slot { display: flex; flex-direction: column; align-items: center; gap: 14px; }
   .slot small { font-size: 10.5px; color: var(--ink-soft); letter-spacing: .04em; }
   .shelf-line { height: 10px; margin: 6px -32px 0; background:
@@ -131,8 +131,8 @@
 <section class="shelf-wrap" id="shelf">
   <div class="shelf-head">
     <h2>OPEN A<br><span class="accent">FOLDER</span></h2>
-    <p>Hover a folder (or <span class="kbd">Tab</span> to it), then pick a question. Whiskers runs it on the sample
-      retail data. Drag the floating notes around if you like.</p>
+    <p id="intro">Hover a folder (or <span class="kbd">Tab</span> to it), then pick a question. Whiskers runs it on the
+      sample retail data. Upload your own file and these questions are rewritten for it.</p>
   </div>
   <div class="shelf" id="folders"></div>
   <div class="shelf-line"></div>
@@ -183,7 +183,7 @@ const shared = {
   width: 210, height: 140, radius: 14, spread: 175, lift: 26, tilt: 5,
   flapAngle: 34, restAngle: 14, openDuration: 520, stagger: 45, bounce: 0.35,
 };
-const folders = [
+const defaultFolders = [
   { coat: "ginger", label: "Data checks", caption: "CLEAN BEFORE YOU COUNT", items: [
     { label: "Duplicate rows?", value: "How many duplicate rows are there, and how do they change the totals?", icon: "⧉", hint: "Counts exact duplicates and shows how they inflate totals" },
     { label: "Misspelled cities?", value: "Which city names look misspelled or inconsistent?", icon: "✎", hint: "Groups near-identical spellings like Delhi / Dehli" },
@@ -205,18 +205,62 @@ const folders = [
 ];
 const peek = document.getElementById("peek");
 const shelf = document.getElementById("folders");
-folders.forEach(f => {
-  const slot = document.createElement("div");
-  slot.className = "slot";
-  shelf.appendChild(slot);
-  FolderFloat(slot, Object.assign({}, shared, coats[f.coat], {
-    items: f.items, label: f.label, sublabel: `${f.items.length} questions`,
-    onPeek: item => { peek.innerHTML = `<span class="paw">&#x1F43E;</span><span><b>${item.value}</b> — ${item.hint}</span>`; },
-    onSelect: (value) => { send({ action: "ask", question: value }); showToast("Sent to Whiskers ↗"); },
-  }));
-  const cap = document.createElement("small");
-  cap.textContent = f.caption;
-  slot.appendChild(cap);
+const intro = document.getElementById("intro");
+let mounted = [];
+
+function showPeek(item) {
+  // built with textContent: questions contain column names from the user's file
+  peek.replaceChildren();
+  const paw = document.createElement("span"); paw.className = "paw"; paw.textContent = "\u{1F43E}";
+  const text = document.createElement("span");
+  const b = document.createElement("b"); b.textContent = item.value;
+  text.append(b, document.createTextNode(item.hint ? " — " + item.hint : ""));
+  peek.append(paw, text);
+}
+
+function buildShelf(list) {
+  mounted.forEach(m => m.destroy());
+  mounted = [];
+  shelf.replaceChildren();
+  list.forEach(f => {
+    const slot = document.createElement("div");
+    slot.className = "slot";
+    shelf.appendChild(slot);
+    mounted.push(FolderFloat(slot, Object.assign({}, shared, coats[f.coat] || coats.ginger, {
+      items: f.items, label: f.label, sublabel: `${f.items.length} questions`,
+      onPeek: showPeek,
+      onSelect: (value) => { send({ action: "ask", question: value }); showToast("Sent to Whiskers ↗"); },
+    })));
+    const cap = document.createElement("small");
+    cap.textContent = f.caption || "";
+    slot.appendChild(cap);
+  });
+}
+
+function setIntro(dataset) {
+  if (!dataset) return;
+  intro.replaceChildren(
+    document.createTextNode("Questions written for "),
+    Object.assign(document.createElement("b"), { textContent: dataset }),
+    document.createTextNode(". Hover a folder (or "),
+    Object.assign(document.createElement("span"), { className: "kbd", textContent: "Tab" }),
+    document.createTextNode(" to it), pick a question, and Whiskers runs it on your file."));
+}
+
+buildShelf(defaultFolders);
+
+// Streamlit sends the folders for the uploaded file as component args on every render
+let lastArgs = "";
+window.addEventListener("message", e => {
+  const d = e.data;
+  if (!d || d.type !== "streamlit:render") return;
+  const args = d.args || {};
+  const key = JSON.stringify([args.folders, args.dataset]);
+  if (key === lastArgs) return;
+  lastArgs = key;
+  buildShelf(Array.isArray(args.folders) && args.folders.length ? args.folders : defaultFolders);
+  setIntro(args.dataset);
+  requestAnimationFrame(fitHeight);
 });
 
 /* ============ speech bubble ============ */

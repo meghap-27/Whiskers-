@@ -10,8 +10,10 @@ learns your metric definitions, and exports every answer as a notebook that re-r
 ## Home page
 
 The app opens on a ginger-tabby themed home page (`ui/home_component/`): a pixel-font hero with an animated
-scanline cat ("Whiskers"), and a shelf of three folders. Hover a folder and its sample questions float out; click
-one and the agent runs it on the sample data. The folders are a plain-JavaScript port of the
+scanline cat ("Whiskers"), and a shelf of three folders. The questions in the folders are written for whatever file you uploaded
+(`analyst_agent/suggest.py` builds them from its columns and data-quality report, no AI call needed); before an
+upload they are sample questions about the retail data. Hover a folder and its questions float out; click one and
+the agent runs it on your file. The offline demo runs in its own workspace, so it never mixes with your data. The folders are a plain-JavaScript port of the
 [FolderFloat](https://reactbits.dev) component from React Bits, with cat-ear tabs, tabby-striped flaps, keyboard
 support and tap-to-open on touch screens. The page talks to Streamlit through the custom-component message
 protocol, so no React build step is needed.

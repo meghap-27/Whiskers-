@@ -161,7 +161,7 @@ class Agent:
 
     @property
     def _main_table(self) -> str | None:
-        return next(iter(self.session.datasets), None)
+        return self.session.main_table
 
     def _execute(self, idx: int, name: str, args: dict) -> Step:
         step = Step(idx=idx, tool=name, input=args)
