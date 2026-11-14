@@ -146,16 +146,25 @@ with st.sidebar:
     if byok:
         provider = st.selectbox("AI provider", list(choices), format_func=choices.get,
                                 index=list(choices).index(provider) if provider in choices else 0)
+        name = choices[provider].split(" ·")[0]
         if provider == "ollama":
             key = "ollama"
             st.caption("Install Ollama, then run `ollama pull qwen2.5:7b`. Nothing leaves your computer.")
         else:
             env = "ANTHROPIC_API_KEY" if provider == "anthropic" else PROVIDERS[provider][2]
-            key = st.text_input(f"{choices[provider].split(' ·')[0]} API key", type="password",
-                                value="" if config.PUBLIC_MODE else os.getenv(env, ""))
-            if provider != "anthropic":
+            # A key from .env / secrets is used server-side only and never sent to the page.
+            saved = "" if config.PUBLIC_MODE else os.getenv(env, "")
+            if saved:
+                st.caption(f"🔑 Using the {name} key from your .env file.")
+            typed = st.text_input(f"{name} API key" + (" (to use a different one)" if saved else ""),
+                                  type="password", value="", placeholder="paste key" if not saved else "optional")
+            key = typed.strip() or saved
+            if not key and provider != "anthropic":
                 st.caption(f"Free key, no card: {PROVIDERS[provider][3]}")
         model = st.text_input("Model (optional)", value="", placeholder="provider default") or None
+        default_model = (os.getenv("ANTHROPIC_MODEL", config.ANTHROPIC_MODEL) if provider == "anthropic"
+                         else os.getenv(f"{provider.upper()}_MODEL") or PROVIDERS[provider][1])
+        st.caption(f"Model in use: `{model or default_model}`")
     have_llm = bool(key) or (not byok and server_has_key)
     if config.ALLOW_PYTHON and config.PYTHON_SANDBOX == "e2b":
         st.caption("Python analysis runs in an isolated E2B sandbox.")
