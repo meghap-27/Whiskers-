@@ -11,6 +11,7 @@ if _env.exists():
         _line = _line.strip()
         if _line and not _line.startswith("#") and "=" in _line:
             _k, _v = _line.split("=", 1)
+            _v = _v.split(" #", 1)[0]          # allow trailing comments
             os.environ.setdefault(_k.strip(), _v.strip().strip('"').strip("'"))
 DATA_DIR = Path(os.getenv("AGENT_DATA_DIR", ROOT / ".agent_data"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)

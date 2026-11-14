@@ -17,7 +17,9 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel
 
-from analyst_agent.agent.llm import AnthropicLLM
+import os
+
+from analyst_agent.agent.llm import friendly_error, make_llm
 from analyst_agent.agent.loop import Agent
 from analyst_agent.data.store import SESSIONS, get_or_create
 from analyst_agent.export.notebook import notebook_bytes
@@ -34,7 +36,7 @@ _llm = None
 def llm():
     global _llm
     if _llm is None:
-        _llm = AnthropicLLM()
+        _llm = make_llm(os.getenv("LLM_PROVIDER", "groq"))
     return _llm
 
 
@@ -112,8 +114,14 @@ def ask(sid: str, body: AskBody):
     agent = Agent(s, llm(), glossary)
 
     def gen():
-        for ev in agent.stream(body.question):
-            yield f"data: {json.dumps(_event_json(ev), default=str)}\n\n"
+        try:
+            for ev in agent.stream(body.question):
+                yield f"data: {json.dumps(_event_json(ev), default=str)}\n\n"
+        except Exception as e:
+            msg = friendly_error(e)
+            if msg is None:
+                raise
+            yield f"data: {json.dumps({'type': 'error', 'message': msg})}\n\n"
 
     return StreamingResponse(gen(), media_type="text/event-stream")
 

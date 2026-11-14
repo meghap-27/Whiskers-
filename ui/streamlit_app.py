@@ -10,7 +10,7 @@ import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from analyst_agent.agent.llm import AnthropicLLM  # noqa: E402
+from analyst_agent.agent.llm import PROVIDERS, friendly_error, make_llm  # noqa: E402
 from analyst_agent.agent.loop import Agent  # noqa: E402
 from analyst_agent.data.store import Session  # noqa: E402
 from analyst_agent.demo import DEMO_QUESTION, demo_llm  # noqa: E402
@@ -71,8 +71,22 @@ with st.sidebar:
                            "unique": c["unique"]} for c in p["columns"]], hide_index=True)
 
     st.header("Model")
-    key = st.text_input("Anthropic API key", type="password", value=os.getenv("ANTHROPIC_API_KEY", ""))
-    st.caption("No key? Use the offline demo question on the sample dataset.")
+    choices = {"groq": "Groq · free", "gemini": "Gemini · free", "ollama": "Ollama · free, on your PC",
+               "anthropic": "Claude · paid"}
+    default = os.getenv("LLM_PROVIDER", "groq")
+    provider = st.selectbox("AI provider", list(choices), format_func=choices.get,
+                            index=list(choices).index(default) if default in choices else 0)
+    if provider == "ollama":
+        key = "ollama"
+        st.caption("Install Ollama, then run `ollama pull qwen2.5:7b`. Nothing leaves your computer.")
+    else:
+        env = "ANTHROPIC_API_KEY" if provider == "anthropic" else PROVIDERS[provider][2]
+        key = st.text_input(f"{choices[provider].split(' ·')[0]} API key", type="password",
+                            value=os.getenv(env, ""))
+        if provider != "anthropic":
+            st.caption(f"Free key, no card: {PROVIDERS[provider][3]}")
+    model = st.text_input("Model (optional)", value="", placeholder="provider default")
+    st.caption("No key yet? The offline demo works without one.")
 
     st.header("Business glossary")
     defs = glossary.list()
@@ -167,29 +181,41 @@ with tab_ask:
         question, demo = ss.pending_question, ss.pop("pending_is_demo", False) or not key
         ss.pending_question = None
         if demo and question != DEMO_QUESTION:
-            st.warning(f"“{question}” needs an Anthropic API key (sidebar). Showing the offline demo instead.")
+            st.warning(f"“{question}” needs a free API key (sidebar → Model). Showing the offline demo instead.")
             question = DEMO_QUESTION
 
     if question:
         if demo:
             llm = demo_llm()
         elif key:
-            llm = AnthropicLLM(api_key=key)
+            try:
+                llm = make_llm(provider, api_key=key, model=model or None)
+            except RuntimeError as e:
+                st.error(str(e))
+                st.stop()
         else:
-            st.error("Add an Anthropic API key in the sidebar (or run the offline demo).")
+            st.error("Add a free API key in the sidebar (Model section), or run the offline demo.")
             st.stop()
         with st.chat_message("user"):
             st.markdown(question)
         with st.chat_message("assistant", avatar="🐈"):
             status = st.status("Whiskers is sniffing around…", expanded=True)
             run = None
-            for ev in Agent(session, llm, glossary).stream(question):
-                if ev["type"] == "step_start":
-                    status.write(f"{TOOL_LABEL.get(ev['tool'], ev['tool'])}…")
-                elif ev["type"] == "reanalyze":
-                    status.write("Verifier found unsupported numbers — re-checking…")
-                elif ev["type"] == "done":
-                    run = ev["run"]
+            try:
+                for ev in Agent(session, llm, glossary).stream(question):
+                    if ev["type"] == "step_start":
+                        status.write(f"{TOOL_LABEL.get(ev['tool'], ev['tool'])}…")
+                    elif ev["type"] == "reanalyze":
+                        status.write("Verifier found unsupported numbers — re-checking…")
+                    elif ev["type"] == "done":
+                        run = ev["run"]
+            except Exception as e:  # show API problems (no credit, bad key…) as a message, not a traceback
+                msg = friendly_error(e)
+                if msg is None:
+                    raise
+                status.update(label="Couldn't reach Claude", state="error", expanded=False)
+                st.error(msg, icon="🙀")
+                st.stop()
             status.update(label=f"Done in {run.latency_ms / 1000:.1f}s", state="complete", expanded=False)
         ss.runs.append((question, run))
         st.rerun()

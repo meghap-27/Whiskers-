@@ -1,4 +1,4 @@
-"""Benchmark the agent on evals/questions.jsonl (needs ANTHROPIC_API_KEY).
+"""Benchmark the agent on evals/questions.jsonl (needs a provider key, e.g. a free GROQ_API_KEY).
 
     python evals/run_eval.py                 # all questions
     python evals/run_eval.py --limit 3       # quick check
@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from collections import defaultdict
@@ -21,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from analyst_agent.agent.llm import AnthropicLLM  # noqa: E402
+from analyst_agent.agent.llm import make_llm  # noqa: E402
 from analyst_agent.agent.loop import Agent  # noqa: E402
 from analyst_agent.analyst.verify import numbers_in  # noqa: E402
 from analyst_agent.data.store import Session  # noqa: E402
@@ -45,11 +46,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int)
     ap.add_argument("--model")
+    ap.add_argument("--provider", default=os.getenv("LLM_PROVIDER", "groq"),
+                    help="groq | gemini | ollama | anthropic")
     args = ap.parse_args()
 
     items = [json.loads(line) for line in (ROOT / "evals" / "questions.jsonl").read_text().splitlines() if line]
     items = items[: args.limit] if args.limit else items
-    llm = AnthropicLLM(model=args.model) if args.model else AnthropicLLM()
+    llm = make_llm(args.provider, model=args.model)
     glossary = Glossary(ROOT / "evals" / ".eval_glossary.sqlite")
 
     rows = []

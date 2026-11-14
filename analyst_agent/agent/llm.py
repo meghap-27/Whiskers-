@@ -1,4 +1,8 @@
-"""Thin LLM wrapper so the agent loop can run against Claude or a scripted fake (tests, demos).
+"""Thin LLM wrappers so the agent loop can run on Claude, on free providers (Groq, Gemini,
+a local Ollama model) or on a scripted fake (tests, demos).
+
+The loop speaks Anthropic-style messages; OpenAICompatLLM translates to and from the OpenAI
+Chat Completions format that Groq, Gemini and Ollama all accept.
 
 Every implementation returns a plain dict:
     {"stop_reason": "tool_use" | "end_turn" | ...,
@@ -7,7 +11,10 @@ Every implementation returns a plain dict:
 """
 from __future__ import annotations
 
+import json
 import os
+import time
+import uuid
 from typing import Protocol
 
 from analyst_agent.config import ANTHROPIC_MODEL, MAX_TOKENS
@@ -39,6 +46,168 @@ class AnthropicLLM:
         return {"stop_reason": data["stop_reason"], "content": content,
                 "usage": {"input_tokens": data["usage"]["input_tokens"],
                           "output_tokens": data["usage"]["output_tokens"]}}
+
+
+# --------------------------------------------------------------------------- free providers
+PROVIDERS = {
+    # name: (base URL, default model, env var for the key, where to get a key)
+    "groq": ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile", "GROQ_API_KEY",
+             "console.groq.com/keys"),
+    "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.8-flash", "GEMINI_API_KEY",
+               "aistudio.google.com/apikey"),
+    "ollama": ("http://localhost:11434/v1", "qwen2.5:7b", None, "ollama.com/download (runs on your computer)"),
+}
+
+
+class ProviderError(RuntimeError):
+    """An HTTP error from an OpenAI-compatible provider, with the provider name attached."""
+
+    def __init__(self, provider: str, status: int, body: str):
+        super().__init__(f"{provider} returned HTTP {status}: {body[:500]}")
+        self.provider, self.status, self.body = provider, status, body
+
+
+class OpenAICompatLLM:
+    """Groq, Gemini or Ollama through their OpenAI-compatible Chat Completions endpoints."""
+
+    def __init__(self, provider: str = "groq", api_key: str | None = None, model: str | None = None,
+                 base_url: str | None = None, timeout: float = 120, client=None):
+        import httpx
+        if provider not in PROVIDERS:
+            raise ValueError(f"provider must be one of {list(PROVIDERS)}")
+        default_url, default_model, key_env, _ = PROVIDERS[provider]
+        self.provider = provider
+        self.base_url = (base_url or os.getenv(f"{provider.upper()}_BASE_URL") or default_url).rstrip("/")
+        self.model = model or os.getenv(f"{provider.upper()}_MODEL") or default_model
+        self.api_key = api_key or (os.getenv(key_env) if key_env else None) or ("ollama" if provider == "ollama" else None)
+        if not self.api_key:
+            raise RuntimeError(f"Set {key_env} (free key from {PROVIDERS[provider][3]}) or pass api_key.")
+        self.http = client or httpx.Client(timeout=timeout)
+
+    # ---- format translation
+    @staticmethod
+    def _tools(tools: list[dict]) -> list[dict]:
+        return [{"type": "function", "function": {"name": t["name"], "description": t["description"],
+                                                  "parameters": t["input_schema"]}} for t in tools]
+
+    @staticmethod
+    def _messages(system: str, messages: list[dict]) -> list[dict]:
+        out = [{"role": "system", "content": system}]
+        for m in messages:
+            if isinstance(m["content"], str):
+                out.append({"role": m["role"], "content": m["content"]})
+                continue
+            if m["role"] == "user":            # tool results (and any plain text)
+                for b in m["content"]:
+                    if b["type"] == "tool_result":
+                        out.append({"role": "tool", "tool_call_id": b["tool_use_id"], "content": str(b["content"])})
+                    elif b["type"] == "text":
+                        out.append({"role": "user", "content": b["text"]})
+            else:                              # assistant: text + tool calls
+                text = "".join(b.get("text", "") for b in m["content"] if b["type"] == "text").strip()
+                calls = [b.get("_raw") or {"id": b["id"], "type": "function",
+                                           "function": {"name": b["name"], "arguments": json.dumps(b["input"])}}
+                         for b in m["content"] if b["type"] == "tool_use"]
+                msg = {"role": "assistant", "content": text or None}
+                if calls:
+                    msg["tool_calls"] = calls
+                out.append(msg)
+        return out
+
+    def create(self, system, messages, tools):
+        payload = {"model": self.model, "messages": self._messages(system, messages),
+                   "tools": self._tools(tools), "max_tokens": MAX_TOKENS, "temperature": 0.1}
+        data = self._post(payload)
+        msg = data["choices"][0]["message"]
+        content = []
+        if msg.get("content"):
+            content.append({"type": "text", "text": msg["content"]})
+        for tc in msg.get("tool_calls") or []:
+            try:
+                args = json.loads(tc["function"].get("arguments") or "{}")
+            except json.JSONDecodeError:
+                args = {}
+            content.append({"type": "tool_use", "id": tc.get("id") or f"call_{uuid.uuid4().hex[:8]}",
+                            "name": tc["function"]["name"], "input": args if isinstance(args, dict) else {},
+                            "_raw": tc})   # keeps provider extras (e.g. Gemini thought signatures)
+        usage = data.get("usage") or {}
+        has_calls = any(b["type"] == "tool_use" for b in content)
+        return {"stop_reason": "tool_use" if has_calls else "end_turn",
+                "content": content or [{"type": "text", "text": ""}],
+                "usage": {"input_tokens": usage.get("prompt_tokens", 0),
+                          "output_tokens": usage.get("completion_tokens", 0)}}
+
+    def _post(self, payload: dict) -> dict:
+        """POST with retries for free-tier rate limits (429) and malformed tool calls."""
+        url = f"{self.base_url}/chat/completions"
+        headers = {"Authorization": f"Bearer {self.api_key}"}
+        for attempt in range(4):
+            r = self.http.post(url, json=payload, headers=headers)
+            if r.status_code == 200:
+                return r.json()
+            if r.status_code == 429 and attempt < 3:          # free tiers: wait and retry
+                wait = float(r.headers.get("retry-after", 0) or 0) or 5 * (attempt + 1)
+                time.sleep(min(wait, 30))
+                continue
+            if r.status_code == 400 and "tool_use_failed" in r.text and attempt < 1:
+                payload = dict(payload, temperature=0.0)        # Groq: model wrote a bad tool call, try again
+                continue
+            raise ProviderError(self.provider, r.status_code, r.text)
+        raise ProviderError(self.provider, 429, "rate limited")
+
+
+def make_llm(provider: str, api_key: str | None = None, model: str | None = None):
+    """'anthropic', 'groq', 'gemini' or 'ollama'."""
+    if provider == "anthropic":
+        return AnthropicLLM(model=model or ANTHROPIC_MODEL, api_key=api_key)
+    return OpenAICompatLLM(provider, api_key=api_key, model=model)
+
+
+def friendly_error(e: Exception) -> str | None:
+    """Plain-English message for common LLM API errors, or None if it isn't one."""
+    if isinstance(e, ProviderError):
+        name = e.provider.capitalize()
+        if e.status in (401, 403):
+            return f"{name} rejected the API key. Check you copied all of it (free key: {PROVIDERS[e.provider][3]})."
+        if e.status == 429:
+            return f"{name}'s free tier rate limit was reached. Wait a minute and ask again."
+        if e.status == 404:
+            return f"{name} doesn't have that model. Check {e.provider.upper()}_MODEL in .env."
+        return f"{name} returned an error ({e.status}): {e.body[:200]}"
+    try:
+        import httpx
+        if isinstance(e, httpx.TimeoutException):
+            return "The model took too long to answer. A local model may need a smaller size, e.g. qwen2.5:3b."
+        if isinstance(e, httpx.TransportError):        # connection refused, proxy, DNS, TLS…
+            url = str(e.request.url) if getattr(e, "_request", None) is not None else ""
+            if "11434" in url:
+                return "Can't reach Ollama. Install it from ollama.com, then run `ollama pull qwen2.5:7b`."
+            return "Couldn't reach the AI provider. Check your internet connection (or a firewall/proxy)."
+    except ImportError:
+        pass
+    if isinstance(e, RuntimeError) and "free key from" in str(e):
+        return str(e)
+    try:
+        import anthropic
+    except ImportError:
+        return None
+    text = str(e).lower()
+    if isinstance(e, anthropic.AuthenticationError):
+        return "The API key was rejected. Check that you copied the whole key (it starts with sk-ant-)."
+    if isinstance(e, anthropic.PermissionDeniedError):
+        return "This API key isn't allowed to use that model. Try ANTHROPIC_MODEL=claude-haiku-5-5 in .env."
+    if isinstance(e, anthropic.BadRequestError) and "credit balance" in text:
+        return ("Your Claude Console account has no API credit left. Add credit at "
+                "platform.claude.com → Settings → Billing, or use the offline demo in the meantime.")
+    if isinstance(e, anthropic.NotFoundError):
+        return "That model name wasn't found. Check ANTHROPIC_MODEL in your .env file."
+    if isinstance(e, anthropic.RateLimitError):
+        return "Rate limit reached. Wait a minute and try again."
+    if isinstance(e, anthropic.APIConnectionError):
+        return "Couldn't reach the Claude API. Check your internet connection."
+    if isinstance(e, (anthropic.InternalServerError, anthropic.APIStatusError)) and getattr(e, "status_code", 0) >= 500:
+        return "The Claude API is having trouble right now. Try again shortly."
+    return None
 
 
 class ScriptedLLM:

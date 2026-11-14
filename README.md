@@ -24,6 +24,7 @@ protocol, so no React build step is needed.
 | **Trap detection** | Before an answer goes out: Simpson's paradox (a gap that reverses inside every subgroup), averages driven by a few extreme rows, groups too small to compare, and cause-and-effect wording drawn from correlation alone. Runs automatically even if the model forgets to ask. |
 | **Significance first** | `check_findings` runs Welch's t-test, ANOVA or chi-square (with effect sizes) before the agent says "X is higher than Y". |
 | **Number verifier** | Every number in the final answer must trace back to a tool output. If one doesn't, the agent is sent back once to recompute it. |
+| **Runs free** | Works on Groq, Gemini or a local Ollama model (all free), or Claude. |
 | **Learns from corrections** | Say "revenue should exclude refunds" and it saves a glossary definition (SQLite) that is applied to every later question. |
 | **Reusable outputs** | Download any answer as a runnable `.ipynb`; pin it to a dashboard that re-runs the query on refresh. |
 
@@ -32,7 +33,7 @@ protocol, so no React build step is needed.
 ```mermaid
 flowchart TD
     U[Streamlit UI / FastAPI] --> O[Agent orchestrator<br/>Claude tool calling, max 8 steps]
-    O <--> L[LLM API]
+    O <--> L[LLM: Groq / Gemini / Ollama / Claude]
     O --> S[run_sql<br/>DuckDB, SELECT-only]
     O --> P[run_python<br/>separate process, limits]
     O --> C[make_chart<br/>Plotly]
@@ -54,13 +55,28 @@ cd data-analyst-agent
 python -m venv .venv
 .venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-copy .env.example .env          # then paste your Anthropic API key into .env
+copy .env.example .env          # then paste a free Groq key into .env (see below)
 streamlit run ui/streamlit_app.py
 ```
 
+### Free AI providers
+
+The agent works with any of these; pick one in the sidebar or with `LLM_PROVIDER` in `.env`.
+
+| Provider | Cost | Get a key | Default model |
+| --- | --- | --- | --- |
+| **Groq** (recommended) | Free tier, no card, rate-limited | [console.groq.com/keys](https://console.groq.com/keys) | `llama-3.3-70b-versatile` |
+| **Google Gemini** | Free tier, rate-limited | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | `gemini-3.8-flash` |
+| **Ollama** | Free, runs on your computer, offline | install [ollama.com](https://ollama.com), then `ollama pull qwen2.5:7b` | `qwen2.5:7b` |
+| Claude | Paid API credits | [platform.claude.com](https://platform.claude.com/settings/keys) | `claude-sonnet-5-5` |
+
+Groq, Gemini and Ollama all speak the OpenAI Chat Completions format, so one adapter
+(`OpenAICompatLLM`) covers them; it retries free-tier rate limits automatically. Free-tier limits change, so check
+each provider's console for current numbers.
+
 In VS Code you can also use **Run and Debug** → *Streamlit app* / *FastAPI backend* (see `.vscode/launch.json`).
 
-**No API key?** Click **Use sample retail dataset**, then **Offline demo**. It replays a scripted run that walks into
+**No key at all?** Click **Use sample retail dataset**, then **Offline demo**. It replays a scripted run that walks into
 the Simpson's paradox planted in the sample data.
 
 ## Sample data
@@ -90,7 +106,7 @@ uvicorn analyst_agent.api:app --reload      # docs at http://localhost:8000/docs
 
 ```bash
 pytest -q                          # 36 tests, no API key needed
-python evals/run_eval.py           # benchmark with the real model (needs API key)
+python evals/run_eval.py --provider groq   # benchmark with a real model (free Groq key)
 ```
 
 `evals/questions.jsonl` covers lookups, aggregation, time series, data-quality cases, statistics, unanswerable

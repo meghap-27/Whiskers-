@@ -86,3 +86,18 @@ def test_notebook_export_and_pin(session, glossary, tmp_path):
     pin = board.pin(run)
     out = board.refresh(pin, session.con)
     assert len(out["table"]) == 8 and out["chart"] is not None
+
+
+def test_friendly_error_for_no_credit():
+    import anthropic
+    import httpx
+
+    from analyst_agent.agent.llm import friendly_error
+
+    req = httpx.Request("POST", "https://api.anthropic.com/v1/messages")
+    body = {"type": "error", "error": {"type": "invalid_request_error",
+                                       "message": "Your credit balance is too low to access the Anthropic API."}}
+    err = anthropic.BadRequestError("credit balance is too low", response=httpx.Response(400, request=req, json=body),
+                                    body=body)
+    assert "no API credit" in friendly_error(err)
+    assert friendly_error(ValueError("something else")) is None
