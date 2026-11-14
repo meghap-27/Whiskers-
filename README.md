@@ -7,6 +7,15 @@ learns your metric definitions, and exports every answer as a notebook that re-r
 
 ![tests](https://github.com/meghap-27/Data-Analyst-Agent/actions/workflows/tests.yml/badge.svg)
 
+## Home page
+
+The app opens on a ginger-tabby themed home page (`ui/home_component/`): a pixel-font hero with an animated
+scanline cat ("Whiskers"), and a shelf of three folders. Hover a folder and its sample questions float out; click
+one and the agent runs it on the sample data. The folders are a plain-JavaScript port of the
+[FolderFloat](https://reactbits.dev) component from React Bits, with cat-ear tabs, tabby-striped flaps, keyboard
+support and tap-to-open on touch screens. The page talks to Streamlit through the custom-component message
+protocol, so no React build step is needed.
+
 ## What makes it different
 
 | Feature | What it does |
@@ -102,6 +111,8 @@ analyst_agent/
   export/       notebook.py
   glossary.py, pins.py, api.py, demo.py, config.py
 ui/streamlit_app.py
+ui/home_component/   home page: hero + FolderFloat shelf (HTML/JS, bundled matter-js)
+.streamlit/config.toml   cat-palette theme
 evals/  sample_data/  tests/
 ```
 
@@ -119,5 +130,10 @@ evals/  sample_data/  tests/
 - [ ] Connect Postgres/MySQL read-only
 - [ ] Scheduled weekly reports from pinned answers
 - [ ] Run the eval set on 2-3 models and publish the comparison
+
+## Credits
+
+- FolderFloat design: [React Bits](https://reactbits.dev), ported to vanilla JS.
+- Physics: [matter-js](https://brm.io/matter-js/) (MIT), bundled in `ui/home_component/matter.min.js`.
 
 Built by [Megha](https://github.com/meghap-27).

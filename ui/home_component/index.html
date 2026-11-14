@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Analyst Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="folder-float.css">
+<style>
+  :root {
+    --cream: #FBF1E3;   /* background: belly fur */
+    --cream-2: #F3E0C4;
+    --ginger: #E07A2E;  /* coat */
+    --rust: #B4531A;    /* stripes */
+    --ink: #3A2417;     /* nose-leather brown, used instead of black */
+    --ink-soft: #7A5A44;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: transparent; }
+  body { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; color: var(--ink); }
+  a { color: inherit; }
+
+  /* ---------------- hero ---------------- */
+  .hero {
+    position: relative; overflow: hidden; height: 540px;
+    background: var(--cream); border: 1px solid var(--cream-2); border-radius: 18px;
+    display: grid; grid-template-columns: minmax(300px, 0.9fr) 1.1fr;
+  }
+  .brand {
+    position: absolute; top: 16px; left: 28px; z-index: 3;
+    font-family: "Silkscreen", monospace; font-size: 13px; display: flex; align-items: center;
+  }
+  .brand i { width: 10px; height: 10px; background: var(--ginger); box-shadow: 10px 0 0 var(--rust); margin-right: 20px; }
+  nav { position: absolute; top: 18px; right: 28px; display: flex; gap: 26px; font-size: 11px; z-index: 3; }
+  nav a { text-decoration: none; opacity: .85; cursor: pointer; }
+  nav a:hover { color: var(--ginger); opacity: 1; }
+
+  .copy { position: relative; z-index: 2; padding-left: 40px; display: flex; flex-direction: column; justify-content: center; }
+  h1, h2 { font-family: "Silkscreen", monospace; font-weight: 700; letter-spacing: -.01em; }
+  h1 { line-height: .92; font-size: clamp(40px, 6.2vw, 74px); }
+  .accent { color: var(--ginger); }
+  .lede { margin-top: 26px; max-width: 360px; font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
+  .ctas { margin-top: 26px; display: flex; align-items: center; gap: 18px; font-size: 12px; }
+  .btn { background: var(--ink); color: var(--cream); padding: 10px 16px; border-radius: 2px; text-decoration: none; cursor: pointer; border: 0; font: inherit; }
+  .btn:hover { background: var(--ginger); }
+  .ghost { text-decoration: none; cursor: pointer; }
+  .ghost:hover { color: var(--ginger); }
+  .stats { margin-top: 28px; font-size: 11px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 6px 0; }
+  .stats span { white-space: nowrap; }
+  .stats span + span::before { content: "•"; margin: 0 10px; color: var(--cream-2); }
+  .stats b { color: var(--rust); font-weight: 600; }
+
+  .stage { position: relative; }
+  #cat { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .bubble {
+    position: absolute; top: 40px; left: 54%; z-index: 3; background: var(--cream);
+    border: 1.5px solid var(--ink); padding: 9px 12px; min-width: 214px;
+    font-size: 11.5px; line-height: 1.5; box-shadow: 4px 4px 0 var(--ginger);
+  }
+  .bubble::after {
+    content: ""; position: absolute; left: 18px; bottom: -9px; width: 14px; height: 14px; background: var(--cream);
+    border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: skewY(-35deg) rotate(-10deg);
+  }
+  .caret { display: inline-block; width: 7px; height: 12px; background: var(--ink); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------------- folder shelf ---------------- */
+  .shelf-wrap {
+    margin-top: 18px; padding: 34px 32px 30px; border-radius: 18px;
+    background: var(--cream); border: 1px solid var(--cream-2); position: relative; overflow: hidden;
+  }
+  .shelf-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .shelf-head h2 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1; }
+  .shelf-head p { max-width: 380px; font-size: 12px; line-height: 1.6; color: var(--ink-soft); }
+  .kbd { border: 1px solid var(--ink-soft); border-radius: 3px; padding: 0 4px; font-size: 10.5px; }
+
+  .shelf { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px 12px; padding-top: 150px; }
+  .slot { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .slot small { font-size: 10.5px; color: var(--ink-soft); letter-spacing: .04em; }
+  .shelf-line { height: 10px; margin: 6px -32px 0; background:
+      repeating-linear-gradient(90deg, var(--cream-2) 0 12px, transparent 12px 18px); opacity: .9; }
+
+  .peek {
+    margin-top: 18px; min-height: 42px; display: flex; align-items: center; gap: 12px;
+    font-size: 12px; color: var(--ink-soft); border-top: 1px dashed var(--cream-2); padding-top: 14px;
+  }
+  .peek b { color: var(--ink); font-weight: 600; }
+  .peek .paw { color: var(--ginger); font-size: 15px; }
+
+  .toast {
+    position: absolute; right: 24px; top: 24px; background: var(--ink); color: var(--cream);
+    padding: 10px 14px; font-size: 12px; border-radius: 3px; box-shadow: 4px 4px 0 var(--ginger);
+    opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .25s ease; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: none; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; height: auto; }
+    .copy { padding: 90px 24px 10px; }
+    .stage { height: 340px; }
+    nav { display: none; }
+    .shelf { padding-top: 170px; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="brand"><i></i>analyst.cat</div>
+  <nav>
+    <a data-scroll="#shelf">Questions</a>
+    <a data-action="demo">Demo</a>
+    <a href="https://github.com/meghap-27/Data-Analyst-Agent" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+  <div class="copy">
+    <h1>DATA<br>ANALYST<br><span class="accent">AGENT</span></h1>
+    <p class="lede">Whiskers reads your CSV, writes the SQL, runs the stats, and pounces on Simpson's paradox
+      before it reaches your slide deck.</p>
+    <div class="ctas">
+      <button class="btn" data-action="demo">Try the demo</button>
+      <a class="ghost" data-scroll="#shelf">Pick a question &rsaquo;</a>
+    </div>
+    <p class="stats"><span><b>36</b> tests passing</span><span><b>4</b> traps sniffed</span><span><b>0</b> made-up numbers</span></p>
+  </div>
+  <div class="stage">
+    <canvas id="cat" aria-label="Animated scanline drawing of a ginger cat" role="img"></canvas>
+    <div class="bubble" aria-live="polite"><span id="say"></span><span class="caret"></span></div>
+  </div>
+</section>
+
+<section class="shelf-wrap" id="shelf">
+  <div class="shelf-head">
+    <h2>OPEN A<br><span class="accent">FOLDER</span></h2>
+    <p>Hover a folder (or <span class="kbd">Tab</span> to it), then pick a question. Whiskers runs it on the sample
+      retail data. Drag the floating notes around if you like.</p>
+  </div>
+  <div class="shelf" id="folders"></div>
+  <div class="shelf-line"></div>
+  <div class="peek" id="peek"><span class="paw">&#x1F43E;</span><span>Hover a note to see what Whiskers will check.</span></div>
+  <div class="toast" id="toast"></div>
+</section>
+
+<script src="matter.min.js"></script>
+<script src="folder-float.js"></script>
+<script>
+/* ============ Streamlit component bridge (works standalone too) ============ */
+const inStreamlit = window.parent !== window;
+function toStreamlit(type, data) {
+  if (!inStreamlit) return;
+  window.parent.postMessage(Object.assign({ isStreamlitMessage: true, type }, data), "*");
+}
+function send(value) {
+  toStreamlit("streamlit:setComponentValue", { value: Object.assign({ ts: Date.now() }, value), dataType: "json" });
+}
+function fitHeight() { toStreamlit("streamlit:setFrameHeight", { height: document.documentElement.scrollHeight }); }
+toStreamlit("streamlit:componentReady", { apiVersion: 1 });
+addEventListener("load", fitHeight); addEventListener("resize", fitHeight);
+new ResizeObserver(fitHeight).observe(document.body);
+
+const toast = document.getElementById("toast");
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg; toast.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+document.querySelectorAll("[data-action='demo']").forEach(el => el.addEventListener("click", e => {
+  e.preventDefault(); send({ action: "demo" }); showToast("Running the demo…");
+}));
+document.querySelectorAll("[data-scroll]").forEach(el => el.addEventListener("click", e => {
+  e.preventDefault(); document.querySelector(el.dataset.scroll).scrollIntoView({ behavior: "smooth" });
+}));
+
+/* ============ folders: three cat coats ============ */
+const coats = {
+  ginger:    { folderColor: "#B4531A", frontColor: "#E07A2E", labelColor: "#FFF6EA" },
+  chocolate: { folderColor: "#4A2C1B", frontColor: "#7B4A2C", labelColor: "#FFF6EA" },
+  cream:     { folderColor: "#C98F55", frontColor: "#EFCB97", labelColor: "#3A2417" },
+};
+const shared = {
+  trigger: "hover", closeOnSelect: true, physics: true, drift: 0.5,
+  paperColor: "#FFF8EE", itemColor: "#FFF8EE", itemTextColor: "#3A2417",
+  width: 210, height: 140, radius: 14, spread: 175, lift: 26, tilt: 5,
+  flapAngle: 34, restAngle: 14, openDuration: 520, stagger: 45, bounce: 0.35,
+};
+const folders = [
+  { coat: "ginger", label: "Data checks", caption: "CLEAN BEFORE YOU COUNT", items: [
+    { label: "Duplicate rows?", value: "How many duplicate rows are there, and how do they change the totals?", icon: "⧉", hint: "Counts exact duplicates and shows how they inflate totals" },
+    { label: "Misspelled cities?", value: "Which city names look misspelled or inconsistent?", icon: "✎", hint: "Groups near-identical spellings like Delhi / Dehli" },
+    { label: "Mixed date formats?", value: "Are the order dates stored in more than one format?", icon: "◷", hint: "Finds YYYY-MM-DD mixed with MM/DD/YYYY" },
+    { label: "Empty columns?", value: "Which columns are mostly empty?", icon: "▢", hint: "Lists columns with 30%+ missing values" },
+  ]},
+  { coat: "chocolate", label: "Is it real?", caption: "STATS BEFORE CLAIMS", items: [
+    { label: "Store vs Online", value: "Do Store or Online orders have a higher average order value?", icon: "⇄", hint: "t-test + Simpson's paradox check by region" },
+    { label: "Rating by region", value: "Does customer rating differ by region?", icon: "★", hint: "ANOVA with effect size; says so if there's no difference" },
+    { label: "Discount → rating?", value: "Is discount related to customer rating?", icon: "∿", hint: "Correlation, with a caveat that it isn't causation" },
+    { label: "Skewed average?", value: "Is the average order value skewed by outliers?", icon: "⚖", hint: "Mean vs median and the share held by the top 1%" },
+  ]},
+  { coat: "cream", label: "Business questions", caption: "THE EVERYDAY STUFF", items: [
+    { label: "Top categories", value: "What are the top 5 categories by revenue?", icon: "▤", hint: "Uses your saved 'revenue' definition if you set one" },
+    { label: "Monthly trend", value: "Show the monthly trend of total order value.", icon: "↗", hint: "Line chart across 2024–2025" },
+    { label: "Refund rate", value: "What is the refund rate by channel?", icon: "↺", hint: "Share of orders refunded, per channel" },
+    { label: "Best city: Electronics", value: "Which city sells the most Electronics?", icon: "⌂", hint: "Cleans city spellings first, then ranks" },
+  ]},
+];
+const peek = document.getElementById("peek");
+const shelf = document.getElementById("folders");
+folders.forEach(f => {
+  const slot = document.createElement("div");
+  slot.className = "slot";
+  shelf.appendChild(slot);
+  FolderFloat(slot, Object.assign({}, shared, coats[f.coat], {
+    items: f.items, label: f.label, sublabel: `${f.items.length} questions`,
+    onPeek: item => { peek.innerHTML = `<span class="paw">&#x1F43E;</span><span><b>${item.value}</b> — ${item.hint}</span>`; },
+    onSelect: (value) => { send({ action: "ask", question: value }); showToast("Sent to Whiskers ↗"); },
+  }));
+  const cap = document.createElement("small");
+  cap.textContent = f.caption;
+  slot.appendChild(cap);
+});
+
+/* ============ speech bubble ============ */
+const lines = [
+  "Meow! 3 queries run,\n1 paradox caught.",
+  "Purr. 25 duplicate rows\nswept under the rug.",
+  "Hiss. That's correlation,\nnot causation.",
+  "Mrrp. p = 0.31.\nNo real difference.",
+];
+const say = document.getElementById("say");
+let li = 0, ci = 0, erasing = false;
+(function tick() {
+  const full = lines[li];
+  if (!erasing) { ci++; if (ci > full.length) { erasing = true; return setTimeout(tick, 1900); } }
+  else { ci -= 2; if (ci <= 0) { ci = 0; erasing = false; li = (li + 1) % lines.length; return setTimeout(tick, 350); } }
+  say.innerHTML = full.slice(0, ci).replace(/\n/g, "<br>");
+  setTimeout(tick, erasing ? 18 : 42);
+})();
+
+/* ============ the cat: shapes drawn offscreen, shown as scanlines ============ */
+const C = { ginger: "#E07A2E", rust: "#B4531A", fur: "#F2C994", pink: "#EE9C8E", ink: "#3A2417" };
+const view = document.getElementById("cat"), ctx = view.getContext("2d");
+const S = 420, off = document.createElement("canvas"); off.width = off.height = S;
+const o = off.getContext("2d", { willReadFrequently: true });
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function ell(x, y, rx, ry, fill) { o.beginPath(); o.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); o.fillStyle = fill; o.fill(); }
+
+function drawCat(t) {
+  o.clearRect(0, 0, S, S);
+  const bob = Math.sin(t * 1.6) * 3, sway = Math.sin(t * 1.1);
+  const blink = (t % 4.2) < 0.14 ? 0.12 : 1, twitch = (t % 6.5) < 0.25 ? -0.12 : 0;
+  const tail = () => { o.beginPath(); o.moveTo(275, 330); o.bezierCurveTo(350, 330, 360 + sway * 12, 250, 330 + sway * 30, 190 + Math.abs(sway) * 6); o.stroke(); };
+  o.lineCap = "round"; o.lineWidth = 30; o.strokeStyle = C.ginger; tail();
+  o.strokeStyle = C.rust; o.setLineDash([12, 16]); tail(); o.setLineDash([]);
+
+  o.save(); o.translate(0, bob);
+  ell(210, 300, 100, 82, C.ginger);
+  ell(200, 312, 52, 62, C.fur);
+  o.strokeStyle = C.rust; o.lineWidth = 9;
+  for (let i = 0; i < 3; i++) { o.beginPath(); o.arc(285, 270 + i * 26, 34, Math.PI * 0.95, Math.PI * 1.35); o.stroke(); }
+  ell(168, 372, 26, 16, C.fur); ell(236, 374, 26, 16, C.fur);
+
+  o.save(); o.translate(132, 110); o.rotate(twitch);
+  o.beginPath(); o.moveTo(-20, 20); o.lineTo(-8, -58); o.lineTo(42, 0); o.closePath(); o.fillStyle = C.ginger; o.fill();
+  o.beginPath(); o.moveTo(-8, 10); o.lineTo(-3, -36); o.lineTo(24, 2); o.closePath(); o.fillStyle = C.pink; o.fill();
+  o.restore();
+  o.beginPath(); o.moveTo(208, 104); o.lineTo(262, 52); o.lineTo(272, 128); o.closePath(); o.fillStyle = C.ginger; o.fill();
+  o.beginPath(); o.moveTo(222, 108); o.lineTo(256, 76); o.lineTo(262, 120); o.closePath(); o.fillStyle = C.pink; o.fill();
+
+  ell(200, 170, 92, 76, C.ginger);
+  o.strokeStyle = C.rust; o.lineWidth = 8;
+  for (let i = -1; i <= 1; i++) { o.beginPath(); o.moveTo(200 + i * 20, 102); o.lineTo(200 + i * 14, 132); o.stroke(); }
+  o.lineWidth = 7;
+  [[118, 168, 140, 172], [116, 184, 138, 186], [282, 168, 260, 172], [284, 184, 262, 186]].forEach(([a, b, c, d]) => {
+    o.beginPath(); o.moveTo(a, b); o.lineTo(c, d); o.stroke(); });
+  ell(200, 200, 46, 30, C.fur);
+  [[164, 164], [236, 164]].forEach(([x, y]) => { ell(x, y, 15, 18 * blink, C.ink); if (blink > 0.5) ell(x + 5, y - 6, 4.5, 5, "#FFF6EA"); });
+  o.beginPath(); o.moveTo(191, 187); o.lineTo(209, 187); o.lineTo(200, 198); o.closePath(); o.fillStyle = C.pink; o.fill();
+  o.strokeStyle = C.ink; o.lineWidth = 3;
+  o.beginPath(); o.moveTo(200, 198); o.lineTo(200, 205); o.quadraticCurveTo(190, 214, 182, 206);
+  o.moveTo(200, 205); o.quadraticCurveTo(210, 214, 218, 206); o.stroke();
+  o.restore();
+}
+
+let W = 0, H = 0;
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  W = view.clientWidth; H = view.clientHeight;
+  view.width = W * dpr; view.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+addEventListener("resize", resize); resize();
+
+const lum = (r, g, b) => (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+let glitchRow = -1, glitchUntil = 0, visible = true;
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(view);
+
+function frame(ms) {
+  requestAnimationFrame(frame);
+  if (!visible) return;                       // don't burn CPU while scrolled away
+  const t = still ? 0 : ms / 1000;
+  drawCat(t);
+  const img = o.getImageData(0, 0, S, S).data;
+  ctx.clearRect(0, 0, W, H);
+  const scale = Math.min(W / S, H / S) * 0.9;
+  const ox = (W - S * scale) / 2 - W * 0.05, oy = (H - S * scale) / 2 + 24;
+  const pitch = 4.2 / scale;
+  if (!still && t > glitchUntil && Math.random() < 0.02) { glitchRow = Math.random() * S; glitchUntil = t + 0.12; }
+
+  for (let y = 0; y < S; y += pitch) {
+    const yy = Math.floor(y);
+    const shift = (t < glitchUntil && Math.abs(y - glitchRow) < 18) ? Math.random() * 14 - 7 : 0;
+    let edge = -1;
+    for (let x = 0; x < S; x += 2) {
+      const i = (yy * S + x) * 4;
+      if (img[i + 3] < 40) continue;
+      const r = img[i], g = img[i + 1], b = img[i + 2];
+      const th = (1.1 + 2.4 * (1 - lum(r, g, b))) * (0.92 + 0.08 * Math.sin(t * 6 + y * 0.3));
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillRect(ox + (x + shift) * scale, oy + y * scale - th / 2, 2 * scale + 0.4, th);
+      edge = x;
+    }
+    if (edge > 0 && yy % 3 === 0) {             // speed lines trailing to the right
+      const n = Math.sin(yy * 12.9898) * 43758.5453, rnd = n - Math.floor(n);
+      if (rnd > 0.45) {
+        const len = (60 + rnd * 220) * (0.6 + 0.4 * Math.sin(t * 2 + rnd * 9));
+        ctx.globalAlpha = 0.18 + rnd * 0.35; ctx.fillStyle = rnd > 0.8 ? C.ginger : C.ink;
+        ctx.fillRect(ox + (edge + 14) * scale, oy + y * scale - 0.6, len, 1.2); ctx.globalAlpha = 1;
+      }
+    }
+  }
+  ctx.globalAlpha = .25; ctx.fillStyle = C.ink;
+  ctx.fillRect(ox + 40 * scale, oy + 394 * scale, 300 * scale, 1); ctx.globalAlpha = 1;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

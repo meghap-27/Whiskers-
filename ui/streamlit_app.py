@@ -6,6 +6,7 @@ from pathlib import Path
 
 import plotly.io as pio
 import streamlit as st
+import streamlit.components.v1 as components
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -18,13 +19,30 @@ from analyst_agent.glossary import Glossary  # noqa: E402
 from analyst_agent.pins import PinBoard  # noqa: E402
 
 SAMPLE = Path(__file__).resolve().parent.parent / "sample_data" / "retail_orders.csv"
+# the home page (scanline cat hero + FolderFloat shelf) is a small HTML/JS component;
+# it sends back {"action": "demo"} or {"action": "ask", "question": ...}
+home = components.declare_component("analyst_home", path=str(Path(__file__).resolve().parent / "home_component"))
 TOOL_LABEL = {"run_sql": "Query database", "run_python": "Run code", "make_chart": "Generate chart",
               "check_findings": "Check findings", "save_definition": "Save definition"}
 
-st.set_page_config(page_title="AI Data Analyst Agent", layout="wide")
+st.set_page_config(page_title="Data Analyst Agent", page_icon="🐈", layout="wide")
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@700&family=JetBrains+Mono:wght@400;600&display=swap');
+html, body, [class*="css"], .stMarkdown, .stButton button, .stTextInput input { font-family: 'JetBrains Mono', monospace; }
+h1, h2, h3 { font-family: 'Silkscreen', monospace !important; letter-spacing: -.01em; }
+.stButton button[kind="primary"], .stDownloadButton button { background: #3A2417; color: #FBF1E3; border: 0; border-radius: 2px; }
+.stButton button[kind="primary"]:hover, .stDownloadButton button:hover { background: #E07A2E; color: #FBF1E3; }
+[data-testid="stSidebar"] { border-right: 1px solid #EAD3B2; }
+[data-testid="stChatMessage"] { background: #FFF8EE; border: 1px solid #F3E0C4; border-radius: 12px; }
+.block-container { padding-top: 1.5rem; }
+</style>""", unsafe_allow_html=True)
 ss = st.session_state
 ss.setdefault("session", Session())
 ss.setdefault("runs", [])
+ss.setdefault("show_home", True)
+ss.setdefault("last_home_event", None)
+ss.setdefault("pending_question", None)
 glossary, pins = Glossary(), PinBoard()
 session: Session = ss.session
 
@@ -113,7 +131,21 @@ def show_run(run, i):
 
 
 # ------------------------------------------------------------------ main
-st.title("AI Data Analyst Agent")
+if ss.show_home:
+    event = home(key="home", default=None)
+    if event and event.get("ts") != ss.last_home_event:      # each click carries a fresh timestamp
+        ss.last_home_event = event["ts"]
+        if "retail_orders" not in session.datasets:
+            session.load_file(SAMPLE)
+        ss.pending_question = DEMO_QUESTION if event["action"] == "demo" else event.get("question")
+        ss.pending_is_demo = event["action"] == "demo"
+        ss.show_home = False
+        st.rerun()
+else:
+    if st.sidebar.button("🏠 Back to home", width="stretch"):
+        ss.show_home = True
+        st.rerun()
+
 tab_ask, tab_dash = st.tabs(["Ask", "Dashboard"])
 
 with tab_ask:
@@ -122,15 +154,21 @@ with tab_ask:
     for i, (q, run) in enumerate(ss.runs):
         with st.chat_message("user"):
             st.markdown(q)
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar="🐈"):
             show_run(run, i)
 
     demo = False
     if "retail_orders" in session.datasets and not key:
         demo = st.button(f"▶ Offline demo: “{DEMO_QUESTION}”")
-    question = st.chat_input("Ask a question about your data", disabled=not session.datasets)
+    question = st.chat_input("Ask Whiskers about your data", disabled=not session.datasets)
     if demo:
         question = DEMO_QUESTION
+    if ss.pending_question:                      # a question picked on the home page
+        question, demo = ss.pending_question, ss.pop("pending_is_demo", False) or not key
+        ss.pending_question = None
+        if demo and question != DEMO_QUESTION:
+            st.warning(f"“{question}” needs an Anthropic API key (sidebar). Showing the offline demo instead.")
+            question = DEMO_QUESTION
 
     if question:
         if demo:
@@ -142,8 +180,8 @@ with tab_ask:
             st.stop()
         with st.chat_message("user"):
             st.markdown(question)
-        with st.chat_message("assistant"):
-            status = st.status("Analyzing…", expanded=True)
+        with st.chat_message("assistant", avatar="🐈"):
+            status = st.status("Whiskers is sniffing around…", expanded=True)
             run = None
             for ev in Agent(session, llm, glossary).stream(question):
                 if ev["type"] == "step_start":

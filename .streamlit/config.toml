@@ -1,0 +1,8 @@
+# Ginger-tabby palette: cream fur background, ginger coat accent, nose-leather brown text
+[theme]
+base = "light"
+primaryColor = "#E07A2E"
+backgroundColor = "#FBF1E3"
+secondaryBackgroundColor = "#F3E0C4"
+textColor = "#3A2417"
+font = "monospace"

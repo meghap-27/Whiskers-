@@ -5,6 +5,8 @@ import pandas as pd
 import plotly.express as px
 
 CHART_TYPES = ("bar", "line", "scatter", "histogram", "box", "pie", "heatmap")
+# cat-coat palette: ginger, chocolate, cream, rust, smoke grey, black, peach, tortoiseshell
+PALETTE = ["#E07A2E", "#7B4A2C", "#E9B97A", "#B4531A", "#8C8279", "#3A2417", "#F2A889", "#5E6B4E"]
 
 
 def make_chart(df: pd.DataFrame, chart_type: str, x: str, y: str | None = None,
@@ -18,11 +20,11 @@ def make_chart(df: pd.DataFrame, chart_type: str, x: str, y: str | None = None,
         if col and col not in df.columns:
             raise ValueError(f"Column '{col}' not in data. Available: {list(df.columns)}")
 
-    kw = {"title": title}
+    kw = {"title": title, "color_discrete_sequence": PALETTE}
     if color:
         kw["color"] = color
     if chart_type == "bar":
-        fig = px.bar(df, x=x, y=y, **kw)
+        fig = px.bar(df, x=x, y=y, barmode="group", **kw)   # side by side, so groups compare
     elif chart_type == "line":
         fig = px.line(df.sort_values(x), x=x, y=y, markers=True, **kw)
     elif chart_type == "scatter":
@@ -38,9 +40,14 @@ def make_chart(df: pd.DataFrame, chart_type: str, x: str, y: str | None = None,
         if not (y and color):
             raise ValueError("heatmap needs x, y and color (the value column).")
         pivot = df.pivot_table(index=y, columns=x, values=color, aggfunc="mean")
-        fig = px.imshow(pivot, text_auto=".2s", aspect="auto", title=title)
+        fig = px.imshow(pivot, text_auto=".2s", aspect="auto", title=title,
+                        color_continuous_scale=["#FBF1E3", "#E9B97A", "#E07A2E", "#7B4A2C"])
 
-    fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=60, b=40))
+    fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=60, b=40),
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                      font=dict(family="JetBrains Mono, monospace", color="#3A2417"))
+    fig.update_xaxes(gridcolor="#EAD3B2")
+    fig.update_yaxes(gridcolor="#EAD3B2")
     return {"figure_json": fig.to_json(), "code": chart_code(chart_type, x, y, color, title)}
 
 
@@ -57,6 +64,8 @@ def chart_code(chart_type: str, x: str, y: str | None, color: str | None, title:
             args.append(f"y={y!r}")
         if color:
             args.append(f"color={color!r}")
-    fn = {"line": "line", "bar": "bar", "scatter": "scatter", "histogram": "histogram",
+        if chart_type == "bar":
+            args.append("barmode='group'")
+    fn ={"line": "line", "bar": "bar", "scatter": "scatter", "histogram": "histogram",
           "box": "box", "pie": "pie"}[chart_type]
     return f"px.{fn}(data, {', '.join(args)}, title={title!r})"
