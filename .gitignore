@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.agent_data/
+evals/results/
+evals/.eval_glossary.sqlite
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
